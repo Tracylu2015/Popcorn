@@ -1,0 +1,46 @@
+package com.popcornbackend.models;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "userLikes")
+public class UserLike {
+    @Id
+    private String id;
+
+    private String userId;
+
+    private String commentId;
+
+    public UserLike() {
+    }
+
+    public UserLike(String userId, String commentId) {
+        this.userId = userId;
+        this.commentId = commentId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+}

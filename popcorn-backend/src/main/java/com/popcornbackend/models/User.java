@@ -1,11 +1,13 @@
 package com.popcornbackend.models;
 
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @Document(collection = "users")
 public class User {
@@ -21,6 +23,9 @@ public class User {
     private String confirm;
 
     public User(){}
+
+    public User(String username, String password, List<SimpleGrantedAuthority> authorities) {
+    }
 
 
     public String getId() {

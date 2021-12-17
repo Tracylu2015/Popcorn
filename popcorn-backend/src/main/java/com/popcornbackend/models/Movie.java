@@ -10,7 +10,6 @@ import java.util.List;
 public class Movie {
     @Id
     private String id;
-
     private String title;
 
     private int year;

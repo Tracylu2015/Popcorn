@@ -1,29 +1,32 @@
-import React, {useState} from 'react';
-import {Form, Button, Card} from 'react-bootstrap'
+import React, { useState } from 'react';
+
 
 const Login = () => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const createUser = (e) => {
+        e.preventDefault();
+        const newUser = { email, password };
+    };
 
 
     return (
-        <Card>
-            <Card.Body>
-                <h2 className="text-center mb-4">Log In</h2>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Email: </Form.Label>
-                        <Form.Control type="email" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Password: </Form.Label>
-                        <Form.Control type="password" />
-                    </Form.Group>
-                    <Button>Login</Button>
-                </Form>
-            </Card.Body>
-        </Card>
+        <div>
+            <form onSubmit={createUser}>
+                <div>
+                    <label>Email Address: </label>
+                    <input type="text" onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div>
+                    <label>Password: </label>
+                    <input type="text" onChange={(e) => setPassword(e.target.value)} />
+                </div>
+                <input type="submit" value="Create User" />
+            </form>
+        </div>
+
     )
 }
 

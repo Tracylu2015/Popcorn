@@ -19,10 +19,9 @@ public class User {
     private String avatar;
     private boolean enabled;
     private String confirm;
-    @DBRef
-    private Set<Role> roles;
 
     public User(){}
+
 
     public String getId() {
         return id;
@@ -31,7 +30,6 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
-
     public String getUsername() {
         return username;
     }

@@ -9,7 +9,7 @@ mycol = mydb["movies"]
 
 
 def read_title_and_import():
-    name = "json/title.basics.json"
+    name = "json/image"
 
     with open(name) as fd:
         importJson = json.load(fd)

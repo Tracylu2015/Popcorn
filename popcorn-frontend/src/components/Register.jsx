@@ -1,42 +1,48 @@
-import React, {useState} from 'react';
-import {Form, Button, Card} from 'react-bootstrap'
+import React, { useState } from 'react';
+
 
 
 
 const Register = () => {
 
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [, setConfirmPassword] = useState('')
+    const [errors, setErrors] = useState([])
 
-
+    const Register = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:8000/api/user/register', { name, email, password, _id }) //get post api
+            .then(res => {
+                setErrors([])
+                history.push('/')
+            })
+            .catch(err => {
+                setErrors(err)
+            })
+    }
 
     return (
-        <Card>
-            <Card.Body>
-                <h2 className="text-center mb-4">Sign Up</h2>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Name: </Form.Label>
-                        <Form.Control type="text" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Email: </Form.Label>
-                        <Form.Control type="email" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Password: </Form.Label>
-                        <Form.Control type="password" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Confirm Password: </Form.Label>
-                        <Form.Control type="password" />
-                    </Form.Group>
-                    <Button>Sign Up</Button>
-                </Form>
-            </Card.Body>
-        </Card>
+        <div>
+            <h2>Register</h2>
+            {errors
+                ? <div><p className="error-message">{errors}</p></div>
+                : null}
+            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card-body">
+                    <form onSubmit={Register} className="form-control mt-6">
+                        <input onChange={e => setName(e.target.value)} type="text" name="name" placeholder="Username" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setConfirmPassword(e.target.value)} type="password" name="confirm_password" placeholder="Confirm Password" className="input input-primary input-bordered  form-control mt-6" />
+                        <div className="form-control mt-6">
+                            <button className="btn btn-primary btn-active btn-sm form-control mt-6" role="button" aria-pressed="true">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div >
     )
 }
 

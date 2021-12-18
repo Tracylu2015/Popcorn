@@ -4,7 +4,6 @@ import com.popcornbackend.models.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,14 +25,11 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
     //find all by movie genres, but the variable is a list of string
     List<Movie> findAllByGenres(List<String> genre);
 
-    //find all by language
+    List<Movie> findAllByGenresContaining(String genre);
+
     List<Movie> findAllByLanguage(String lan);
 
-    //find all and sort by score descending
-    Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
-
-    //find all by release year
-    List<Movie> findAllByStartYear(int year);
+    List<Movie> findAllByScoreGreaterThan(float score);
 
 
 }

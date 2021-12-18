@@ -3,13 +3,12 @@ import Login from "../components/Login";
 import { Container } from 'react-bootstrap'
 
 const LoginPage = () => {
-    
+
     return (
-        <Container>
-            <div>
+
+        <div>
             <Login />
-            </div>
-        </Container>
+        </div>
     )
 }
 

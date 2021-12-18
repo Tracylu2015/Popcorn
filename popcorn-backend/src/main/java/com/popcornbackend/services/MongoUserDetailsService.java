@@ -2,6 +2,7 @@ package com.popcornbackend.services;
 
 import com.popcornbackend.models.User;
 import com.popcornbackend.repos.UserRepo;
+import com.popcornbackend.utils.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ public class MongoUserDetailsService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("User not found!");
         }
-        List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("user"));
+        List<SimpleGrantedAuthority> authorities = Collections.of(new SimpleGrantedAuthority("user"));
         return (UserDetails) new User(user.getUsername(), user.getPassword(), authorities);
     }
 }

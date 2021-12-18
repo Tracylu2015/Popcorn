@@ -47,7 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/user/register").permitAll()
                 .antMatchers("/api/user/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/movie").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/movie").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/movie/**").permitAll()
                 // Our private endpoints
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();

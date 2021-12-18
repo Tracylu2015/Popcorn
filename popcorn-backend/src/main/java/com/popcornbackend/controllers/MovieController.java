@@ -37,17 +37,12 @@ public class MovieController {
     //get top 12 movies
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAll(
-            @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "size", defaultValue = "30") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("movies", movies);
-        resp.put("currentPage", page);
-        resp.put("nextPage", page + 1);
-        resp.put("totalSize", movies.size());
-        return new ResponseEntity<>(resp, HttpStatus.OK);
+        return getMapResponseEntity(page, movies);
     }
 
     //get movies by genres
@@ -59,7 +54,7 @@ public class MovieController {
     }
 
     //get movies by language
-    @GetMapping("/categories/{language}")
+    @GetMapping("/language/{language}")
     public List<Movie> getByLanguage(@PathVariable("language") String language){
         return movieService.getMoviesByLanguage(language);
     }
@@ -67,11 +62,15 @@ public class MovieController {
     //get 12 top score movies
     @GetMapping("/score")
     public ResponseEntity<Map<String, Object>> getAllAndSortByScore(
-            @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "size", defaultValue = "30") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMoviesByScoreDesc(request);
+        return getMapResponseEntity(page, movies);
+    }
+
+    private ResponseEntity<Map<String, Object>> getMapResponseEntity(@RequestParam(value = "page", defaultValue = "0") int page, List<Movie> movies) {
         Map<String, Object> resp = new HashMap<>();
         resp.put("movies", movies);
         resp.put("currentPage", page);

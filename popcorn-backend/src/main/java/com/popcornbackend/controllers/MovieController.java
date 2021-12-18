@@ -1,8 +1,19 @@
 package com.popcornbackend.controllers;
 
+import com.popcornbackend.models.Movie;
 import com.popcornbackend.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.websocket.server.PathParam;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MovieController {
@@ -10,7 +21,24 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-//    @PustMapping("/api/movie/{id}")
 
+    @GetMapping("/api/movie/{id}")
+    public Movie getOne(@PathParam(value = "id") String id) {
+        return movieService.findMovieById(id);
+    }
 
+    @GetMapping("/api/movie")
+    public ResponseEntity<Map<String, Object>> getAll(
+            @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        PageRequest request = PageRequest.of(page, size);
+        List<Movie> movies = movieService.getMovies(request);
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("movies", movies);
+        resp.put("currentPage", page);
+        resp.put("nextPage", page + 1);
+        resp.put("totalSize", movies.size());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
 }

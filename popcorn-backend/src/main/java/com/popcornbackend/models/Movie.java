@@ -3,13 +3,12 @@ package com.popcornbackend.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
 import java.util.List;
 
 @Document(collection = "movies")
 public class Movie {
     @Id
-    private String _id;
+    private String id;
 
     private String primaryTitle;
 
@@ -38,10 +37,10 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String _id, String primaryTitle, int startYear, List<String> directors, List<String> regions,
+    public Movie(String id, String primaryTitle, int startYear, List<String> directors, List<String> regions,
                  List<String> genres, String image_url, String language, int runtimeMinutes, float score,
                  String description, int numOfVotes, String video_url) {
-        this._id = _id;
+        this.id = id;
         this.primaryTitle = primaryTitle;
         this.startYear = startYear;
         this.directors = directors;
@@ -56,12 +55,12 @@ public class Movie {
         this.video_url = video_url;
     }
 
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPrimaryTitle() {

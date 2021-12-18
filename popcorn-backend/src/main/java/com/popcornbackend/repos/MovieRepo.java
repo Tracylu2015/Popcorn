@@ -36,5 +36,5 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
 
     Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
 
-
+    Page<Movie> findAllByOrderByNumOfVotesDesc(Pageable pageable);
 }

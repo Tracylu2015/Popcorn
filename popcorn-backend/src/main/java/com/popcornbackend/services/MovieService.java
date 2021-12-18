@@ -48,4 +48,8 @@ public class MovieService {
     public List<Movie> getMoviesByStartYear(int year){
         return movieRepo.findAllByStartYear(year);
     }
+
+    public List<Movie> getMoviesByVotesDesc(PageRequest request){
+        return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
+    }
 }

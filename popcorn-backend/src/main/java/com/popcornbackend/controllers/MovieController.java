@@ -59,7 +59,7 @@ public class MovieController {
         return movieService.getMoviesByLanguage(language);
     }
 
-    //get 12 top score movies
+    //get 30 top score movies
     @GetMapping("/score")
     public ResponseEntity<Map<String, Object>> getAllAndSortByScore(
             @RequestParam(value = "size", defaultValue = "30") int size,
@@ -70,6 +70,23 @@ public class MovieController {
         return getMapResponseEntity(page, movies);
     }
 
+    //get 30 top Vote movies
+    @GetMapping("/vote")
+    public ResponseEntity<Map<String, Object>> getAllAndSortByVote(
+            @RequestParam(value = "size", defaultValue = "30") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        PageRequest request = PageRequest.of(page, size);
+        List<Movie> movies = movieService.getMoviesByVotesDesc(request);
+        return getMapResponseEntity(page, movies);
+    }
+
+    //get movies by release year
+    @GetMapping("/year/{year}")
+    public List<Movie> getByYear(@PathVariable("year") int year){
+        return movieService.getMoviesByStartYear(year);
+    }
+
     private ResponseEntity<Map<String, Object>> getMapResponseEntity(@RequestParam(value = "page", defaultValue = "0") int page, List<Movie> movies) {
         Map<String, Object> resp = new HashMap<>();
         resp.put("movies", movies);
@@ -77,11 +94,5 @@ public class MovieController {
         resp.put("nextPage", page + 1);
         resp.put("totalSize", movies.size());
         return new ResponseEntity<>(resp, HttpStatus.OK);
-    }
-
-    //get movies by release year
-    @GetMapping("/year/{year}")
-    public List<Movie> getByYear(@PathVariable("year") int year){
-        return movieService.getMoviesByStartYear(year);
     }
 }

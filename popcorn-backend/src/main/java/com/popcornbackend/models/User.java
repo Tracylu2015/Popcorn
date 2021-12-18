@@ -21,6 +21,8 @@ public class User {
     public User(){}
 
     public User(String username, String password, List<SimpleGrantedAuthority> authorities) {
+        this.username = username;
+        this.password = password;
     }
 
 

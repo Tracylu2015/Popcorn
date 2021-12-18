@@ -1,21 +1,21 @@
 package com.popcornbackend.models;
 
-import java.util.Collection;
-import java.util.List;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Document(collection = "users")
 public class User implements UserDetails {
 
     @Id
-    private String id;
+    private ObjectId id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String username;
     private String email;
@@ -30,13 +30,16 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public String getIdString() {
+        return id.toHexString();
     }
 
     public String getUsername() {
@@ -94,6 +97,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return new ArrayList<>();
     }
 }

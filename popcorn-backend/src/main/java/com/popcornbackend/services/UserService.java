@@ -12,19 +12,15 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public User createUser(User user){
+    public User createUser(User user) {
         return userRepo.save(user);
     }
 
-    public User findUser(String username){
-        User oneUser = userRepo.findByUsername(username);
-        return oneUser;
+    public User findUser(String username) {
+        return userRepo.findByUsername(username);
     }
 
-
-    public User updateUser(User user){
+    public User updateUser(User user) {
         return userRepo.save(user);
     }
-
-
 }

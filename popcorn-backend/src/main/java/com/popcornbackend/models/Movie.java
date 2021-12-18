@@ -2,6 +2,7 @@ package com.popcornbackend.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class Movie {
 
     private List<String> genres;
 
-    private String image_url;
+    @Field("image_url")
+    private String imageUrl;
 
     private String language;
 
@@ -32,27 +34,28 @@ public class Movie {
 
     private int numOfVotes;
 
-    private String video_url;
+    @Field("video_url")
+    private String videoUrl;
 
     public Movie() {
     }
 
     public Movie(String id, String primaryTitle, int startYear, List<String> directors, List<String> regions,
-                 List<String> genres, String image_url, String language, int runtimeMinutes, float score,
-                 String description, int numOfVotes, String video_url) {
+                 List<String> genres, String imageUrl, String language, int runtimeMinutes, float score,
+                 String description, int numOfVotes, String videoUrl) {
         this.id = id;
         this.primaryTitle = primaryTitle;
         this.startYear = startYear;
         this.directors = directors;
         this.regions = regions;
         this.genres = genres;
-        this.image_url = image_url;
+        this.imageUrl = imageUrl;
         this.language = language;
         this.runtimeMinutes = runtimeMinutes;
         this.score = score;
         this.description = description;
         this.numOfVotes = numOfVotes;
-        this.video_url = video_url;
+        this.videoUrl = videoUrl;
     }
 
     public String getId() {
@@ -103,12 +106,12 @@ public class Movie {
         this.genres = genres;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getLanguage() {
@@ -151,11 +154,11 @@ public class Movie {
         this.numOfVotes = numOfVotes;
     }
 
-    public String getVideo_url() {
-        return video_url;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setVideo_url(String video_url) {
-        this.video_url = video_url;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

@@ -34,11 +34,15 @@ public class MovieService {
     }
 
     //May be here is a problem..
-    public List<Movie> getMoviesByGenres(List<String> genres){
+    public List<Movie> getMoviesByGenres(List<String> genres) {
         return movieRepo.findAllByGenres(genres);
     }
 
-    public List<Movie> getMoviesByLanguage(String lan, PageRequest request){
+    public List<Movie> getMoviesByGenres(List<String> genres, PageRequest request) {
+        return movieRepo.findAllByGenres(genres, request).getContent();
+    }
+
+    public List<Movie> getMoviesByLanguage(String lan, PageRequest request) {
         return movieRepo.findAllByLanguage(lan, request).getContent();
     }
 

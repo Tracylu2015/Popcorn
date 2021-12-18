@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from "axios"
 import { useHistory } from "react-router-dom"
+import CurrentUser from "../context/CurrentUser"
 
 
 const Register = () => {
@@ -11,12 +12,14 @@ const Register = () => {
     const [, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
     const history = useHistory()
+    const context = useContext(CurrentUser)
 
     const Register = (e) => {
         e.preventDefault()
         axios.post('http://localhost:8080/api/user/register', { username, email, password }) //get post api
             .then(res => {
                 setErrors([])
+                context.setCurrentUser(res.data)
                 history.push('/')
             })
             .catch(err => {

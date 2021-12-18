@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from './logo.png'
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
+import CurrentUser from '../context/CurrentUser'
 
 const Navbar = () => {
+
+    const context = useContext(CurrentUser)
 
     return (
         <div>
@@ -12,10 +15,13 @@ const Navbar = () => {
             <form>
                 <input type="text" name="search" placeholder="Search" />
             </form>
-            <button>Login</button>
-            {/* chick if login? */}
-            <Link to="/user/profile">User Profile</Link>
-            <button>Logout</button>
+
+            {context.CurrentUser != null ?
+                <div>
+                    <Link to="/user/profile">User Profile</Link>
+                    <button><Link to="/logout">Logout</Link></button>
+                </div> : <button> <Link to="/login">Login</Link></button>
+            }
         </div>
     )
 }

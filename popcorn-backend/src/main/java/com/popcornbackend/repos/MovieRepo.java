@@ -35,6 +35,8 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
     //May be here is a problem
     List<Movie> findAllByGenres(List<String> genre);
 
+    Page<Movie> findAllByGenres(List<String> genre, Pageable pageable);
+
     Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
 
     Page<Movie> findAllByOrderByNumOfVotesDesc(Pageable pageable);

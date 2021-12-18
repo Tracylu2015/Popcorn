@@ -1,13 +1,26 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import Rateit from './Rateit'
+import WatchStatus from './WatchStatus'
+import { useParams,Link } from 'react-router-dom'
+import axios from 'axios'
 // get average scores
 // get numOfVotes
+const Rating = ({oneMovie}) => {
 
+    const { id } = useParams()
 
-const Rating = () => {
+    // axios.get(`http://localhost:8080/api/movie/${id}`)
+    //     .then(res => setOneMovie(res.data.movie))
+    //     .catch((error) => console.log(error))
+
     return (
         <div>
-            
+            <h3>Score: {oneMovie.score}</h3>
+            <p>Number of Votes: {oneMovie.numOfVotes}</p>
+            <WatchStatus />
+            <p>My Rate for the movie</p>
+            <Rateit />
+            <Link to ="/movie/comments/new">Add a comment</Link>
         </div>
     )
 }

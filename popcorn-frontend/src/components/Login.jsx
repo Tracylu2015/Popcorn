@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import {useHistory} from "react-router-dom"
 import axios from "axios"
+import CurrentUser from '../context/CurrentUser';
 
 
 const Login = () => {
@@ -9,12 +10,13 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [signInError, setSignInError] = useState('')
     const history = useHistory()
+    const context = useContext(CurrentUser)
 
     const createUser = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8080/api/user/login', {email, password}) //get mongo sign in ID
             .then(res => {
-                console.log(res)
+                context.setCurrentUser(res.data)
                 history.push('/')
             })
             .catch((error) => {
@@ -29,7 +31,6 @@ const Login = () => {
     return (
         <div>
             <form onSubmit={createUser}>
-
                 <div>
                     {signInError
                         ? <div><p className="error-message">{signInError}</p></div>

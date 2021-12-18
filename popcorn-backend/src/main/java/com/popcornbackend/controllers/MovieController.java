@@ -2,14 +2,14 @@ package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Movie;
 import com.popcornbackend.services.MovieService;
+import com.popcornbackend.utils.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,10 +48,14 @@ public class MovieController {
     //get movies by genres
     //这里我不会写。。。写出来报错了， 啥都没有拿到
     @GetMapping("/categories/{genres}")
-    public List<Movie> getByGenres(@PathVariable("genres") String genres){
-        ArrayList<String> newGen = new ArrayList<String>();
-        newGen.add(genres);
-        return movieService.getMoviesByGenres(newGen);
+    public List<Movie> getByGenres(
+            @PathVariable("genres") String genres,
+            @RequestParam(value = "sort", defaultValue = "year") String sort,
+            @RequestParam(value = "size", defaultValue = "30") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
+        return movieService.getMoviesByGenres(Collections.of(genres), request);
     }
 
     //get movies by language
@@ -109,7 +113,6 @@ public class MovieController {
         resp.put("totalSize", movies.size());
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
-
 
     //Route for search bar
     //Get All movie by search query

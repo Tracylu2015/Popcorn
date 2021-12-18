@@ -9,87 +9,75 @@ import java.util.List;
 @Document(collection = "movies")
 public class Movie {
     @Id
-    private String id;
-    private String title;
+    private String _id;
 
-    private int year;
+    private String primaryTitle;
 
-    private List<String> actors;
+    private int startYear;
 
     private List<String> directors;
 
-    private String image;
+    private List<String> regions;
 
-    private List<String> language;
+    private List<String> genres;
 
-    private int duration;
+    private String image_url;
 
-    private Date releaseDate;
+    private String language;
 
-    private String movieRating;
+    private int runtimeMinutes;
 
-    private List<String> categories;
+    private float score;
 
     private String description;
 
-    private int totalScore;
+    private int numOfVotes;
 
-    private int totalRatingCount;
-
-    private String trialUrl;
+    private String video_url;
 
     public Movie() {
     }
 
-    public Movie(String title, int year, List<String> actors, List<String> directors, String image,
-                 List<String> language, int duration, Date releaseDate, String movieRating,
-                 List<String> categories, String description, int totalScore, int totalRatingCount,String trialUrl) {
-        this.title = title;
-        this.year = year;
-        this.actors = actors;
+    public Movie(String _id, String primaryTitle, int startYear, List<String> directors, List<String> regions,
+                 List<String> genres, String image_url, String language, int runtimeMinutes, float score,
+                 String description, int numOfVotes, String video_url) {
+        this._id = _id;
+        this.primaryTitle = primaryTitle;
+        this.startYear = startYear;
         this.directors = directors;
-        this.image = image;
+        this.regions = regions;
+        this.genres = genres;
+        this.image_url = image_url;
         this.language = language;
-        this.duration = duration;
-        this.releaseDate = releaseDate;
-        this.movieRating = movieRating;
-        this.categories = categories;
+        this.runtimeMinutes = runtimeMinutes;
+        this.score = score;
         this.description = description;
-        this.totalScore = totalScore;
-        this.totalRatingCount = totalRatingCount;
-        this.trialUrl=trialUrl;
+        this.numOfVotes = numOfVotes;
+        this.video_url = video_url;
     }
 
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPrimaryTitle() {
+        return primaryTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPrimaryTitle(String primaryTitle) {
+        this.primaryTitle = primaryTitle;
     }
 
-    public int getYear() {
-        return year;
+    public int getStartYear() {
+        return startYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public List<String> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<String> actors) {
-        this.actors = actors;
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
     }
 
     public List<String> getDirectors() {
@@ -100,52 +88,52 @@ public class Movie {
         this.directors = directors;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> getRegions() {
+        return regions;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setRegions(List<String> regions) {
+        this.regions = regions;
     }
 
-    public List<String> getLanguage() {
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(List<String> language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getRuntimeMinutes() {
+        return runtimeMinutes;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setRuntimeMinutes(int runtimeMinutes) {
+        this.runtimeMinutes = runtimeMinutes;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public float getScore() {
+        return score;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getMovieRating() {
-        return movieRating;
-    }
-
-    public void setMovieRating(String movieRating) {
-        this.movieRating = movieRating;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
+    public void setScore(float score) {
+        this.score = score;
     }
 
     public String getDescription() {
@@ -156,27 +144,19 @@ public class Movie {
         this.description = description;
     }
 
-    public int getTotalScore() {
-        return totalScore;
+    public int getNumOfVotes() {
+        return numOfVotes;
     }
 
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
+    public void setNumOfVotes(int numOfVotes) {
+        this.numOfVotes = numOfVotes;
     }
 
-    public int getTotalRatingCount() {
-        return totalRatingCount;
+    public String getVideo_url() {
+        return video_url;
     }
 
-    public void setTotalRatingCount(int totalRatingCount) {
-        this.totalRatingCount = totalRatingCount;
-    }
-
-    public String getTrialUrl() {
-        return trialUrl;
-    }
-
-    public void setTrialUrl(String trialUrl) {
-        this.trialUrl = trialUrl;
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
     }
 }

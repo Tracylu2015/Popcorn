@@ -20,4 +20,6 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build the Docker image
-      run: docker build . --file popcorn-backend/Dockerfile --tag qianlu0826/popcorn:backend-latest
+      run: |
+        docker build . --file popcorn-backend/Dockerfile --tag qianlu0826/popcorn:backend-latest
+        docker push qianlu0826/popcorn:backend-latest

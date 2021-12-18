@@ -41,4 +41,14 @@ public class MovieController {
         resp.put("totalSize", movies.size());
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
+
+    @GetMapping("/categories/{genres}")
+    public List<Movie> getByGenres(@PathParam("genres") String genres){
+        return movieService.getMoviesByGenres(genres);
+    }
+
+    @GetMapping("/categories/{language}")
+    public List<Movie> getByLanguage(@PathParam("language") String lan){
+        return movieService.getMoviesByGenres(lan);
+    }
 }

@@ -24,15 +24,20 @@ public class MovieService {
         return movie.orElse(null);
     }
 
-    List<Movie> findAllMovieContain(String query) {
+    public List<Movie> findAllMovieContain(String query) {
         return movieRepo.findAllByPrimaryTitleContaining(query);
     }
 
-    List<Movie> findAllMovieContainAndSortByScoreDesc(String query) {
-        return movieRepo.findAllByPrimaryTitleOrderByScoreDesc(query);
-    }
 
     public List<Movie> getMovies(PageRequest request) {
         return movieRepo.findAll(request).getContent();
+    }
+
+    public List<Movie> getMoviesByGenres(String genres){
+        return movieRepo.findAllByGenresContaining(genres);
+    }
+
+    public List<Movie> getMoviesByLanguage(String lan){
+        return movieRepo.findAllByLanguage(lan);
     }
 }

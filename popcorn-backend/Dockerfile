@@ -1,6 +1,6 @@
 FROM maven:3.8.4-openjdk-11-slim as builder
 
-COPY . /build
+COPY popcorn-backend /build
 RUN cd /build && mvn clean package -DskipTests
 
 FROM openjdk:8u312-jre

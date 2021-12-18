@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
-
-
+import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 
 const Register = () => {
 
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
+    const history = useHistory()
 
     const Register = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:8000/api/user/register', { name, email, password, _id }) //get post api
+        axios.post('http://localhost:8080/api/user/register', { username, email, password }) //get post api
             .then(res => {
                 setErrors([])
                 history.push('/')
             })
             .catch(err => {
-                setErrors(err)
+                if (err.response) {
+                    setErrors(err.response.data.error)
+                }
             })
     }
 
@@ -32,7 +35,7 @@ const Register = () => {
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body">
                     <form onSubmit={Register} className="form-control mt-6">
-                        <input onChange={e => setName(e.target.value)} type="text" name="name" placeholder="Username" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setUsername(e.target.value)} type="text" name="username" placeholder="Username" className="input input-primary input-bordered  form-control mt-6" />
                         <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" className="input input-primary input-bordered  form-control mt-6" />
                         <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" className="input input-primary input-bordered  form-control mt-6" />
                         <input onChange={e => setConfirmPassword(e.target.value)} type="password" name="confirm_password" placeholder="Confirm Password" className="input input-primary input-bordered  form-control mt-6" />

@@ -21,7 +21,7 @@ public class Movie {
 
     private List<String> genres;
 
-    @Field("image_url")
+    @Field("img_url")
     private String imageUrl;
 
     private String language;

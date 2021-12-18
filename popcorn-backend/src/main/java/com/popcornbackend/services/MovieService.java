@@ -41,7 +41,7 @@ public class MovieService {
         return movieRepo.findAllByLanguage(lan);
     }
 
-    public List<Movie> getMoviesAndSortByScore(PageRequest request) {
+    public List<Movie> getMoviesByScoreDesc(PageRequest request) {
         return movieRepo.findAllByOrderByScoreDesc(request).getContent();
     }
 

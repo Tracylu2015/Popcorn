@@ -30,7 +30,7 @@ public class MovieController {
 //    }
 
     @GetMapping("/{id}")
-    public Movie getOne(@PathVariable(value = "id") String id) {
+    public Movie getOne(@PathVariable("id") String id) {
         return movieService.findMovieById(id);
     }
 
@@ -71,7 +71,7 @@ public class MovieController {
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size);
-        List<Movie> movies = movieService.getMoviesAndSortByScore(request);
+        List<Movie> movies = movieService.getMoviesByScoreDesc(request);
         Map<String, Object> resp = new HashMap<>();
         resp.put("movies", movies);
         resp.put("currentPage", page);

@@ -33,11 +33,19 @@ public class MovieService {
         return movieRepo.findAll(request).getContent();
     }
 
-    public List<Movie> getMoviesByGenres(String genres){
-        return movieRepo.findAllByGenresContaining(genres);
+    public List<Movie> getMoviesByGenres(List<String> genres){
+        return movieRepo.findAllByGenres(genres);
     }
 
     public List<Movie> getMoviesByLanguage(String lan){
         return movieRepo.findAllByLanguage(lan);
+    }
+
+    public List<Movie> getMoviesAndSortByScore(PageRequest request) {
+        return movieRepo.findAllByOrderByScoreDesc(request).getContent();
+    }
+
+    public List<Movie> getMoviesByStartYear(int year){
+        return movieRepo.findAllByStartYear(year);
     }
 }

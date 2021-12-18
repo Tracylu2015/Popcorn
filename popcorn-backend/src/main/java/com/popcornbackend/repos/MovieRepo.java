@@ -22,6 +22,9 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
 
     Page<Movie> findAll(Pageable pageable);
 
+    //find all by movie genres, but the variable is a list of string
+    List<Movie> findAllByGenres(List<String> genre);
+
     //find all movies which primary title contain the query and sort by score descending order
     Page<Movie> findAllByPrimaryTitleOrderByScoreDesc(String query, Pageable pageable);
 

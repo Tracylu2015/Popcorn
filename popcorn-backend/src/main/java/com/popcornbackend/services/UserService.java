@@ -20,7 +20,7 @@ public class UserService {
         return userRepo.findByUsername(username);
     }
 
-    public User updateUser(User user) {
+    public User editUser(User user) {
         return userRepo.save(user);
     }
 }

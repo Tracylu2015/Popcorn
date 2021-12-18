@@ -21,9 +21,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public User createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
+        User currentUser = userService.findUser(user.getEmail());
+        if (currentUser != null) {
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("error", "Email already Exists");
+            return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userService.createUser(user);
+        userService.createUser(user);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
     @PostMapping("/login")

@@ -1,9 +1,8 @@
 package com.popcornbackend.models;
 
+import com.sun.istack.NotNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +15,11 @@ public class User implements UserDetails {
 
     @Id
     private ObjectId id;
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
+    //    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String username;
+    @NotNull
     private String email;
+
     private String password;
     private String avatar;
 

@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
 import currentUser from '../../context/CurrentUser'
 
-const UserEdit = () => {
+const UserEdit = ({onSelect}) => {
 
     const context = useContext(currentUser)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [errors, setErrors] = useState([])
-    const history = useHistory()
-
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/user/findOne/${context.currentUser.id}`)
@@ -25,10 +22,10 @@ const UserEdit = () => {
 
     const EditUser = (e) => {
         e.preventDefault()
-        axios.put(`http://localhost:8080/api/user/edit`, { username, email, password }) 
+        axios.put(`http://localhost:8080/api/user/edit`, { username, email}) 
             .then(res => {
                 setErrors([])
-                history.push('/user/profile')
+                onSelect(0)
             })
             .catch(err => {
                 if (err.response) {

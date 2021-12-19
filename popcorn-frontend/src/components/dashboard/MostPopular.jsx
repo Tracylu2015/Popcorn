@@ -12,6 +12,13 @@ const MostPopular = () => {
             .catch((error) => console.log(error))
     }, [])
 
+    const OnMovieStatusChanged = (newMovie) => {
+        const newMovies=[]
+        movies.forEach((m)=>{
+            m.id===newMovie.id? newMovies.push(newMovie): newMovies.push(m)})
+        setMovies(newMovies)
+    }
+
     return (
         <div>
             <h3>Most Popular Movies</h3>
@@ -29,6 +36,8 @@ const MostPopular = () => {
                             <button class="btn btn-outline btn-accent"><Rateit /></button>
                             </div>
                             </div>
+                            <WatchStatus movie={m} onChange={OnMovieStatusChanged}/>
+                            <Rateit movie={m}/>
                         </li>
                     </Link>
                 )}

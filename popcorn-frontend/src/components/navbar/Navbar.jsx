@@ -19,26 +19,7 @@ const Navbar = () => {
     console.log(context.currentUser)
 
     return (
-        // <div>
-        //     <h1>Popcorn</h1>
-        //     <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} />
-        //     <button><Link to="/movies/browse">Browse Movies</Link></button>
-        //     <form>
-        //         <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" />
-        //         <button>Search</button>
-        //     </form>
-        //     {context.currentUser != null ?
-        //         <div>
-        //             <button><Link to="/user/profile">User Profile</Link></button>
-        //             <button onClick={logout} >Logout</button>
-        //         </div>
-        //         :
-        //         <div>
-        //             <button> <Link to="/login">Login</Link></button>
-        //             <button> <Link to="/register">Register</Link></button>
-        //         </div>
-        //     }
-        // </div>
+
         <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
     <div class="flex-1 hidden px-2 mx-2 lg:flex">
         <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} /> &nbsp;&nbsp;
@@ -52,8 +33,8 @@ const Navbar = () => {
     </div>
     </div> 
     <div class="flex-1 lg:flex-none">
-    <div class="form-control">
-        <input type="text" placeholder="Search" class="input input-ghost " />
+    <div class="form-control" style={{width:"400px",height:"40px"}}>
+        <input type="text" placeholder="Search" />
     </div>
     <div class="flex-none"></div>
     <form>
@@ -68,8 +49,8 @@ const Navbar = () => {
     <div class="items-stretch hidden lg:flex">
     {context.currentUser != null ?
                 <div>
-                    <button class="btn btn-ghost btn-sm rounded-btn"> <Link to="/user/profile" class="bg-neutral text-neutral-content" style={{textDecoration: "none"}}>User Profile</Link></button>
-                    <button onClick={logout} class="btn btn-ghost btn-sm rounded-btn" class="bg-neutral text-neutral-content">Logout</button>
+                    <button class="btn btn-ghost btn-sm rounded-btn"> <Link to="/user/profile" class="bg-neutral text-neutral-content" style={{textDecoration: "none"}}>Profile</Link></button>
+                    <button class="btn btn-ghost btn-sm rounded-btn"> <Link to="/logout" class="bg-neutral text-neutral-content" style={{textDecoration: "none"}}>Logout</Link></button>
                 </div>
                 :
                 <div>

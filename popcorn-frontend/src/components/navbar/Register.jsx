@@ -20,6 +20,7 @@ const Register = () => {
             setErrors([...errors,"Password doesn't match"])
             history.push("/register")
         }
+        else{
         axios.post('http://localhost:8080/api/user/register', { username, email, password }) //get post api
             .then(res => {
                 setErrors([])
@@ -31,6 +32,7 @@ const Register = () => {
                     setErrors(err.response.data.error)
                 }
             })
+        }
     }
 
     return (

@@ -33,7 +33,7 @@ public class MovieService {
         return movieRepo.findAll(request).getContent();
     }
 
-    //May be here is a problem..
+
     public List<Movie> getMoviesByGenres(List<String> genres) {
         return movieRepo.findAllByGenres(genres);
     }

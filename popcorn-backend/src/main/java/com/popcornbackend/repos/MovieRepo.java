@@ -32,7 +32,6 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
 
     Page<Movie> findAllByStartYear(int year, Pageable pageable);
 
-    //May be here is a problem
     List<Movie> findAllByGenres(List<String> genre);
 
     Page<Movie> findAllByGenres(List<String> genre, Pageable pageable);

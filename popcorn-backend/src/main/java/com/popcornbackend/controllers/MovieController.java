@@ -22,12 +22,6 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    //get movie by its id
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Movie> getOne(@PathVariable(value = "id") String id) {
-//        Movie oneMovie = movieService.findMovieById(id);
-//        return ResponseEntity.ok(oneMovie);
-//    }
 
     @GetMapping("/{id}")
     public Movie getOne(@PathVariable("id") String id) {
@@ -46,7 +40,6 @@ public class MovieController {
     }
 
     //get movies by genres
-    //这里我不会写。。。写出来报错了， 啥都没有拿到
     @GetMapping("/categories/{genres}")
     public List<Movie> getByGenres(
             @PathVariable("genres") String genres,

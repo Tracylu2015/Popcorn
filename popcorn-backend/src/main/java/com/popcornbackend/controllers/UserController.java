@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,17 +30,11 @@ public class UserController {
             resp.put("error", "Email already Exists");
             return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
         }
-
-//        if(!currentUser.getPassword().equals(user.getPassword())){
-//            Map<String, Object> resp = new HashMap<>();
-//            resp.put("error", "Password does not match");
-//            return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
-//        }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.createUser(user);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<Object> loginUser(@RequestBody User user) {
@@ -54,17 +49,30 @@ public class UserController {
         return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
     }
 
-    @PutMapping("/edit/{user}")
-    public ResponseEntity<Object> editUser(@PathVariable User user){
-        User currentUser = userService.findByEmail(user.getEmail());
+    @GetMapping("/findOne/{id}")
+    public User findOne(@PathVariable("id") ObjectId id) {
+        User currentUser = userService.findById(id);
         if (currentUser != null) {
+            return currentUser;
+        }
+        return null;
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<Object> editUser(@RequestBody User user) {
+        ObjectId id = user.getId();
+        User currentUser = userService.findById(id);
+        if (currentUser == null) {
             Map<String, Object> resp = new HashMap<>();
-            resp.put("error", "");
+            resp.put("error", "User not Found");
             return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.editUser(user);
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public void logout(HttpSession session) {
+        session.invalidate();
+    }
 }

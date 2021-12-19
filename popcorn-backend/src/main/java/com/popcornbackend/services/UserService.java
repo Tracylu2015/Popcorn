@@ -2,6 +2,7 @@ package com.popcornbackend.services;
 
 import com.popcornbackend.models.User;
 import com.popcornbackend.repos.UserRepo;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepo.findByEmail(email);
+    }
+
+    public User findById(ObjectId id){
+        return userRepo.findById(id);
     }
 
     public User editUser(User user) {

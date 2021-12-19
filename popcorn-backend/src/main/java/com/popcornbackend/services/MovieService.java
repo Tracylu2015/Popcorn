@@ -24,8 +24,8 @@ public class MovieService {
         return movie.orElse(null);
     }
 
-    public List<Movie> findAllMovieContain(String query) {
-        return movieRepo.findAllByPrimaryTitleContaining(query);
+    public List<Movie> findAllMovieContain(String query, PageRequest request) {
+        return movieRepo.findAllByPrimaryTitleContaining(query, request).getContent();
     }
 
 
@@ -33,11 +33,24 @@ public class MovieService {
         return movieRepo.findAll(request).getContent();
     }
 
-    public List<Movie> getMoviesByGenres(String genres){
-        return movieRepo.findAllByGenresContaining(genres);
+    //May be here is a problem..
+    public List<Movie> getMoviesByGenres(List<String> genres){
+        return movieRepo.findAllByGenres(genres);
     }
 
-    public List<Movie> getMoviesByLanguage(String lan){
-        return movieRepo.findAllByLanguage(lan);
+    public List<Movie> getMoviesByLanguage(String lan, PageRequest request){
+        return movieRepo.findAllByLanguage(lan, request).getContent();
+    }
+
+    public List<Movie> getMoviesByScoreDesc(PageRequest request) {
+        return movieRepo.findAllByOrderByScoreDesc(request).getContent();
+    }
+
+    public List<Movie> getMoviesByStartYear(int year, PageRequest request){
+        return movieRepo.findAllByStartYear(year, request).getContent();
+    }
+
+    public List<Movie> getMoviesByVotesDesc(PageRequest request){
+        return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
     }
 }

@@ -15,23 +15,27 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
     List<Movie> findAll();
 
     //find all movies which primary title contain the query
-    List<Movie> findAllByPrimaryTitleContaining(String query);
+    Page<Movie> findAllByPrimaryTitleContaining(String query, Pageable pageable);
 
     //find one movie by its id
     Optional<Movie> findById(String id);
 
     Page<Movie> findAll(Pageable pageable);
 
-    Page<Movie> findAllByImageUrlNotNull(Pageable pageable);
 
     //find all movies which primary title contain the query and sort by score descending order
-    Page<Movie> findAllByPrimaryTitleOrderByScoreDesc(String query);
+    Page<Movie> findAllByPrimaryTitleOrderByScoreDesc(String query, Pageable pageable);
 
-    List<Movie> findAllByGenresContaining(String genre);
+    Page<Movie> findAllByLanguage(String lan, Pageable pageable);
 
-    List<Movie> findAllByLanguage(String lan);
+    Page<Movie> findAllByScoreGreaterThan(float score, Pageable pageable);
 
-    List<Movie> findAllByScoreGreaterThan(float score);
+    Page<Movie> findAllByStartYear(int year, Pageable pageable);
 
+    //May be here is a problem
+    List<Movie> findAllByGenres(List<String> genre);
 
+    Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
+
+    Page<Movie> findAllByOrderByNumOfVotesDesc(Pageable pageable);
 }

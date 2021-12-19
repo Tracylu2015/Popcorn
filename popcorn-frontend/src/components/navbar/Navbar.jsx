@@ -3,7 +3,7 @@ import logo from "../logo.png"
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
 import { useHistory } from 'react-router-dom'
-import bootstrap from 'bootstrap'
+
 
 const Navbar = () => {
 
@@ -19,30 +19,67 @@ const Navbar = () => {
     console.log(context.currentUser)
 
     return (
-        <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h1>Popcorn</h1>
-            <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} />
-            <button class="btn btn-warning"><Link to="/movies/browse">Browse Movies</Link></button>
-            <form>
-                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" />
-                <button class="btn btn-warning">Search</button>
-            </form>
-            {context.currentUser != null ?
+        // <div>
+        //     <h1>Popcorn</h1>
+        //     <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} />
+        //     <button><Link to="/movies/browse">Browse Movies</Link></button>
+        //     <form>
+        //         <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" />
+        //         <button>Search</button>
+        //     </form>
+        //     {context.currentUser != null ?
+        //         <div>
+        //             <button><Link to="/user/profile">User Profile</Link></button>
+        //             <button onClick={logout} >Logout</button>
+        //         </div>
+        //         :
+        //         <div>
+        //             <button> <Link to="/login">Login</Link></button>
+        //             <button> <Link to="/register">Register</Link></button>
+        //         </div>
+        //     }
+        // </div>
+        <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
+    <div class="flex-1 hidden px-2 mx-2 lg:flex">
+        <span class="text-lg font-bold">
+            Popcorn
+        </span>
+        <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} />
+    </div>
+    <div class="flex-1 px-2 mx-2">
+    <div class="items-stretch hidden lg:flex">
+        <Link to="/movies/browse" class="btn btn-ghost btn-sm rounded-btn">Browse Movies</Link>
+    </div>
+    </div> 
+    <div class="flex-1 lg:flex-none">
+    <div class="form-control">
+        <input type="text" placeholder="Search" class="input input-ghost" />
+    </div>
+    <div class="flex-none"></div>
+    <form>
+        <button class="btn btn-square btn-ghost">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">             
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>             
+        </svg>
+        </button>
+    </form>
+    </div>
+    <div class="flex-1 px-2 mx-2">
+    <div class="items-stretch hidden lg:flex">
+    {context.currentUser != null ?
                 <div>
-                    <button class="btn btn-warning"><Link to="/user/profile">User Profile</Link></button>
-                    <button onClick={logout} class="btn btn-warning">Logout</button>
+                    <button class="btn btn-ghost btn-sm rounded-btn"><Link to="/user/profile">User Profile</Link></button>
+                    <button onClick={logout} class="btn btn-ghost btn-sm rounded-btn">Logout</button>
                 </div>
                 :
                 <div>
-                    <button class="btn btn-warning"> <Link to="/login">Login</Link></button>
-                    <button class="btn btn-warning"> <Link to="/register">Register</Link></button>
+                    <button class="btn btn-ghost btn-sm rounded-btn"> <Link to="/login">Login</Link></button>
+                    <button class="btn btn-ghost btn-sm rounded-btn"> <Link to="/register">Register</Link></button>
                 </div>
-            }
-            </nav>
-        </div>
-
-
+    }
+    </div>
+</div>
+</div>
     )
 }
 

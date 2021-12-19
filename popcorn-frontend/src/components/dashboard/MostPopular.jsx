@@ -32,12 +32,10 @@ const MostPopular = () => {
                             <h2 className="card-title text-neutral-focus ">{m.primaryTitle}</h2>
                             <p className="text-warning">Movie Score: {m.score}</p>
                             <div className="justify-center card-actions">
-                            <button className="btn btn-outline btn-accent"><WatchStatus /></button>
-                            <button className="btn btn-outline btn-accent"><Rateit /></button>
-                            </div>
-                            </div>
                             <WatchStatus movie={m} onChange={OnMovieStatusChanged}/>
                             <Rateit movie={m}/>
+                            </div>
+                            </div>
                         </li>
                     </Link>
                 )}

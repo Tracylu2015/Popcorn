@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import SortMovie from "../components/SortMovie"
+import { Link } from "react-router-dom"
 
 const Categories = () => {
 
     const [select, setSelect] = useState("Comedy")
     const [movies, setMovies] = useState([])
-    const[sort,setSort]=useState("year")
+    const [sort, setSort] = useState("year")
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/movie/categories/${select}?sort=${sort}`)
@@ -14,7 +15,7 @@ const Categories = () => {
                 setMovies(res.data)
             })
             .catch(e => console.log(e))
-    }, [select,sort])
+    }, [select, sort])
 
     return (
         <div>
@@ -28,15 +29,18 @@ const Categories = () => {
                 <button onClick={(e) => { setSelect("War") }}>War</button>
                 <button onClick={(e) => { setSelect("Horror") }}>Horror</button>
             </div>
-            <SortMovie sort={sort} setSort={setSort}/>
+            <SortMovie sort={sort} setSort={setSort} />
             <div>
-                <ul style={{listStyle:"none", display:"flex"}}>
+                <ul style={{ listStyle: "none", display: "flex" }}>
+
                     {movies.map((m) =>
-                        <li key={m.id}>
-                            <img src={m.imageUrl} width={200} height={300}/>
-                            <p>{m.primaryTitle}</p>                            
-                            <p>{m.score}</p>                            
-                        </li>
+                        <Link to={`/movies/detail/${m.id}`}>
+                            <li key={m.id}>
+                                <img src={m.imageUrl} width={200} height={300} />
+                                <p>{m.primaryTitle}</p>
+                                <p>{m.score}</p>
+                            </li>
+                        </Link>
                     )}
                 </ul>
             </div>

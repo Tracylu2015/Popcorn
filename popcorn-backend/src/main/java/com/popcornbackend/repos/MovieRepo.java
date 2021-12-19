@@ -32,9 +32,9 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
 
     Page<Movie> findAllByStartYear(int year, Pageable pageable);
 
-    List<Movie> findAllByGenres(List<String> genre);
-
     Page<Movie> findAllByGenres(List<String> genre, Pageable pageable);
+
+    Page<Movie> findAllByGenresAndPrimaryTitleContaining(List<String> genre, String query, Pageable pageable);
 
     Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
 

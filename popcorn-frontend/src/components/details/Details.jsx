@@ -16,64 +16,19 @@ const Details = () => {
 
 
     return (
-        // <div>
-        //     <div>
-        //         <h3>{oneMovie.primaryTitle} ({oneMovie.startYear})</h3>
-        //         <img src={oneMovie.imageUrl} width={200} height={300} />
-        //         <ul style={{ listStyle: "none"}}>
-        //             <li >Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (
-        //                 <p key={d}>{d }</p>
-        //             )) : "not available"}
-        //             </li>
-        //             <li>
-        //             Genres: {oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g=> (
-        //                 <p key={g}>{g }</p>
-        //             )) : "not available"}
-        //             </li>
-
-        //             <li>
-        //                 Regions: {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r=> (
-        //                 <p key={r}>{r }</p>
-        //             )) : "not available"}
-        //                 </li>
-        //             {oneMovie.language !== "" ? <li>Language: {oneMovie.language}</li> : ""}
-        //             <li>Duration: {oneMovie.runtimeMinutes}</li>
-        //         </ul>
-        //         <Rating oneMovie={oneMovie} />
-        //     </div>
-        //     <div>
-        //         <h4>About it...</h4>
-        //         <p>{oneMovie.description}</p>
-        //     </div>
-        // </div>
         <div className="card lg:card-side bordered">
-            <h2 className="card-title">{oneMovie.primaryTitle} ({oneMovie.startYear})</h2>
             <figure>
                 <img src={oneMovie.imageUrl} />
             </figure>
             <div className="card-body">
-                <ul style={{ listStyle: "none" }}>
-                    <li >Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (
-                        <p key={d}>{d}</p>
-                    )) : "not available"}
-                    </li>
-                    <li>
-                        Genres: {oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (
-                            <p key={g}>{g}</p>
-                        )) : "not available"}
-                    </li>
-
-                    <li>
-                        Regions: {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (
-                            <p key={r}>{r}</p>
-                        )) : "not available"}
-                    </li>
-                    {oneMovie.language !== "" ? <li>Language: {oneMovie.language}</li> : ""}
-                    <li>Duration: {oneMovie.runtimeMinutes}</li>
-                </ul>
-                <div className="card-actions">
-                    <button className="btn btn-primary"><Rating oneMovie={oneMovie} /></button>
-                </div>
+                <h2 className="card-title">{oneMovie.primaryTitle} ({oneMovie.startYear})</h2>
+                <p>Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d}</span>)) : "not available"}</p>
+                <p>Genres: {oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (<span key={g}>{g}</span>)) : "not available"}</p>
+                <p>Regions: {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (
+                    <span key={r}>{r}</span>)) : "not available"}</p>
+                {oneMovie.language !== "" ? <p>Language: {oneMovie.language}</p> : ""}
+                <p>Duration: {oneMovie.runtimeMinutes}</p>
+                <Rating oneMovie={oneMovie} />
                 <div>
                     <h4>About it...</h4>
                     <p>{oneMovie.description}</p>

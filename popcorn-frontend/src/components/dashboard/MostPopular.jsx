@@ -22,7 +22,7 @@ const MostPopular = () => {
     return (
         <div>
             <h3>Most Popular Movies</h3>
-            <div className="card text-center shadow-2xl">
+            <div className="card text-center shadow-2xl" >
             <ul style={{ display: "flex"}}>
                 {movies.map(m =>
                     <Link to={`/movies/detail/${m.id}`} key={m.id} style={{textDecoration: "none"}}>

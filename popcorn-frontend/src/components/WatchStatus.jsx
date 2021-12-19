@@ -4,8 +4,13 @@ import currentUser from '../context/CurrentUser'
 
 const WatchStatus = ({movie, onChange}) => {
     const context = useContext(currentUser)
-    const userId = context.currentUser.id
-    const mId = movie.id
+    let userId 
+    if (context.currentUser!=null){
+        console.log(context.currentUser)
+        userId = context.currentUser.id
+    }
+    // const mId = movie.id
+    const mId = ""
     
     const addList = (e) => {
         e.preventDefault()

@@ -1,22 +1,26 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import currentUser from '../context/CurrentUser'
 
-const WatchStatus = ({movie, onChange}) => {
+
+const WatchStatus = ({ movie, onChange }) => {
     const context = useContext(currentUser)
-    let userId 
-    if (context.currentUser!=null){
-        console.log(context.currentUser)
-        userId = context.currentUser.id
-    }
-    // const mId = movie.id
-    const mId = ""
-    
+    const mId = movie.id
+    const history = useHistory()
+
     const addList = (e) => {
+        let userId
+        if (context.currentUser != null) {
+            userId = context.currentUser.idString
+        } else {
+            return history.push("/login")
+        }
+
         e.preventDefault()
-        axios.post('http://localhost:8080/api/watchStatus/wishList', { userId, mId})
+        axios.post('http://localhost:8080/api/watchStatus/wishList', { userId, mId })
             .then(res => {
-                movie.watchStatus="wish"
+                movie.watchStatus = "wish"
                 onChange(movie)
                 console.log(res.data)
             })
@@ -25,9 +29,15 @@ const WatchStatus = ({movie, onChange}) => {
 
     const watched = (e) => {
         e.preventDefault()
+        let userId
+        if (context.currentUser != null) {
+            userId = context.currentUser.idString
+        } else {
+            return history.push("/login")
+        }
         axios.post('http://localhost:8080/api/watchStatus/watched', { userId, mId })
             .then(res => {
-                movie.watchStatus="watched"
+                movie.watchStatus = "watched"
                 onChange(movie)
                 console.log(res.data)
             })

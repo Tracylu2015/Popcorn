@@ -25,6 +25,7 @@ const Register = () => {
             .then(res => {
                 setErrors([])
                 context.setCurrentUser(res.data)
+                localStorage.setItem('user', JSON.stringify(res.data))
                 history.push('/')
             })
             .catch(err => {

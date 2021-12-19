@@ -17,7 +17,7 @@ const Login = () => {
         axios.post('http://localhost:8080/api/user/login', { email, password }) //get mongo sign in ID
             .then(res => {
                 context.setCurrentUser(res.data)
-                console.log(context.currentUser)
+                localStorage.setItem('user', JSON.stringify(res.data))
                 history.push('/')
             })
             .catch((error) => {

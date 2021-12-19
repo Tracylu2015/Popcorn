@@ -15,6 +15,14 @@ import CurrentUser from './context/CurrentUser';
 function App() {
 
   const [currentUser, setCurrentUser] = useState()
+  
+  if (currentUser == null) {
+    if (localStorage.getItem("user")!==null){
+      let user = JSON.parse(localStorage.getItem("user"))
+      setCurrentUser(user)
+    }
+  }
+  
 
   return (
     <BrowserRouter>

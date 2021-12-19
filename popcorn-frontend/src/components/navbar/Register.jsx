@@ -9,13 +9,17 @@ const Register = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [, setConfirmPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
     const history = useHistory()
     const context = useContext(currentUser)
 
     const Register = (e) => {
         e.preventDefault()
+        if (password!==confirmPassword){
+            setErrors("Password doesn't match")
+            history.push("/register")
+        }
         axios.post('http://localhost:8080/api/user/register', { username, email, password }) //get post api
             .then(res => {
                 setErrors([])

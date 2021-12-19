@@ -17,7 +17,7 @@ const MostPopular = () => {
             <h3>Most Popular Movies</h3>
             <ul style={{ display: "flex" }}>
                 {movies.map(m =>
-                    <Link to={`/movies/detail/${m.id}`}>
+                    <Link to={`/movies/detail/${m.id}`} key={m.id}>
                         <li key={m.id} style={{ listStyle: "none" }}>
                             <img src={m.imageUrl} width={200} height={300} />
                             <h5>{m.primaryTitle}</h5>

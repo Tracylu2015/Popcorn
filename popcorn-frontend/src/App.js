@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import RegisterPage from './views/RegisterPage';
 import LoginPage from './views/LoginPage';
 import Navbar from './components/navbar/Navbar';
@@ -14,7 +14,7 @@ import CurrentUser from './context/CurrentUser';
 
 function App() {
 
-  const [currentUser,setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState()
 
   return (
     <BrowserRouter>

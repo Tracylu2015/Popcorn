@@ -2,10 +2,19 @@ import React, { useContext } from 'react'
 import logo from "../logo.png"
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
+import { useHistory } from 'react-router-dom'
 
 const Navbar = () => {
 
     const context = useContext(currentUser)
+    console.log(context.currentUser)
+    const history = useHistory()
+
+    const logout = () => {
+        context.setCurrentUser(null)
+        history.push("/")
+    }
+
     console.log(context.currentUser)
 
     return (
@@ -21,8 +30,13 @@ const Navbar = () => {
             {context.currentUser != null ?
                 <div>
                     <Link to="/user/profile">User Profile</Link>
-                    <button><Link to="/logout">Logout</Link></button>
-                </div> : <button> <Link to="/login">Login</Link></button>
+                    <button onClick={logout} >Logout</button>
+                </div>
+                :
+                <div>
+                    <button> <Link to="/login">Login</Link></button>
+                    <button> <Link to="/register">Register</Link></button>
+                </div>
             }
         </div>
     )

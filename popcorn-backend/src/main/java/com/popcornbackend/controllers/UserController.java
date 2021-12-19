@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
-        User currentUser = userService.findUser(user.getEmail());
+        User currentUser = userService.findByEmail(user.getEmail());
         if (currentUser != null) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("error", "Email already Exists");
@@ -43,7 +43,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> loginUser(@RequestBody User user) {
-        User currentUser = userService.findUser(user.getEmail());
+        User currentUser = userService.findByEmail(user.getEmail());
         if (currentUser != null) {
             if (passwordEncoder.matches(user.getPassword(), currentUser.getPassword())) {
                 return new ResponseEntity<>(currentUser, HttpStatus.OK);
@@ -56,7 +56,7 @@ public class UserController {
 
     @PutMapping("/edit/{user}")
     public ResponseEntity<Object> editUser(@PathVariable User user){
-        User currentUser = userService.findUser(user.getEmail());
+        User currentUser = userService.findByEmail(user.getEmail());
         if (currentUser != null) {
             Map<String, Object> resp = new HashMap<>();
             resp.put("error", "");

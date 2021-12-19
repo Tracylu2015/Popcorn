@@ -3,6 +3,7 @@ import logo from "../logo.png"
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
 import { useHistory } from 'react-router-dom'
+import bootstrap from 'bootstrap'
 
 const Navbar = () => {
 
@@ -19,26 +20,29 @@ const Navbar = () => {
 
     return (
         <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <h1>Popcorn</h1>
             <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} />
-            <Link to="/movies/browse">Browse Movies</Link>
+            <button class="btn btn-warning"><Link to="/movies/browse">Browse Movies</Link></button>
             <form>
-                <input type="text" name="search" placeholder="Search" />
-                <button>Search</button>
+                <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" />
+                <button class="btn btn-warning">Search</button>
             </form>
-
             {context.currentUser != null ?
                 <div>
-                    <Link to="/user/profile">User Profile</Link>
-                    <button onClick={logout} >Logout</button>
+                    <button class="btn btn-warning"><Link to="/user/profile">User Profile</Link></button>
+                    <button onClick={logout} class="btn btn-warning">Logout</button>
                 </div>
                 :
                 <div>
-                    <button> <Link to="/login">Login</Link></button>
-                    <button> <Link to="/register">Register</Link></button>
+                    <button class="btn btn-warning"> <Link to="/login">Login</Link></button>
+                    <button class="btn btn-warning"> <Link to="/register">Register</Link></button>
                 </div>
             }
+            </nav>
         </div>
+
+
     )
 }
 

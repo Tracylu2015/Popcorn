@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface UserWatchStatusRepo extends MongoRepository<UserWatchStatus, String> {
     List<UserWatchStatus> findAll();
+    UserWatchStatus save(UserWatchStatus status);
 }

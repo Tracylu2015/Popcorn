@@ -1,6 +1,7 @@
 package com.popcornbackend.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -36,6 +37,9 @@ public class Movie {
 
     @Field("video_url")
     private String videoUrl;
+
+    @Transient
+    private String watchStatus;
 
     public Movie() {
     }
@@ -160,5 +164,13 @@ public class Movie {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getWatchStatus() {
+        return watchStatus;
+    }
+
+    public void setWatchStatus(String watchStatus) {
+        this.watchStatus = watchStatus;
     }
 }

@@ -5,7 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "watchStatus")
 public class UserWatchStatus {
-
+    public static final String STATUS_WISH = "wish";
+    public static final String STATUS_WATCHED = "watched";
     @Id
     private String id;
 

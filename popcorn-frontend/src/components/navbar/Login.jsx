@@ -1,5 +1,5 @@
-import React, {useState,useContext} from 'react';
-import {useHistory} from "react-router-dom"
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom"
 import axios from "axios"
 import currentUser from '../../context/CurrentUser';
 
@@ -14,7 +14,7 @@ const Login = () => {
 
     const createUser = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/api/user/login', {email, password}) //get mongo sign in ID
+        axios.post('http://localhost:8080/api/user/login', { email, password }) //get mongo sign in ID
             .then(res => {
                 context.setCurrentUser(res.data)
                 console.log(context.currentUser)
@@ -31,22 +31,23 @@ const Login = () => {
 
     return (
         <div>
-            <form onSubmit={createUser}>
-                <div>
-                    {signInError
-                        ? <div><p className="error-message">{signInError}</p></div>
-                        : null}
-                    <label>Email Address: </label>
-                    <input type="text" onChange={(e) => setEmail(e.target.value)}/>
+            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card-body">
+                    <form onSubmit={createUser} className="form-control mt-6">
+                        <div>
+                            {signInError
+                                ? <div><p className="error-message">{signInError}</p></div>
+                                : null}
+                            <input className="input input-primary input-bordered form-control mt-6" type="text" name="email" placeholder="Email" onChange={e => setEmail(e.target.value)} value={email} />
+                            <input className="input input-primary input-bordered form-control mt-6" type="password" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} value={password} />
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn btn-primary btn-active btn-sm form-control mt-6" aria-pressed="true">Sign In</button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <label>Password: </label>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <input type="submit" value="Sign In"/>
-            </form>
+            </div>
         </div>
-
     )
 }
 

@@ -35,7 +35,6 @@ const Register = () => {
 
     return (
         <div>
-            <h2>Register</h2>
             {errors
                 ? <div><p className="error-message">{errors}</p></div>
                 : null}

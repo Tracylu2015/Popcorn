@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import axios from 'axios'
+import currentUser from '../../context/CurrentUser'
 
 const MyWatchHistory = () => {
 
-    const [myWatchHistory, setMyWatchHistory] = useState("")
+    const [myWatchHistory, setMyWatchHistory] = useState([])
+    const context = useContext(currentUser)
+    const id = context.currentUser.id
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/movie/')
-            .then(res => setMyWatchHistory(res.data.myWatchHistory))
+        axios.get(`http://localhost:8080/api/movie/watchlist/${id}`)
+            .then(res => setMyWatchHistory(res.data.movie))
             .catch((error) => console.log(error))
     },[])
 

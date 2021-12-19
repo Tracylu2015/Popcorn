@@ -1,10 +1,42 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useContext } from 'react'
+import currentUser from '../context/CurrentUser'
 
-const WatchStatus = () => {
+const WatchStatus = ({movie, onChange}) => {
+    const context = useContext(currentUser)
+    const userId = context.currentUser.id
+    const mId = movie.id
+    
+    const addList = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:8080/api/watchStatus/wishList', { userId, mId})
+            .then(res => {
+                movie.watchStatus="wish"
+                onChange(movie)
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const watched = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:8080/api/watchStatus/watched', { userId, mId })
+            .then(res => {
+                movie.watchStatus="watched"
+                onChange(movie)
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
     return (
         <div>
-            <button>Add to List</button>
-            <button>Watched</button>
+            <form onSubmit={addList}>
+                <button>Add to List</button>
+            </form>
+            <form onSubmit={watched}>
+                <button>Watched</button>
+            </form>
         </div>
     )
 }

@@ -1,19 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect,useContext} from 'react'
 import axios from 'axios'
+import currentUser from '../../context/CurrentUser'
 
-const MyFavorite = () => {
+const MyWishList = () => {
 
-    const [myFavMovie, setMyFavMovie] = useState("")
+    const [myFavMovie, setMyFavMovie] = useState([])
+    const context = useContext(currentUser)
+    const id = context.currentUser.id
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/movie/')
-            .then(res => setMyFavMovie(res.data.myFavMovie))
+        axios.get(`http://localhost:8080/api/movie/wishList/${id}`)
+            .then(res => setMyFavMovie(res.data.movie))
             .catch((error) => console.log(error))
     },[])
 
     return (
         <div>
-            <h3>My Favorite Movies</h3>
+            <h3>My Wish List</h3>
             {/* <ul style={{display:"flex"}}>
                 {myFavMovie.map(m =>
                     <li key={m.id} >
@@ -27,4 +30,4 @@ const MyFavorite = () => {
     )
 }
 
-export default MyFavorite
+export default MyWishList

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import WatchStatus from './WatchStatus'
+import WatchStatus from '../WatchStatus'
 import { Link } from "react-router-dom"
-import Rateit from './Rateit'
+import Rateit from '../Rateit'
 
 const MostPopular = () => {
     const [movies, setMovies] = useState([])

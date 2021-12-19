@@ -1,5 +1,5 @@
 import React from 'react'
-import Categories from '../components/Categories'
+import Categories from '../components/browse/Categories'
 
 
 const BrowsePage = () => {

@@ -9,7 +9,7 @@ const SortMovie = ({sort,setSort}) => {
 
     return (
         <div>
-            <h3>Sort Movies</h3>
+            <h6>Sort Movies</h6>
             <form>
                 <input type="radio" name="numOfVotes" value="numOfVotes" onChange={clickHandler} checked={sort==="numOfVotes"}/>
                 <label for="numOfVotes">Sort by Most Reviewed</label>

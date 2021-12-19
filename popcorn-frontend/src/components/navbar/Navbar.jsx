@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
-import logo from './logo.png'
+import logo from "../logo.png"
 import { Link } from "react-router-dom"
-import CurrentUser from '../context/CurrentUser'
+import currentUser from '../../context/CurrentUser'
 
 const Navbar = () => {
 
-    const context = useContext(CurrentUser)
+    const context = useContext(currentUser)
+    console.log(context.currentUser)
 
     return (
         <div>
@@ -14,9 +15,10 @@ const Navbar = () => {
             <Link to="/movies/browse">Browse Movies</Link>
             <form>
                 <input type="text" name="search" placeholder="Search" />
+                <button>Search</button>
             </form>
 
-            {context.CurrentUser != null ?
+            {context.currentUser != null ?
                 <div>
                     <Link to="/user/profile">User Profile</Link>
                     <button><Link to="/logout">Logout</Link></button>

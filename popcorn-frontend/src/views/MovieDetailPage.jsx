@@ -1,6 +1,6 @@
 import React from 'react'
-import Details from '../components/Details'
-import Comments from '../components/Comments'
+import Details from '../components/details/Details'
+import Comments from '../components/details/Comments'
 
 
 const MovieDetailPage = () => {

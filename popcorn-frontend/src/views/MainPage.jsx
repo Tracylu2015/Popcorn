@@ -1,7 +1,7 @@
 import React from 'react'
-import MostPopular from '../components/MostPopular'
+import MostPopular from '../components/dashboard/MostPopular'
 import Rateit from '../components/Rateit'
-import Recommendation from '../components/Recommendation'
+import Recommendation from '../components/dashboard/Recommendation'
 
 const MainPage = () => {
     return (

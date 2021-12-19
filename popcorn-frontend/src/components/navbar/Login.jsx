@@ -1,7 +1,7 @@
 import React, {useState,useContext} from 'react';
 import {useHistory} from "react-router-dom"
 import axios from "axios"
-import CurrentUser from '../context/CurrentUser';
+import currentUser from '../../context/CurrentUser';
 
 
 const Login = () => {
@@ -10,13 +10,14 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [signInError, setSignInError] = useState('')
     const history = useHistory()
-    const context = useContext(CurrentUser)
+    const context = useContext(currentUser)
 
     const createUser = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8080/api/user/login', {email, password}) //get mongo sign in ID
             .then(res => {
                 context.setCurrentUser(res.data)
+                console.log(context.currentUser)
                 history.push('/')
             })
             .catch((error) => {
@@ -40,7 +41,7 @@ const Login = () => {
                 </div>
                 <div>
                     <label>Password: </label>
-                    <input type="text" onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <input type="submit" value="Sign In"/>
             </form>

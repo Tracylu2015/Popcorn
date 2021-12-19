@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState} from 'react';
 import RegisterPage from './views/RegisterPage';
 import LoginPage from './views/LoginPage';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import UserAccountPage from './views/UserAccountPage';
 import MovieDetailPage from './views/MovieDetailPage';
 import MainPage from './views/MainPage';

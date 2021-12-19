@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import SortMovie from "../components/SortMovie"
+import SortMovie from "./SortMovie"
 import { Link } from "react-router-dom"
 
 const Categories = () => {
@@ -20,7 +20,7 @@ const Categories = () => {
     return (
         <div>
             <div>
-                <h3>Choose a Movie By Category</h3>
+                <h5>Choose a Movie By Category</h5>
                 <button onClick={(e) => { setSelect("Comedy") }}>Comedy</button>
                 <button onClick={(e) => { setSelect("Drama") }}>Drama</button>
                 <button onClick={(e) => { setSelect("Action") }}>Action</button>

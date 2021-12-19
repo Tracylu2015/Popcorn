@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import axios from "axios"
 import { useHistory } from "react-router-dom"
-import CurrentUser from "../context/CurrentUser"
+import currentUser from "../../context/CurrentUser"
 
 
 const Register = () => {
@@ -12,7 +12,7 @@ const Register = () => {
     const [, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
     const history = useHistory()
-    const context = useContext(CurrentUser)
+    const context = useContext(currentUser)
 
     const Register = (e) => {
         e.preventDefault()
@@ -43,7 +43,7 @@ const Register = () => {
                         <input onChange={e => setPassword(e.target.value)} type="password" name="password" placeholder="Password" className="input input-primary input-bordered  form-control mt-6" />
                         <input onChange={e => setConfirmPassword(e.target.value)} type="password" name="confirm_password" placeholder="Confirm Password" className="input input-primary input-bordered  form-control mt-6" />
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary btn-active btn-sm form-control mt-6" role="button" aria-pressed="true">Register</button>
+                            <button className="btn btn-primary btn-active btn-sm form-control mt-6"  aria-pressed="true">Register</button>
                         </div>
                     </form>
                 </div>

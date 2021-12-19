@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import Rating from './Rating'
+import Rating from '../Rating'
 
 const Details = () => {
 
@@ -36,7 +36,7 @@ const Details = () => {
                         <p key={r}>{r }</p>
                     )) : "not available"}
                         </li>
-                    {oneMovie.language != "" ? <li>Language: {oneMovie.language}</li> : ""}
+                    {oneMovie.language !== "" ? <li>Language: {oneMovie.language}</li> : ""}
                     <li>Duration: {oneMovie.runtimeMinutes}</li>
                 </ul>
                 <Rating oneMovie={oneMovie} />

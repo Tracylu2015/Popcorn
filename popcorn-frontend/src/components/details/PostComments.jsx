@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios';
-import CurrentUser from '../context/CurrentUser';
+import CurrentUser from '../../context/CurrentUser';
 
 const PostComments = () => {
 

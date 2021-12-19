@@ -15,19 +15,25 @@ const MostPopular = () => {
     return (
         <div>
             <h3>Most Popular Movies</h3>
+            <div class="card text-center shadow-2xl">
             <ul style={{ display: "flex" }}>
                 {movies.map(m =>
-                    <Link to={`/movies/detail/${m.id}`} key={m.id}>
+                    <Link to={`/movies/detail/${m.id}`} key={m.id} style={{textDecoration: "none"}}>
                         <li key={m.id} style={{ listStyle: "none" }}>
-                            <img src={m.imageUrl} width={200} height={300} />
-                            <h5>{m.primaryTitle}</h5>
-                            <p>Movie Score: {m.score}</p>
-                            <WatchStatus />
-                            <Rateit />
+                            <img src={m.imageUrl} class="rounded-xl"/>
+                            <div class="card-body card-actions">
+                            <h2 class="card-title text-neutral-focus ">{m.primaryTitle}</h2>
+                            <p class="text-warning">Movie Score: {m.score}</p>
+                            <div class="justify-center card-actions">
+                            <button class="btn btn-outline btn-accent"><WatchStatus /></button>
+                            <button class="btn btn-outline btn-accent"><Rateit /></button>
+                            </div>
+                            </div>
                         </li>
                     </Link>
                 )}
             </ul>
+            </div>
         </div>
     )
 }

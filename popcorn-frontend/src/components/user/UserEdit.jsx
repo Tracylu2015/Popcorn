@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import currentUser from '../../context/CurrentUser'
+import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 
 const UserEdit = ({onSelect}) => {
 
@@ -38,7 +39,7 @@ const UserEdit = ({onSelect}) => {
     }
 
     return (
-        <div style={{marginLeft:"40px", marginTop:"20px"}}>
+        <Container style={{marginLeft:"40px", marginTop:"20px"}}>
             <h2>Edit Profile</h2>
             {errors
                 ? <div><p className="error-message">{errors}</p></div>
@@ -55,7 +56,7 @@ const UserEdit = ({onSelect}) => {
                     </form>
                 </div>
             </div>
-        </div >
+        </Container >
     )
 }
 

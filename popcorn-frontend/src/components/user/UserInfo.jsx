@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import currentUser from '../../context/CurrentUser'
+import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 
 
 const UserInfo = () => {
@@ -7,11 +8,11 @@ const UserInfo = () => {
     const context = useContext(currentUser)
 
     return (
-        <div>
+        <Container style={{ marginLeft: "40px", marginTop: "20px" }}>
             <div>
-                <h5 style={{marginLeft:"40px", marginTop:"20px"}}>Welcome {context.currentUser.email} !</h5>
+                <h5>Welcome {context.currentUser.email} !</h5>
             </div>
-        </div>
+        </Container>
     )
 }
 

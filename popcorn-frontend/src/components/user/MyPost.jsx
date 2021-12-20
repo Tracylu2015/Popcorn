@@ -1,6 +1,7 @@
 import React, {useState, useEffect,useContext} from 'react'
 import axios from 'axios'
 import currentUser from '../../context/CurrentUser'
+import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 
 const MyPost = () => {
 
@@ -15,9 +16,9 @@ const MyPost = () => {
     },[])
 
     return (
-        <div>
-            <h3 style={{marginLeft:"40px", marginTop:"20px"}}>My Post</h3>
-        </div>
+        <Container style={{ marginLeft: "40px", marginTop: "20px" }}>
+            <h3>My Post</h3>
+        </Container>
     )
 }
 

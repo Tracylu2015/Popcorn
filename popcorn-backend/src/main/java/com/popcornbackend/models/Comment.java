@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -23,9 +24,11 @@ public class Comment {
     private int score;
 
     @CreatedDate
+    @Transient
     private DateTime created;
 
     @LastModifiedDate
+    @Transient
     private DateTime modified;
 
     public Comment() {

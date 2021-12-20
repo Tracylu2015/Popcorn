@@ -34,7 +34,7 @@ public class UserController {
         User newUser = userService.createUser(user);
         session.setAttribute(
                 FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, newUser.getId().toHexString());
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+        return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 
     @PostMapping("/login")

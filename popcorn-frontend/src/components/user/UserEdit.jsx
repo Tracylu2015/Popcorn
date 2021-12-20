@@ -10,7 +10,7 @@ const UserEdit = ({onSelect}) => {
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/user/findOne/${context.currentUser.id}`)
+        axios.get(`http://localhost:8080/api/user/findOne/${context.currentUser.idString}`)
             .then(res => {
                 setUsername(res.data.username)
                 setEmail(res.data.email)
@@ -22,9 +22,12 @@ const UserEdit = ({onSelect}) => {
 
     const EditUser = (e) => {
         e.preventDefault()
-        axios.put(`http://localhost:8080/api/user/edit`, { username, email}) 
+        let id = context.currentUser.idString
+        axios.put(`http://localhost:8080/api/user/edit`, { username, email, id}) 
             .then(res => {
                 setErrors([])
+                localStorage.setItem("user",JSON.stringify(res.data))
+                context.setCurrentUser(res.data)
                 onSelect(0)
             })
             .catch(err => {
@@ -43,8 +46,8 @@ const UserEdit = ({onSelect}) => {
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body">
                     <form onSubmit={EditUser} className="form-control mt-6">
-                        <input onChange={e => setUsername(e.target.value)} type="text" name="username" placeholder="Username" className="input input-primary input-bordered  form-control mt-6" />
-                        <input onChange={e => setEmail(e.target.value)} type="text" name="email" placeholder="Email" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setUsername(e.target.value)} type="text" name="username" value ={username}placeholder="Username" className="input input-primary input-bordered  form-control mt-6" />
+                        <input onChange={e => setEmail(e.target.value)} type="text" name="email" value ={email} placeholder="Email" className="input input-primary input-bordered  form-control mt-6" />
 
                         <div className="form-control mt-6">
                             <button className="btn btn-primary btn-active btn-sm form-control mt-6" role="button" aria-pressed="true">Update</button>

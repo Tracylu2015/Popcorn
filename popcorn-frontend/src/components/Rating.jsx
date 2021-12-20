@@ -17,9 +17,9 @@ const Rating = ({oneMovie}) => {
         <div>
             <h3>Score: {oneMovie.score}</h3>
             <p>Number of Votes: {oneMovie.numOfVotes}</p>
-            <WatchStatus />
+            <WatchStatus movie={oneMovie} />
             <p>My Rate for the movie</p>
-            <Rateit />
+            <Rateit movie={oneMovie} />
             <Link to ="/movie/comments/new">Add a comment</Link>
         </div>
     )

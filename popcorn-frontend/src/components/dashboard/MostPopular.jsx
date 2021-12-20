@@ -28,15 +28,15 @@ const MostPopular = () => {
                 <Row>
                 {movies.map((m, index) => {
                     return (
-                    <Col>
+                    <Col key={m.id}>
                     <Card style={{ width: '12rem', height:'32rem'}}>
                         <Card style={{ width: '12rem'}}>
-                            <Link to={`/movies/detail/${m.id}`} key={m.id} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
+                            <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
                         </Card>
                         <Card.Body>
                             <Card.Title>{m.primaryTitle}</Card.Title>
-                            <Card.Text>
-                                <p className="text-warning">Movie Score: {m.score}</p>
+                            <Card.Text className="text-warning">
+                                Movie Score: {m.score}
                             </Card.Text>
                             <WatchStatus movie={m} onChange={OnMovieStatusChanged} />
                             <Rateit movie={m} />

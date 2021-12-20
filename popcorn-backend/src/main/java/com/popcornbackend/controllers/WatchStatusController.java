@@ -38,9 +38,19 @@ public class WatchStatusController {
         watchService.createWatchedList(userId, movieId);
     }
     @GetMapping("/wishList/all")
-    public List<Movie> getAllwishlist(HttpSession session){
+    public List<Movie> getAllwishList(HttpSession session){
         String userId = UserUtil.getUserId(session);
-        List <UserWatchStatus> statuses =  watchService.findWishList(userId);
+        return getMoviesByStatus(userId, UserWatchStatus.STATUS_WISH);
+    }
+    @GetMapping("/watchList/all")
+    public List<Movie> getAllwatchList(HttpSession session){
+        String userId = UserUtil.getUserId(session);
+        return getMoviesByStatus(userId, UserWatchStatus.STATUS_WATCHED);
+    }
+
+    //extract duplicates
+    public List<Movie> getMoviesByStatus(String userId, String status) {
+        List <UserWatchStatus> statuses =  watchService.findList(userId, status);
         List<String> mids = statuses.stream().map(UserWatchStatus::getMovieId).collect(Collectors.toList());
         List<Movie> movies = movieService.findMovieByIds(mids);
         return movies;

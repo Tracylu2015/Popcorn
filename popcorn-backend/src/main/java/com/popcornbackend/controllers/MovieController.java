@@ -2,6 +2,7 @@ package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Movie;
 import com.popcornbackend.services.MovieService;
+import com.popcornbackend.services.WatchService;
 import com.popcornbackend.utils.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,24 +20,29 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/api/movie")
 public class MovieController {
-
     @Autowired
     MovieService movieService;
+    @Autowired
+    WatchService watchService;
 
 
     @GetMapping("/{id}")
-    public Movie getOne(@PathVariable("id") String id) {
-        return movieService.findMovieById(id);
+    public Movie getOne(@PathVariable("id") String id, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        return watchService.updateMovieStatus(userId, movieService.findMovieById(id));
     }
 
     //get top 12 movies
     @GetMapping("")
     public ResponseEntity<Map<String, Object>> getAll(
             @RequestParam(value = "size", defaultValue = "30") int size,
-            @RequestParam(value = "page", defaultValue = "0") int page
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            HttpSession session
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
+
+//        String userId = session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
         return getMapResponseEntity(page, movies);
     }
 

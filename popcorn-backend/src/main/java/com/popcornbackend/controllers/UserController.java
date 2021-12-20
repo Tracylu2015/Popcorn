@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@RequestBody User user, HttpSession session) {
         User currentUser = userService.findByEmail(user.getEmail());
         if (currentUser != null) {
             Map<String, Object> resp = new HashMap<>();
@@ -31,16 +32,19 @@ public class UserController {
             return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.createUser(user);
+        User newUser = userService.createUser(user);
+        session.setAttribute(
+                FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, newUser.getId().toHexString());
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<Object> loginUser(@RequestBody User user) {
+    public ResponseEntity<Object> loginUser(@RequestBody User user, HttpSession session) {
         User currentUser = userService.findByEmail(user.getEmail());
         if (currentUser != null) {
             if (passwordEncoder.matches(user.getPassword(), currentUser.getPassword())) {
+                session.setAttribute(
+                        FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, currentUser.getId().toHexString());
                 return new ResponseEntity<>(currentUser, HttpStatus.OK);
             }
         }
@@ -52,10 +56,7 @@ public class UserController {
     @GetMapping("/findOne/{id}")
     public User findOne(@PathVariable("id") ObjectId id) {
         User currentUser = userService.findById(id);
-        if (currentUser != null) {
-            return currentUser;
-        }
-        return null;
+        return currentUser;
     }
 
     @PutMapping("/edit")

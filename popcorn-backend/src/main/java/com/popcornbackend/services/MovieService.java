@@ -28,7 +28,6 @@ public class MovieService {
         return movieRepo.findAllByPrimaryTitleContaining(query, request).getContent();
     }
 
-
     public List<Movie> getMovies(PageRequest request) {
         return movieRepo.findAll(request).getContent();
     }

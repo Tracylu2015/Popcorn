@@ -1,6 +1,7 @@
 package com.popcornbackend.services;
 
 
+import com.popcornbackend.models.Movie;
 import com.popcornbackend.models.UserWatchStatus;
 import com.popcornbackend.repos.UserWatchStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,12 @@ public class WatchService {
         status.setUserId(userId);
         status.setStatus(UserWatchStatus.STATUS_WATCHED);
         userWatchStatusRepo.save(status);
+    }
+
+    public Movie updateMovieStatus(String userId, Movie movie) {
+        if (movie == null) return null;
+        UserWatchStatus status = userWatchStatusRepo.findAllByUserIdAndMovieId(userId, movie.getId());
+        movie.setWatchStatus(status.getStatus());
+        return movie;
     }
 }

@@ -17,13 +17,16 @@ public class UserService {
         return userRepo.save(user);
     }
 
-
     public User findByEmail(String email) {
         return userRepo.findByEmail(email);
     }
 
-    public User findById(ObjectId id){
-        return userRepo.findById(id);
+    public User findById(ObjectId id) {
+        return userRepo.findById(id).orElse(null);
+    }
+
+    public User findById(String id) {
+        return userRepo.findById(new ObjectId(id)).orElse(null);
     }
 
     public User editUser(User user) {

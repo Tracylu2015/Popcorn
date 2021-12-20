@@ -27,9 +27,7 @@ const Navbar = () => {
         <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
             <div className="flex-1 hidden px-2 mx-2 lg:flex">
                 <img src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} /> &nbsp;&nbsp;
-                <span className="text-lg font-bold">
-                    Popcorn
-                </span>
+                <Link to="/" className="text-lg font-bold bg-neutral text-neutral-content" style={{ textDecoration: "none" }}>Popcorn</Link>
             </div>
             <div className="flex-1 px-2 mx-2">
                 <div className="items-stretch hidden lg:flex">

@@ -1,9 +1,15 @@
 package com.popcornbackend.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "watchStatus")
+@CompoundIndexes({
+        @CompoundIndex(name = "userId_movieId_status", def = "{'userId' : 1, 'movieId': 1, 'status': 1}",
+                unique = true, background = true)
+})
 public class UserWatchStatus {
     public static final String STATUS_WISH = "wish";
     public static final String STATUS_WATCHED = "watched";

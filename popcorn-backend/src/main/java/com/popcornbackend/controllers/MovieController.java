@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/movie")
 public class MovieController {
     @Autowired
@@ -42,7 +41,8 @@ public class MovieController {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
 
-//        String userId = session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
+//        String userId = (String) session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
+//        System.out.println(userId);
         return getMapResponseEntity(page, movies);
     }
 

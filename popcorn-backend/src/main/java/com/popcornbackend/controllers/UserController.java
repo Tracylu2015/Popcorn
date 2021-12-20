@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
@@ -54,9 +53,8 @@ public class UserController {
     }
 
     @GetMapping("/findOne/{id}")
-    public User findOne(@PathVariable("id") ObjectId id) {
-        User currentUser = userService.findById(id);
-        return currentUser;
+    public User findOne(@PathVariable("id") String id) {
+        return userService.findById(id);
     }
 
     @PutMapping("/edit")
@@ -68,8 +66,10 @@ public class UserController {
             resp.put("error", "User not Found");
             return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
         }
-        userService.editUser(user);
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+        currentUser.setEmail(user.getEmail());
+        currentUser.setUsername(user.getUsername());
+        User updatedUser = userService.editUser(currentUser);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @GetMapping("/logout")

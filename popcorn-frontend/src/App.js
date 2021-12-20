@@ -12,19 +12,21 @@ import BrowsePage from './views/BrowsePage';
 import CurrentUser from './context/CurrentUser';
 import SearchPage from './views/SearchPage';
 
+import axios from "axios"
 
 
 function App() {
 
   const [currentUser, setCurrentUser] = useState()
-  
+  axios.defaults.withCredentials = true
+
   if (currentUser == null) {
-    if (localStorage.getItem("user")!==null){
+    if (localStorage.getItem("user") !== null) {
       let user = JSON.parse(localStorage.getItem("user"))
       setCurrentUser(user)
     }
   }
-  
+
 
   return (
     <BrowserRouter>

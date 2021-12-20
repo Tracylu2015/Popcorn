@@ -7,7 +7,6 @@ import { Text } from "react-native";
 import Rating from "react-rating"
 import pop_empty from "../../images/pop_blank.png"
 import pop_fill from "../../images/pop_fill.png"
-import SVGIcon from "react-rating"
 
 const MostPopular = () => {
     const [movies, setMovies] = useState([])

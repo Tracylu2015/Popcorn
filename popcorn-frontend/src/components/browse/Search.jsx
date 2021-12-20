@@ -2,7 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState} from 'react'
 import { Link, useParams } from "react-router-dom"
 import SortMovie from './SortMovie'
-import { ButtonGroup, Button, Container, Card, Col, Row } from 'react-bootstrap'
+import { ButtonGroup, Button, Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Text } from "react-native";
+import Rating from "react-rating"
+import WatchStatus from '../WatchStatus'
+import pop_empty from "../../images/pop_blank.png"
+import pop_fill from "../../images/pop_fill.png"
 
 const Search = (props) => {
     const { query } = useParams()
@@ -18,8 +23,16 @@ const Search = (props) => {
             .catch(e => console.log(e))
     }, [select, sort])
 
+    const OnMovieStatusChanged = (newMovie) => {
+        const newMovies = []
+        movies.forEach((m) => {
+            m.id === newMovie.id ? newMovies.push(newMovie) : newMovies.push(m)
+        })
+        setMovies(newMovies)
+    }
+
     return (
-        <div style={{ marginLeft: 50 }}>
+        <Container>
             <div>
                 <h4>Choose a Movie By Category</h4>
                 <ButtonGroup aria-label="Basic example">
@@ -35,7 +48,7 @@ const Search = (props) => {
 
             </div>
             <SortMovie sort={sort} setSort={setSort} />
-            <div>
+            {/* <div>
                 <ul style={{ listStyle: "none", display: "flex" }}>
 
                     {movies.map((m) =>
@@ -48,31 +61,45 @@ const Search = (props) => {
                         </Link>
                     )}
                 </ul>
-            </div>
-            {/* <div>
-                    <Row>
-                        {movies.map((m, index) => {
-                            return (
-                                <Col key={m.id}>
-                                    <Card style={{ width: '12rem', height: '27rem' }}>
-                                        <Card>
-                                            <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
-                                        </Card>
-                                        <Card.Body>
-                                            <Card.Title>{m.primaryTitle}</Card.Title>
-                                            <Card.Text className="text-warning">
-                                                Movie Score: {m.score}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            )
-                        })}
-                        <Col>
-                        </Col>
-                    </Row>
             </div> */}
-        </div>
+            <div style={{ marginTop: "15px" }}>
+                <Row>
+                    {movies.map((m, index) => {
+                        return (
+                            <Col key={m.id}>
+                                <Card style={{ width: '12rem', height: '32rem' }}>
+                                    <Card>
+                                        <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>
+                                            <Image src={m.imageUrl} className="rounded-l" style={{ objectFit: "cover", height: '300px' }} />
+                                        </Link>
+                                    </Card>
+                                    <Card.Body>
+                                        <Text style={{
+                                            fontWeight: "bold",
+                                            fontSize: "20px",
+                                            marginBottom: "10px",
+                                        }} numberOfLines={1}>{m.primaryTitle}
+                                        </Text>
+                                        <Card.Text className="text-warning">
+                                            Movie Score: {m.score}
+                                        </Card.Text>
+                                        <WatchStatus movie={m} onChange={OnMovieStatusChanged} />
+                                        <Rating
+                                        style={{ marginTop: "10px"}}
+                                        readonly="true" stop="10" step="2" initialRating={m.score}
+                                        emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        />
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                    <Col>
+                    </Col>
+                </Row>
+            </div>
+        </Container>
     )
 }
 

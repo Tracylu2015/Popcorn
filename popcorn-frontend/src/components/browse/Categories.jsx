@@ -2,7 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import SortMovie from "./SortMovie"
 import { Link } from "react-router-dom"
-import { ButtonGroup, Button, Container, Card, Col, Row } from 'react-bootstrap'
+import { ButtonGroup, Button, Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Text } from "react-native";
+import Rating from "react-rating"
+import WatchStatus from '../WatchStatus'
+import pop_empty from "../../images/pop_blank.png"
+import pop_fill from "../../images/pop_fill.png"
 
 const Categories = () => {
 
@@ -18,8 +23,16 @@ const Categories = () => {
             .catch(e => console.log(e))
     }, [select, sort])
 
+    const OnMovieStatusChanged = (newMovie) => {
+        const newMovies = []
+        movies.forEach((m) => {
+            m.id === newMovie.id ? newMovies.push(newMovie) : newMovies.push(m)
+        })
+        setMovies(newMovies)
+    }
+
     return (
-        <div style={{ marginLeft: 50 }}>
+        <Container>
             <div>
                 <h4>Choose a Movie By Category</h4>
                 <ButtonGroup aria-label="Basic example">
@@ -34,21 +47,7 @@ const Categories = () => {
                 </ButtonGroup>
             </div>
             <SortMovie sort={sort} setSort={setSort} />
-            {/* <div>
-                <ul style={{ listStyle: "none", display: "flex" }}>
-
-                    {movies.map((m) =>
-                        <Link to={`/movies/detail/${m.id}`} key={m.id}>
-                            <li key={m.id}>
-                                <img src={m.imageUrl} width={200} height={300} />
-                                <p>{m.primaryTitle}</p>
-                                <p>{m.score}</p>
-                            </li>
-                        </Link>
-                    )}
-                </ul>
-            </div> */}
-            <div style={{marginTop:"15px"}}>
+            {/* <div style={{marginTop:"15px"}}>
                 <Row>
                     {movies.map((m, index) => {
                         return (
@@ -70,8 +69,45 @@ const Categories = () => {
                     <Col>
                     </Col>
                 </Row>
+            </div> */}
+            <div style={{ marginTop: "15px" }}>
+                <Row>
+                    {movies.map((m, index) => {
+                        return (
+                            <Col key={m.id}>
+                                <Card style={{ width: '12rem', height: '32rem' }}>
+                                    <Card>
+                                        <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>
+                                            <Image src={m.imageUrl} className="rounded-l" style={{ objectFit: "cover", height: '300px' }} />
+                                        </Link>
+                                    </Card>
+                                    <Card.Body>
+                                        <Text style={{
+                                            fontWeight: "bold",
+                                            fontSize: "20px",
+                                            marginBottom: "10px",
+                                        }} numberOfLines={1}>{m.primaryTitle}
+                                        </Text>
+                                        <Card.Text className="text-warning">
+                                            Movie Score: {m.score}
+                                        </Card.Text>
+                                        <WatchStatus movie={m} onChange={OnMovieStatusChanged} />
+                                        <Rating
+                                        style={{ marginTop: "10px"}}
+                                        readonly="true" stop="10" step="2" initialRating={m.score}
+                                        emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        />
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                    <Col>
+                    </Col>
+                </Row>
             </div>
-        </div>
+        </Container>
     )
 }
 

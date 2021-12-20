@@ -2,8 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating from '../Rating'
-import { Container, Card, Col } from 'react-bootstrap'
-import Row from 'react-bootstrap/Row'
+import { Container, Card, Col, Row } from 'react-bootstrap'
 
 const Details = () => {
 
@@ -16,6 +15,10 @@ const Details = () => {
             .catch((error) => console.log(error))
     }, [])
 
+    const onStatusChanged = (newMovie)=>{
+        console.log(newMovie)
+        setOneMovie(newMovie)
+    }
 
     return (
         <Container>
@@ -27,14 +30,14 @@ const Details = () => {
                             <Container>
                                 <Row>
                                     <Col>
-                                        <img src={oneMovie.imageUrl} style={{ width: 320 }} />
+                                        <img src={oneMovie.imageUrl} style={{ width: 320 , height:400}} />
                                     </Col>
                                     <Col>
-                                        <h5>Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d}</span>)) : "not available"}</h5>
-                                        <div>Genres: {oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (<span key={g}>{g}</span>)) : "not available"}</div>
-                                        <div>Regions: {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (<span key={r}>{r}</span>)) : "not available"}</div>
-                                        {oneMovie.language !== "" ? <p>Language: {oneMovie.language}</p> : ""}
-                                        <div>Duration: {oneMovie.runtimeMinutes}</div>
+                                        <div><b>Directors:</b> {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d} </span>)) : "not available"}</div>
+                                        <div><b>Genres: </b>{oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (<span key={g}>{g} </span>)) : "not available"}</div>
+                                        <div><b>Regions:</b> {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (<span key={r}>{r} </span>)) : "not available"}</div>
+                                        {oneMovie.language !== "" ? <p> <b>Language: </b>{oneMovie.language}</p> : ""}
+                                        <div><b>Duration: </b> {oneMovie.runtimeMinutes} mins</div>
 
                                         <div>
                                             <h5>About it...</h5>
@@ -42,7 +45,7 @@ const Details = () => {
                                         </div>
                                     </Col>
                                     <Col>
-                                        <Rating oneMovie={oneMovie} />
+                                        <Rating oneMovie={oneMovie} onChange={onStatusChanged}/>
                                     </Col>
                                 </Row>
                             </Container>

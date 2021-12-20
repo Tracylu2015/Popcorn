@@ -9,7 +9,7 @@ const WatchStatus = ({ movie, onChange }) => {
     const mId = movie.id
     const history = useHistory()
 
-    const addList = (e) => {
+    const addList = () => {
         let userId
         if (context.currentUser != null) {
             userId = context.currentUser.idString
@@ -17,7 +17,6 @@ const WatchStatus = ({ movie, onChange }) => {
             return history.push("/login")
         }
 
-        e.preventDefault()
         axios.post('http://localhost:8080/api/watchStatus/wishList', { userId, mId })
             .then(res => {
                 movie.watchStatus = "wish"
@@ -27,8 +26,7 @@ const WatchStatus = ({ movie, onChange }) => {
             .catch((err) => console.log(err))
     }
 
-    const watched = (e) => {
-        e.preventDefault()
+    const watched = () => {
         let userId
         if (context.currentUser != null) {
             userId = context.currentUser.idString
@@ -44,14 +42,11 @@ const WatchStatus = ({ movie, onChange }) => {
             .catch((err) => console.log(err))
     }
 
+    console.log(movie)
     return (
-        <div>
-            <form onSubmit={addList}>
-                <button disabled={movie.watchStatus==="watched"}>Add to List</button>
-            </form>
-            <form onSubmit={watched}>
-                <button disabled={movie.watchStatus==="wished"}>Watched</button>
-            </form>
+        <div style={{ display: "flex" }}>
+            <button onClick={addList} className="btn btn-primary btn-sm">Wish</button>&nbsp;&nbsp;
+            <button onClick={watched} className="btn btn-primary btn-sm">Watched</button>
         </div>
     )
 }

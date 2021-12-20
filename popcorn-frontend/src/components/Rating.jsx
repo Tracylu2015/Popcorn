@@ -3,11 +3,9 @@ import Rateit from './Rateit'
 import WatchStatus from './WatchStatus'
 import { useParams,Link } from 'react-router-dom'
 import axios from 'axios'
-// get average scores
-// get numOfVotes
-const Rating = ({oneMovie}) => {
 
-    const { id } = useParams()
+const Rating = ({oneMovie,onChange}) => {
+
 
     // axios.get(`http://localhost:8080/api/movie/${id}`)
     //     .then(res => setOneMovie(res.data.movie))
@@ -15,9 +13,9 @@ const Rating = ({oneMovie}) => {
 
     return (
         <div>
-            <h3>Score: {oneMovie.score}</h3>
+            <h4>Score: {oneMovie.score}</h4>
             <p>Number of Votes: {oneMovie.numOfVotes}</p>
-            <WatchStatus movie={oneMovie} />
+            <WatchStatus movie={oneMovie} onChange={onChange} />
             <p>My Rate for the movie</p>
             <Rateit movie={oneMovie} />
             <Link to ="/movie/comments/new">Add a comment</Link>

@@ -8,8 +8,8 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
+COPY popcorn-frontend/package.json ./
+COPY popcorn-frontend/package-lock.json ./
 RUN npm install --silent
 
 # add app
@@ -28,7 +28,7 @@ RUN grep -rl localhost /app/build | xargs sed -i 's/http:\/\/localhost:8000//g'
 FROM nginx:1.21.4-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY popcorn-frontend/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

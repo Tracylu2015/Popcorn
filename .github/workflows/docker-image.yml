@@ -23,3 +23,5 @@ jobs:
       run: |
         docker build . --file popcorn-backend/Dockerfile --tag qianlu0826/popcorn:backend-latest
         docker push qianlu0826/popcorn:backend-latest
+        docker build . --file popcorn-frontend/Dockerfile --tag qianlu0826/popcorn:frontend-latest
+        docker push qianlu0826/popcorn:frontend-latest

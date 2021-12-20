@@ -5,26 +5,32 @@ import UserInfo from '../components/user/UserInfo'
 import MyWatchHistory from '../components/user/MyWatchHistory'
 import MyPost from '../components/user/MyPost'
 import MyWishList from '../components/user/MyWishList'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 
 const UserAccountPage = () => {
 
-    const [options, setOptions] = useState(0)
+    const [options, setOptions] = useState(3)
 
     return (
-        <div>
-            <UserButtons onSelect={setOptions} />
-            <div>
-                {
+        <>
+            <Container fluid style={{height:"100vh"}}>
+                <Row>
+                    <UserButtons onSelect={setOptions} />
+                </Row>
+                <Row>
                     {
-                    0: <UserInfo />,
-                    1: <UserEdit onSelect={setOptions} />,
-                    2: <MyWatchHistory onSelect={setOptions} />,
-                    3: <MyWishList onSelect={setOptions} />,
-                    4: <MyPost onSelect={setOptions} />
-                    }[options]
-                }
-            </div>
-        </div>
+                        {
+                            0: <UserInfo />,
+                            1: <UserEdit onSelect={setOptions} />,
+                            2: <MyWatchHistory onSelect={setOptions} />,
+                            3: <MyWishList onSelect={setOptions} />,
+                            4: <MyPost onSelect={setOptions} />
+                        }[options]
+                    }
+                </Row>
+            </Container>
+        </>
     )
 }
 

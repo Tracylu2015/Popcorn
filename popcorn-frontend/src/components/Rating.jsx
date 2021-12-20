@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Rateit from './Rateit'
 import WatchStatus from './WatchStatus'
 import { useParams,Link } from 'react-router-dom'
 import axios from 'axios'
@@ -17,7 +16,7 @@ const Rating = ({oneMovie,onChange}) => {
             <p>Number of Votes: {oneMovie.numOfVotes}</p>
             <WatchStatus movie={oneMovie} onChange={onChange} />
             <p>My Rate for the movie</p>
-            <Rateit movie={oneMovie} />
+            {/* <Rateit movie={oneMovie} /> */}
             <Link to ="/movie/comments/new">Add a comment</Link>
         </div>
     )

@@ -9,8 +9,7 @@ const UserInfo = () => {
     return (
         <div>
             <div>
-                <p>User Name: {context.currentUser.username}</p>
-                <p>Email: {context.currentUser.email}</p>
+                <h5 style={{marginLeft:"40px", marginTop:"20px"}}>Welcome {context.currentUser.email} !</h5>
             </div>
         </div>
     )

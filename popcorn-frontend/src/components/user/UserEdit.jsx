@@ -38,7 +38,7 @@ const UserEdit = ({onSelect}) => {
     }
 
     return (
-        <div>
+        <div style={{marginLeft:"40px", marginTop:"20px"}}>
             <h2>Edit Profile</h2>
             {errors
                 ? <div><p className="error-message">{errors}</p></div>

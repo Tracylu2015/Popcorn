@@ -3,7 +3,8 @@ import logo from "../logo.png"
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
 import { useHistory } from 'react-router-dom'
-import { Image } from 'react-bootstrap'
+import { Image, FormControl } from 'react-bootstrap'
+
 
 const Navbar = () => {
 
@@ -26,9 +27,8 @@ const Navbar = () => {
     }
 
     return (
-
-        <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
-            <div className="flex-1 hidden px-2 mx-2 lg:flex" onClick={onLogoClicked}>
+        <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+            <div className="flex-none hidden px-2 mx-2 lg:flex" onClick={onLogoClicked}>
                 <Image src={logo} alt="Popcorn" style={{ width: "60px", height: "60px" }} /> &nbsp;&nbsp;
                 <span className="text-lg font-bold">
                     Popcorn
@@ -39,10 +39,13 @@ const Navbar = () => {
                     <Link to="/movies/browse" className="bg-neutral text-neutral-content" style={{ textDecoration: "none" }}>Browse Movies</Link>
                 </div>
             </div>
-            <div className="flex-1 lg:flex-none">
-                <div className="form-control">
-                    <input type="text" placeholder="Search" className="input input-ghost " onChange={e => setQuery(e.target.value)} />
-                </div>
+            <div className="flex-1 lg:flex-none" style={{width:"400px"}} >
+                <FormControl onChange={e => setQuery(e.target.value)}
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
+                />
                 <div className="flex-none"></div>
                 <form>
                     <button className="btn btn-square btn-ghost" onClick={search}>
@@ -52,16 +55,16 @@ const Navbar = () => {
                     </button>
                 </form>
             </div>
-            <div className="flex-1 px-2 mx-2">
+            <div className="flex-2 px-2 mx-2">
                 <div className="items-stretch hidden lg:flex">
                     {context.currentUser != null ?
                         <div>
-                            <button> <Link to="/user/profile" className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight:"10px" }}>User Profile</Link></button>
+                            <button> <Link to="/user/profile" className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>User Profile</Link></button>
                             <button onClick={logout} className="btn btn-ghost btn-sm rounded-btn" className="bg-neutral text-neutral-content">Logout</button>
                         </div>
                         :
                         <div>
-                            <button> <Link to="/login" className="bg-neutral text-neutral-content" style={{ textDecoration: "none",marginRight:"10px"  }}>Login</Link></button>
+                            <button> <Link to="/login" className="bg-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>Login</Link></button>
                             <button> <Link to="/register" className="bg-neutral text-neutral-content" style={{ textDecoration: "none" }}>Register</Link></button>
                         </div>
                     }

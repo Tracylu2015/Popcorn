@@ -48,7 +48,7 @@ const Categories = () => {
                     )}
                 </ul>
             </div> */}
-            <div>
+            <div style={{marginTop:"15px"}}>
                 <Row>
                     {movies.map((m, index) => {
                         return (

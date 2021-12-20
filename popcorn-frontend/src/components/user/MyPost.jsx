@@ -16,7 +16,7 @@ const MyPost = () => {
 
     return (
         <div>
-            <h3>My Post</h3>
+            <h3 style={{marginLeft:"40px", marginTop:"20px"}}>My Post</h3>
         </div>
     )
 }

@@ -13,7 +13,7 @@ const MyWatchHistory = () => {
 
     return (
         <div>
-            <h3>My Watched History</h3>
+            <h3 style={{marginLeft:"40px", marginTop:"20px"}}>My Watched History</h3>
             <ul style={{display:"flex"}}>
                 {myWatchHistory.map(m =>
                     <li key={m.idString} >

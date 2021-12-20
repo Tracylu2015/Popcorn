@@ -13,7 +13,7 @@ const MyWishList = () => {
 
     return (
         <div>
-            <h3>My Wish List</h3>
+            <h3 style={{marginLeft:"40px", marginTop:"20px"}}>My Wish List</h3>
             <ul style={{display:"flex"}}>
                 {myFavMovie.map(m =>
                     <li key={m.idString} >

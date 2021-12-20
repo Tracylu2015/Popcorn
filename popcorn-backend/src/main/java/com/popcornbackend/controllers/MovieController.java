@@ -1,6 +1,8 @@
 package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Movie;
+import com.popcornbackend.models.RecommendationResponse;
+import com.popcornbackend.models.UserWatchStatus;
 import com.popcornbackend.services.MovieService;
 import com.popcornbackend.services.RecommendationService;
 import com.popcornbackend.services.WatchService;
@@ -14,6 +16,7 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +111,8 @@ public class MovieController {
 //    }
 
     //public function of each get movie route
-    private ResponseEntity<Map<String, Object>> getMapResponseEntity(@RequestParam(value = "page", defaultValue = "0") int page, List<Movie> movies) {
+    private ResponseEntity<Map<String, Object>> getMapResponseEntity(
+            @RequestParam(value = "page", defaultValue = "0") int page, List<Movie> movies) {
         Map<String, Object> resp = new HashMap<>();
         resp.put("movies", movies);
         resp.put("currentPage", page);
@@ -128,8 +132,40 @@ public class MovieController {
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
-        return movieService.getMoviesByGenresAndTitle(Collections.of(genres), query,request);
+        return movieService.getMoviesByGenresAndTitle(Collections.of(genres), query, request);
     }
 
-
+    @GetMapping("/recommend")
+    public List<Movie> recommendMovies(HttpSession session) {
+        //get userId
+        String userId = (String) session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
+        //find user watchlist according to userID
+        List<UserWatchStatus> watchlist = watchService.findList(userId, UserWatchStatus.STATUS_WATCHED);
+        if (Collections.isEmpty(watchlist)) {
+            List<UserWatchStatus> wishList = watchService.findList(userId, UserWatchStatus.STATUS_WISH);
+            if (Collections.isEmpty(wishList)) {
+                return movieService.getMoviesByScoreDesc(PageRequest.of(0, 12));
+            }
+        }
+        List<String> movieIdList = new ArrayList<>();
+        for (UserWatchStatus userWatchStatus : watchlist) {
+            String mId = userWatchStatus.getMovieId();
+            movieIdList.add(mId);
+            if (movieIdList.size() >= 10) {
+                break;
+            }
+        }
+        // get recommend movie list by movie id
+        RecommendationResponse myRoc = recommendationService.recommend(movieIdList);
+        //
+//        RecommendationResponse recommend = recommendationService.recommend("tt0268380", "tt");
+        List<Movie> recommendMovies = new ArrayList<>();
+        for (String mid : myRoc.keySet()) {
+            recommendMovies.addAll(movieService.findMovieByIds(myRoc.get(mid)));
+//            System.out.println(mid);
+//            System.out.println(myRoc.get(mid));
+        }
+        recommendMovies.stream().sorted((m1, m2) -> m1.getScore() - m2.getScore() > 0 ? 1 : m1.getScore() == m2.getScore() ? 0 : -1).limit(24);
+        return recommendMovies;
+    }
 }

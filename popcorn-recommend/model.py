@@ -28,5 +28,5 @@ class RecommendModel:
                 return []
             items = self.t.get_nns_by_item(int(index), n_nearest)
 
-            results[movie_id] = items
+            results[movie_id] = [self.idxToMovie.get(str(item), "") for item in items]
         return results

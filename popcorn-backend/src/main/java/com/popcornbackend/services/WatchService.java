@@ -33,7 +33,9 @@ public class WatchService {
     public Movie updateMovieStatus(String userId, Movie movie) {
         if (movie == null) return null;
         UserWatchStatus status = userWatchStatusRepo.findAllByUserIdAndMovieId(userId, movie.getId());
-        movie.setWatchStatus(status.getStatus());
+        if (status != null) {
+            movie.setWatchStatus(status.getStatus());
+        }
         return movie;
     }
 }

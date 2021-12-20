@@ -22,33 +22,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http = http.cors().and().csrf().disable();
 
-        // Set session management to stateless
-//        http = http
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and();
-
-        // Set unauthorized requests exception handler
-//        http = http
-//                .exceptionHandling()
-//                .authenticationEntryPoint(
-//                        (request, response, ex) -> {
-//                            response.sendError(
-//                                    HttpServletResponse.SC_UNAUTHORIZED,
-//                                    ex.getMessage()
-//                            );
-//                        }
-//                )
-//                .and();
-
         // Set permissions on endpoints
         http.authorizeRequests()
                 // Our public endpoints
                 .antMatchers("/api/user/register").permitAll()
                 .antMatchers("/api/user/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/api/movie").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/movie/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
+
                 // Our private endpoints
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();

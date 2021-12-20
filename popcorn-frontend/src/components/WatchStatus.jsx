@@ -47,10 +47,10 @@ const WatchStatus = ({ movie, onChange }) => {
     return (
         <div>
             <form onSubmit={addList}>
-                <button>Add to List</button>
+                <button disabled={movie.watchStatus==="watched"}>Add to List</button>
             </form>
             <form onSubmit={watched}>
-                <button>Watched</button>
+                <button disabled={movie.watchStatus==="wished"}>Watched</button>
             </form>
         </div>
     )

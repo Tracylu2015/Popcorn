@@ -10,6 +10,8 @@ import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { Switch, Route } from 'react-router-dom';
 import BrowsePage from './views/BrowsePage';
 import CurrentUser from './context/CurrentUser';
+import SearchPage from './views/SearchPage';
+
 
 
 function App() {
@@ -46,6 +48,9 @@ function App() {
           </Route>
           <Route path="/movies/browse" exact>
             <BrowsePage />
+          </Route>
+          <Route path="/movies/search/:query" exact>
+            <SearchPage />
           </Route>
         </Switch>
       </CurrentUser.Provider>

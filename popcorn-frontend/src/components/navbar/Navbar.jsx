@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import logo from "../logo.png"
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
@@ -9,11 +9,16 @@ const Navbar = () => {
 
     const context = useContext(currentUser)
     const history = useHistory()
+    const [query, setQuery] = useState("")
 
     const logout = () => {
         context.setCurrentUser(null)
         localStorage.clear();
         history.push("/")
+    }
+
+    const search = () =>{
+        history.push(`/movies/search/${query}`);
     }
 
 
@@ -33,11 +38,11 @@ const Navbar = () => {
             </div>
             <div className="flex-1 lg:flex-none">
                 <div className="form-control">
-                    <input type="text" placeholder="Search" className="input input-ghost " />
+                    <input type="text" placeholder="Search" className="input input-ghost " onChange={e => setQuery(e.target.value)}/>
                 </div>
                 <div className="flex-none"></div>
                 <form>
-                    <button className="btn btn-square btn-ghost">
+                    <button className="btn btn-square btn-ghost" onClick={search}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" className="bg-neutral text-neutral-content"></path>
                         </svg>

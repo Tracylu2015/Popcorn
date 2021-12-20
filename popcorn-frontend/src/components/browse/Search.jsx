@@ -1,9 +1,10 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useParams } from 'react'
 import { Link } from "react-router-dom"
+import SortMovie from './SortMovie'
 
 const Search = (props) => {
-    const query = props.query;
+    const { query } = props.query;
     const [select, setSelect] = useState("Action")
     const [movies, setMovies] = useState([])
     const [sort, setSort] = useState("year")

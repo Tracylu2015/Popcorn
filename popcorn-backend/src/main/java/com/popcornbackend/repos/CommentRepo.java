@@ -11,7 +11,7 @@ import java.util.List;
 public interface CommentRepo extends MongoRepository<Comment, String> {
     List<Comment> findAll();
 
-    List<Comment> findAllByUserId(String userId, Pageable pageable);
+    List<Comment> findAllByMovieIdOrderByTotalLikesDesc(String movieId);
 
-    List<Comment> findAllByMovieId(String movieId, Pageable pageable);
+
 }

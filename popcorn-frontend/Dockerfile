@@ -8,12 +8,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY popcorn-frontend/package.json ./
-COPY popcorn-frontend/package-lock.json ./
-RUN npm install --silent
-
-# add app
-COPY client ./
+COPY popcorn-frontend ./
 RUN npm install --silent
 
 # # Dev environment
@@ -22,7 +17,7 @@ RUN npm install --silent
 # start app
 RUN npm run build
 RUN grep -rl localhost /app/build
-RUN grep -rl localhost /app/build | xargs sed -i 's/http:\/\/localhost:8000//g'
+RUN grep -rl localhost /app/build | xargs sed -i 's/http:\/\/localhost:8080//g'
 
 # production environment
 FROM nginx:1.21.4-alpine

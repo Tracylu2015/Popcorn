@@ -14,7 +14,7 @@ const UserAccountPage = () => {
 
     return (
         <>
-            <Container fluid style={{height:"100vh"}}>
+            {/* <Container fluid style={{height:"100vh"}}>
                 <Row>
                     <UserButtons onSelect={setOptions} />
                 </Row>
@@ -29,7 +29,23 @@ const UserAccountPage = () => {
                         }[options]
                     }
                 </Row>
-            </Container>
+            </Container> */}
+            <div>
+                <div style={{ marginLeft: "10px"}}>
+                    <UserButtons onSelect={setOptions} />
+                </div>
+                <div>
+                    {
+                        {
+                            0: <UserInfo />,
+                            1: <UserEdit onSelect={setOptions} />,
+                            2: <MyWatchHistory onSelect={setOptions} />,
+                            3: <MyWishList onSelect={setOptions} />,
+                            4: <MyPost onSelect={setOptions} />
+                        }[options]
+                    }
+                </div>
+            </div>
         </>
     )
 }

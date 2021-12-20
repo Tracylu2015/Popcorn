@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +56,11 @@ public class MovieService {
 
     public List<Movie> getMoviesByVotesDesc(PageRequest request){
         return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
+    }
+
+    public List<Movie> findMovieByIds(List<String> mids) {
+        List<Movie> result = new ArrayList<>();
+        movieRepo.findAllById(mids).forEach(result::add);
+        return result;
     }
 }

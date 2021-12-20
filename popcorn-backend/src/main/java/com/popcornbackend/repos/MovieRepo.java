@@ -22,7 +22,6 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
 
     Page<Movie> findAll(Pageable pageable);
 
-
     //find all movies which primary title contain the query and sort by score descending order
     Page<Movie> findAllByPrimaryTitleOrderByScoreDesc(String query, Pageable pageable);
 
@@ -39,4 +38,6 @@ public interface MovieRepo extends MongoRepository<Movie, String> {
     Page<Movie> findAllByOrderByScoreDesc(Pageable pageable);
 
     Page<Movie> findAllByOrderByNumOfVotesDesc(Pageable pageable);
+
+
 }

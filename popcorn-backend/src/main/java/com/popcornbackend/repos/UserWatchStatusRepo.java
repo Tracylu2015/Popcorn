@@ -14,4 +14,6 @@ public interface UserWatchStatusRepo extends MongoRepository<UserWatchStatus, St
     UserWatchStatus save(UserWatchStatus status);
 
     UserWatchStatus findAllByUserIdAndMovieId(String userId, String id);
+
+    List<UserWatchStatus> findAllByUserIdAndStatus(String userId, String status);
 }

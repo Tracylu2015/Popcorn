@@ -9,7 +9,7 @@ mycol = mydb["movies"]
 
 
 def insert_img():
-    name = "json/image07.json"
+    name = "json/image09.json"
     with open(name) as fd:
         my_img = json.load(fd)
         for data in my_img:

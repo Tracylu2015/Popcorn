@@ -16,7 +16,7 @@ const MyWishList = () => {
             <h3>My Wish List</h3>
             <ul style={{display:"flex"}}>
                 {myFavMovie.map(m =>
-                    <li key={m.id} >
+                    <li key={m.idString} >
                         <img src={m.imageUrl} width={200} height={300} />
                         <h5>{m.primaryTitle}</h5>
                         <p>Movie Score: {m.score}</p>

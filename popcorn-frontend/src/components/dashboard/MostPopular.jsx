@@ -29,8 +29,8 @@ const MostPopular = () => {
                 {movies.map((m, index) => {
                     return (
                     <Col>
-                    <Card>
-                        <Card style={{ width: '12rem' }}>
+                    <Card style={{ width: '12rem', height:'32rem'}}>
+                        <Card style={{ width: '12rem'}}>
                             <Link to={`/movies/detail/${m.id}`} key={m.id} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
                         </Card>
                         <Card.Body>

@@ -2,6 +2,7 @@ package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Movie;
 import com.popcornbackend.services.MovieService;
+import com.popcornbackend.services.RecommendationService;
 import com.popcornbackend.services.WatchService;
 import com.popcornbackend.utils.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class MovieController {
     MovieService movieService;
     @Autowired
     WatchService watchService;
-
+    @Autowired
+    RecommendationService recommendationService;
 
     @GetMapping("/{id}")
     public Movie getOne(@PathVariable("id") String id, HttpSession session) {

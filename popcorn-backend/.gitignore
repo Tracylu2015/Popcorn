@@ -35,3 +35,4 @@ build/
 ### Intellij Code ###
 .idea/
 .mvn/
+mlmodels/movie.ann

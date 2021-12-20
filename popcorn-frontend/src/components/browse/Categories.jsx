@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import SortMovie from "./SortMovie"
 import { Link } from "react-router-dom"
+import { ButtonGroup, Button } from 'react-bootstrap'
 
 const Categories = () => {
 
@@ -20,16 +21,17 @@ const Categories = () => {
     return (
         <div>
             <div>
-                <h5>Choose a Movie By Category</h5>
-                <button onClick={(e) => { setSelect("Action") }}>Action</button>
-                <button onClick={(e) => { setSelect("Adventure") }}>Adventure</button>
-                <button onClick={(e) => { setSelect("Animation") }}>Animation</button>
-                <button onClick={(e) => { setSelect("Comedy") }}>Comedy</button>
-                <button onClick={(e) => { setSelect("Drama") }}>Drama</button>
-                <button onClick={(e) => { setSelect("Horror") }}>Horror</button>
-                <button onClick={(e) => { setSelect("Romance") }}>Romance</button>
-                <button onClick={(e) => { setSelect("War") }}>War</button>
-
+                <h4>Choose a Movie By Category</h4>
+                <ButtonGroup aria-label="Basic example">
+                <Button onClick={(e) => { setSelect("Action") }} variant="info">Action</Button>
+                <Button onClick={(e) => { setSelect("Adventure") }} variant="info">Adventure</Button>
+                <Button onClick={(e) => { setSelect("Animation") }} variant="info">Animation</Button>
+                <Button onClick={(e) => { setSelect("Comedy") }} variant="info">Comedy</Button>
+                <Button onClick={(e) => { setSelect("Drama") }} variant="info">Drama</Button>
+                <Button onClick={(e) => { setSelect("Horror") }} variant="info">Horror</Button>
+                <Button onClick={(e) => { setSelect("Romance") }} variant="info">Romance</Button>
+                <Button onClick={(e) => { setSelect("War") }} variant="info">War</Button>
+                </ButtonGroup>
             </div>
             <SortMovie sort={sort} setSort={setSort} />
             <div>

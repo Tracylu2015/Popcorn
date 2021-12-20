@@ -30,14 +30,14 @@ const Details = () => {
                                         <img src={oneMovie.imageUrl} style={{ width: 320 }} />
                                     </Col>
                                     <Col>
-                                        <h4>Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d}</span>)) : "not available"}</h4>
+                                        <h5>Directors: {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d}</span>)) : "not available"}</h5>
                                         <div>Genres: {oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (<span key={g}>{g}</span>)) : "not available"}</div>
                                         <div>Regions: {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (<span key={r}>{r}</span>)) : "not available"}</div>
                                         {oneMovie.language !== "" ? <p>Language: {oneMovie.language}</p> : ""}
                                         <div>Duration: {oneMovie.runtimeMinutes}</div>
 
                                         <div>
-                                            <h4>About it...</h4>
+                                            <h5>About it...</h5>
                                             <p>{oneMovie.description}</p>
                                         </div>
                                     </Col>

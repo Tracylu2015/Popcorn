@@ -19,17 +19,17 @@ const Categories = () => {
     }, [select, sort])
 
     return (
-        <div>
+        <div style={{ marginLeft: 50 }}>
             <div>
                 <h4>Choose a Movie By Category</h4>
                 <ButtonGroup aria-label="Basic example">
-                    <Button onClick={(e) => { setSelect("Action") }} variant="info">Action</Button>
-                    <Button onClick={(e) => { setSelect("Adventure") }} variant="info">Adventure</Button>
-                    <Button onClick={(e) => { setSelect("Animation") }} variant="info">Animation</Button>
-                    <Button onClick={(e) => { setSelect("Comedy") }} variant="info">Comedy</Button>
-                    <Button onClick={(e) => { setSelect("Drama") }} variant="info">Drama</Button>
-                    <Button onClick={(e) => { setSelect("Horror") }} variant="info">Horror</Button>
-                    <Button onClick={(e) => { setSelect("Romance") }} variant="info">Romance</Button>
+                    <Button onClick={(e) => { setSelect("Action") }} variant="info">Action</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Adventure") }} variant="info">Adventure</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Animation") }} variant="info">Animation</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Comedy") }} variant="info">Comedy</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Drama") }} variant="info">Drama</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Horror") }} variant="info">Horror</Button>&nbsp;&nbsp;&nbsp;
+                    <Button onClick={(e) => { setSelect("Romance") }} variant="info">Romance</Button>&nbsp;&nbsp;&nbsp;
                     <Button onClick={(e) => { setSelect("War") }} variant="info">War</Button>
                 </ButtonGroup>
             </div>
@@ -49,29 +49,27 @@ const Categories = () => {
                 </ul>
             </div> */}
             <div>
-                <Container>
-                    <Row>
-                        {movies.map((m, index) => {
-                            return (
-                                <Col key={m.id}>
-                                    <Card style={{ width: '12rem', height: '27rem' }}>
-                                        <Card>
-                                            <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
-                                        </Card>
-                                        <Card.Body>
-                                            <Card.Title>{m.primaryTitle}</Card.Title>
-                                            <Card.Text className="text-warning">
-                                                Movie Score: {m.score}
-                                            </Card.Text>
-                                        </Card.Body>
+                <Row>
+                    {movies.map((m, index) => {
+                        return (
+                            <Col key={m.id}>
+                                <Card style={{ width: '12rem', height: '27rem' }}>
+                                    <Card>
+                                        <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}><img src={m.imageUrl} className="rounded-xl" /></Link>
                                     </Card>
-                                </Col>
-                            )
-                        })}
-                        <Col>
-                        </Col>
-                    </Row>
-                </Container>
+                                    <Card.Body>
+                                        <Card.Title>{m.primaryTitle}</Card.Title>
+                                        <Card.Text className="text-warning">
+                                            Movie Score: {m.score}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                    <Col>
+                    </Col>
+                </Row>
             </div>
         </div>
     )

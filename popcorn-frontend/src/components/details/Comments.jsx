@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SortComment from '../browse/SortComment'
-import { Container, Card, Col, Row } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 
 const Comments = () => {
 
@@ -26,7 +26,7 @@ const Comments = () => {
             
             {comments.map((comment, i) => {
                 return(
-                    <Card>
+                    <Card key={i}>
                     <div>
                         <Card.Header as="h5">{comment.user.username}</Card.Header>
                         <p>{comment.created}</p>

@@ -27,6 +27,9 @@ public class Comment {
     @Transient
     private User user;
 
+    @Transient
+    private Movie movie;
+
     @CreatedDate
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private DateTime created;
@@ -117,5 +120,13 @@ public class Comment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

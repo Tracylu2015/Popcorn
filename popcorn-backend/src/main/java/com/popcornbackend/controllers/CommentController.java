@@ -54,10 +54,11 @@ public class CommentController {
         }
         else{
             Map<String, Object> resp = new HashMap<>();
-            resp.put("error", "Email already Exists");
+            resp.put("error", "Have to login");
             return new ResponseEntity<>(resp, HttpStatus.FORBIDDEN);
         }
     }
+
 
 
 

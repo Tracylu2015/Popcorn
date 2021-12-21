@@ -2,8 +2,10 @@ package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Comment;
 import com.popcornbackend.models.Movie;
+import com.popcornbackend.models.User;
 import com.popcornbackend.services.CommentService;
 import com.popcornbackend.services.MovieService;
+import com.popcornbackend.services.UserService;
 import com.popcornbackend.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,8 @@ public class CommentController {
     CommentService commentService;
     @Autowired
     MovieService movieService;
+    @Autowired
+    UserService userService;
 
     //get all comment by movie id
     @GetMapping("/movie/{id}")
@@ -34,7 +38,13 @@ public class CommentController {
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size);
-        return commentService.getCommentByMovieId(id, request);
+        List<Comment> comments = commentService.getCommentByMovieId(id, request);
+        for (Comment comment : comments) {
+            User user = userService.findById(comment.getUserId());
+            comment.setUser(user);
+        }
+        System.out.println(comments);
+        return comments;
     }
 
     //get all comment by user id

@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SortComment from '../browse/SortComment'
+import { Container, Card, Col, Row } from 'react-bootstrap'
 
 const Comments = () => {
 
@@ -10,7 +11,7 @@ const Comments = () => {
     const [sort, setSort] = useState("totalLikes")
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/movie/comment/movie/${id}?sort=${sort}`)
+        axios.get(`http://localhost:8080/api/comment/movie/${id}?sort=${sort}`)
             .then(res => setcomments(res.data))
             .catch((error) => console.log(error))
     }, [])
@@ -22,14 +23,18 @@ const Comments = () => {
             <div>
                 <SortComment sort={sort} setSort={setSort} />
             </div>
-
-            <div>
-                Hello!!
-            </div>
             
             {comments.map((comment, i) => {
                 return(
-                    comment.userId.userName
+                    <Card>
+                    <Card.Header as="h5">{comment.user.username}</Card.Header>
+                    <Card.Body>
+                        <Card.Title>{comment.totalLikes}</Card.Title>
+                        <Card.Text>
+                        {comment.post}
+                        </Card.Text>
+                    </Card.Body>
+                    </Card>
                 )
             })}
 

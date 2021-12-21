@@ -23,6 +23,9 @@ public class Comment {
 
     private int score;
 
+    @Transient
+    private User user;
+
     @CreatedDate
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private DateTime created;
@@ -105,5 +108,13 @@ public class Comment {
 
     public void setModified(DateTime modified) {
         this.modified = modified;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

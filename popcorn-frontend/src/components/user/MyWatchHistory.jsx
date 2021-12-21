@@ -6,17 +6,27 @@ import { Text } from "react-native";
 import Rating from "react-rating"
 import pop_empty from "../../images/pop_blank.png"
 import pop_fill from "../../images/pop_fill.png"
+import ReactPaginate from 'react-paginate';
 
 
 const MyWatchHistory = () => {
 
     const [myWatchHistory, setMyWatchHistory] = useState([])
+    const [page, setPage] = useState(0)
+    const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/watchStatus/watchList/all`)
-            .then(res => setMyWatchHistory(res.data))
+        axios.get(`http://localhost:8080/api/watchStatus/watchList/all?page=${page}`)
+            .then(res => {
+                setMyWatchHistory(res.data)
+                setMaxPage(res.data.maxPage)
+            })
             .catch((error) => console.log(error))
     }, [])
+
+    const handlePageClick = (event) => {
+        setPage(event.selected)
+    };
 
     return (
         <Container style={{marginTop: "20px" }}>
@@ -45,8 +55,8 @@ const MyWatchHistory = () => {
                                         <Rating
                                         style={{ marginTop: "10px"}}
                                         readonly="true" stop="10" step="2" initialRating={m.score}
-                                        emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px"}} />}
-                                        fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "30px", height: "30px"}} />}
+                                        fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px"}} />}
                                         />
                                     </Card.Body>
                                 </Card>
@@ -57,6 +67,25 @@ const MyWatchHistory = () => {
                     </Col>
                 </Row>
             </div>
+            <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageCount={maxPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName="pagination"
+                activeClassName="active"
+            />
         </Container>
     )
 }

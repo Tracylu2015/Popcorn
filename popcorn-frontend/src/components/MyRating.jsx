@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import WatchStatus from './WatchStatus'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Rating from "react-rating"
 import pop_empty from "../images/pop_blank.png"
@@ -8,10 +8,16 @@ import pop_fill from "../images/pop_fill.png"
 
 const MyRating = ({ oneMovie, onChange }) => {
 
-
-    // axios.get(`http://localhost:8080/api/movie/${id}`)
-    //     .then(res => setOneMovie(res.data.movie))
-    //     .catch((error) => console.log(error))
+    const clickHandler = (e) => {
+        let score= e
+        let movieId = oneMovie.id
+        axios.post(`http://localhost:8080/api/comment/score/new`, { score, movieId })
+            .then(res => {
+                onChange(res.data)
+                console.log(res)
+            })
+            .catch((error) => console.log(error))
+    }
 
     return (
         <div>
@@ -19,14 +25,14 @@ const MyRating = ({ oneMovie, onChange }) => {
             <p>Number of Votes: {oneMovie.numOfVotes}</p>
             <WatchStatus movie={oneMovie} onChange={onChange} />
             <p style={{ marginTop: "20px" }}>My Rate for the movie</p>
-            <Rating
+            <Rating onChange={e => clickHandler(e)} 
                 style={{ marginTop: "10px" }}
-                stop="10" step="2" 
-                emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px" }} />}
-                fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px" }} />}
+                stop="10" step="2"
+                emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
             />
             <br></br>
-            <Link to="/movie/comments/new">Add a comment</Link>
+            <Link to="/movies/comments/new">Add a comment</Link>
         </div>
     )
 }

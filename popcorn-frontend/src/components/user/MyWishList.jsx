@@ -6,41 +6,40 @@ import { Text } from "react-native";
 import Rating from "react-rating"
 import pop_empty from "../../images/pop_blank.png"
 import pop_fill from "../../images/pop_fill.png"
+import ReactPaginate from 'react-paginate';
 
 const MyWishList = () => {
 
     const [myFavMovie, setMyFavMovie] = useState([])
+    const [page, setPage] = useState(0)
+    const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/watchStatus/wishList/all`)
-            .then(res => setMyFavMovie(res.data))
+            .then(res => {
+                setMyFavMovie(res.data)
+                setMaxPage(res.data.maxPage)
+            })
             .catch((error) => console.log(error))
     }, [])
 
+
+    const handlePageClick = (event) => {
+        setPage(event.selected)
+    };
+
     return (
-        // <div>
-        //     <h3 style={{marginLeft:"40px", marginTop:"20px"}}>My Wish List</h3>
-        //     <ul style={{display:"flex"}}>
-        //         {myFavMovie.map(m =>
-        //             <li key={m.idString} >
-        //                 <img src={m.imageUrl} width={200} height={300} />
-        //                 <h5>{m.primaryTitle}</h5>
-        //                 <p>Movie Score: {m.score}</p>
-        //             </li>
-        //         )}
-        //     </ul>
-        // </div>
-        <Container style={{marginTop: "20px" }}>
+        <Container style={{ marginTop: "20px" }}>
             <h3>My Wish List</h3>
             <div style={{ marginTop: "15px" }}>
                 <Row>
                     {myFavMovie.map((m, index) => {
                         return (
                             <Col key={m.id}>
-                                <Card style={{ width: '12rem', height: '28rem'}}>
+                                <Card style={{ width: '12rem', height: '28rem' }}>
                                     <Card>
                                         <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>
-                                            <Image src={m.imageUrl} className="rounded-l" style={{ objectFit: "cover", height: '300px' }} />
+                                            <Image src={m.imageUrl} className="rounded-l" style={{ objectFit: "cover", height: '300px' }} alt="poster" />
                                         </Link>
                                     </Card>
                                     <Card.Body>
@@ -56,8 +55,8 @@ const MyWishList = () => {
                                         <Rating
                                             style={{ marginTop: "10px" }}
                                             readonly="true" stop="10" step="2" initialRating={m.score}
-                                            emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px" }} />}
-                                            fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px" }} />}
+                                            emptySymbol={<img src={pop_empty} alt = "pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                                            fullSymbol={<img src={pop_fill} alt ="pop"className="icon" style={{ width: "30px", height: "30px" }} />}
                                         />
                                     </Card.Body>
                                 </Card>
@@ -68,6 +67,25 @@ const MyWishList = () => {
                     </Col>
                 </Row>
             </div>
+            <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageCount={maxPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName="pagination"
+                activeClassName="active"
+            />
         </Container>
     )
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SortComment from '../browse/SortComment'
-import { Card } from 'react-bootstrap'
+import { Card, Container, Row, Col } from 'react-bootstrap'
+import AddLike from './AddLike'
 
 const Comments = () => {
 
@@ -23,33 +24,30 @@ const Comments = () => {
     }
 
     return (
-        // <>
-
-        //     <div>
-        //         <SortComment sort={sort} setSort={setSort} />
-        //     </div>
-
-            <div>
+        <Container>
+            <Row>
                 {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
-            </div>
-
-            {comments.map((comment) => {
-                return (
-                    <Card key={comment.id}>
-                        <Card.Header as="h5">
-                            {comment.user.username}
-                            <p>{comment.created}</p>
-                            <AddLike comment={comment} onCommentChange={onCommentChange} />
-                        </Card.Header>
-                        <Card.Body>
-                            <Card.Text>
-                                {comment.post}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                )
-            })}
-        </>
+            </Row>
+            <Row>
+                {comments.map((comment, i) => {
+                    return (
+                        <Col sm={8} md={"auto"}>
+                            <Card>
+                                <Card.Header as="h5">{comment.user.username}</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>{comment.created}</Card.Text>
+                                    <AddLike comment={comment} onCommentChange={onCommentChange} />
+                                    <Card.Title>{comment.totalLikes}</Card.Title>
+                                    <Card.Text>
+                                        {comment.post}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    )
+                })}
+            </Row>
+        </Container>
     )
 }
 

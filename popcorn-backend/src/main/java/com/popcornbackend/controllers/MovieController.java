@@ -46,9 +46,6 @@ public class MovieController {
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
-
-//        String userId = (String) session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
-//        System.out.println(userId);
         return getMapResponseEntity(page, movies);
     }
 
@@ -165,7 +162,7 @@ public class MovieController {
 //            System.out.println(mid);
 //            System.out.println(myRoc.get(mid));
         }
-        recommendMovies.stream().sorted((m1, m2) -> m1.getScore() - m2.getScore() > 0 ? 1 : m1.getScore() == m2.getScore() ? 0 : -1).limit(24);
+        recommendMovies.stream().sorted((m1, m2) -> m1.getNumOfVotes() - m2.getNumOfVotes() > 0 ? 1 : m1.getNumOfVotes() == m2.getNumOfVotes() ? 0 : -1).limit(24);
         return recommendMovies;
     }
 }

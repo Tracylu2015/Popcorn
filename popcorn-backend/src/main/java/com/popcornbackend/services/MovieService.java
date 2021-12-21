@@ -30,7 +30,7 @@ public class MovieService {
     }
 
     public List<Movie> getMovies(PageRequest request) {
-        return movieRepo.findAll(request).getContent();
+        return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
     }
 
 

@@ -6,7 +6,7 @@ const MainPage = () => {
     return (
         <div>
             <MostPopular />
-
+            <br/>
             <Recommendation />
         </div>
     )

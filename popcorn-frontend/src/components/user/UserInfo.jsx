@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import currentUser from '../../context/CurrentUser'
-import { Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container} from 'react-bootstrap'
 
 
 const UserInfo = () => {

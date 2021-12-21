@@ -60,7 +60,7 @@ const Navbar = () => {
                     {context.currentUser != null ?
                         <div>
                             <button> <Link to="/user/profile" className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>User Profile</Link></button>
-                            <button onClick={logout} className="btn btn-ghost btn-sm rounded-btn" className="bg-neutral text-neutral-content">Logout</button>
+                            <button onClick={logout} className="btn btn-ghost btn-sm rounded-btn bg-neutral text-neutral-content">Logout</button>
                         </div>
                         :
                         <div>

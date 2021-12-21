@@ -22,7 +22,7 @@ const MyWatchHistory = () => {
                 setMaxPage(res.data.maxPage)
             })
             .catch((error) => console.log(error))
-    }, [])
+    }, [page])
 
     const handlePageClick = (event) => {
         setPage(event.selected)

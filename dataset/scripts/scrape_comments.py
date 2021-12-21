@@ -1,18 +1,27 @@
 import json
+import os
 
 import requests
 from bs4 import BeautifulSoup
 
 
+import pymongo
+
+myclient = pymongo.MongoClient(os.getenv('MONGO_URL'))
+mydb = myclient["popcorn"]
+mycol = mydb["raw_comments_2"]
+
+
 def scrape_comments():
-    result = []
-    name = "json/movies-ids-20211217-1.json"
+    name = "json/movies-ids-20211217.json"
 
     count = 0
     with open(name) as fd:
-        my_ids = json.load(fd)
-        for mID in my_ids:
-            movie_id = mID
+        for midx, line in enumerate(fd):
+            if midx <= 25157:
+                continue
+            meta = json.loads(line)
+            movie_id = meta['_id']
 
             resp = requests.get('https://www.imdb.com/title/%s/reviews' % movie_id)
             soup = BeautifulSoup(resp.content, 'html.parser')
@@ -25,15 +34,12 @@ def scrape_comments():
                 "comments": comments
             }
 
-            result.append(data)
+            mycol.insert_one(data)
             count += 1
             if count % 1000 == 0:
                 print(count)
-            if count == 20001:
+            if count == 40001:
                 break
-
-    with open("comments.json", "w") as f:
-        json.dump(result, f)
 
 
 scrape_comments()

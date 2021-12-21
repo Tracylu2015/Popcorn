@@ -45,7 +45,7 @@ const Details = () => {
                                     </div> : ""}
                                 </Col>
                                 <Col>
-                                    <MyRating oneMovie={oneMovie} onChange={onStatusChanged} />
+                                    <MyRating oneMovie={oneMovie} onChange={onStatusChanged} readonly={"true"} />
                                 </Col>
                             </Row>
                         </Container>

@@ -5,6 +5,7 @@ import com.popcornbackend.models.Movie;
 import com.popcornbackend.models.User;
 import com.popcornbackend.services.CommentService;
 import com.popcornbackend.services.MovieService;
+import com.popcornbackend.services.UserLikeService;
 import com.popcornbackend.services.UserService;
 import com.popcornbackend.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CommentController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserLikeService userLikeService;
+
     //get all comment by movie id
     @GetMapping("/movie/{id}")
     public List<Comment> getAllByMovieId(
@@ -41,9 +45,10 @@ public class CommentController {
         List<Comment> comments = commentService.getCommentByMovieId(id, request);
         for (Comment comment : comments) {
             User user = userService.findById(comment.getUserId());
+            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), user.getId().toHexString()));
             comment.setUser(user);
         }
-
+//        System.out.println(comments);
         return comments;
     }
 
@@ -60,6 +65,7 @@ public class CommentController {
         List<Comment> comments = commentService.getCommentByUserId(userId, request);
         for (Comment comment : comments) {
             Movie movie = movieService.findMovieById(comment.getMovieId());
+            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), userId));
             comment.setMovie(movie);
         }
         return comments;
@@ -80,15 +86,14 @@ public class CommentController {
     @DeleteMapping("/delete/{id}")
     public Comment deleteComment(
             @PathVariable("id") String id,
-            HttpSession session){
+            HttpSession session) {
         String userId = UserUtil.getUserId(session);
         Comment comment = commentService.findCommentById(id);
-        if(!userId.equals(comment.getUserId())){
+        if (!userId.equals(comment.getUserId())) {
             return null;
         }
         return commentService.deleteCommentById(id);
     }
-
 
     //create new score and update movie score and num of votes
     @PostMapping("/score/new")
@@ -111,4 +116,9 @@ public class CommentController {
     }
 
 
+    private Comment fillUser(Comment save) {
+        User user = userService.findById(save.getUserId());
+        save.setUser(user);
+        return save;
+    }
 }

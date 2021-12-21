@@ -1,7 +1,6 @@
 package com.popcornbackend.services;
 
 import com.popcornbackend.models.Comment;
-import com.popcornbackend.models.Movie;
 import com.popcornbackend.repos.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +29,8 @@ public class CommentService {
     }
 
 
-    public void save(Comment comment) {
-        commentRepo.save(comment);
+    public Comment save(Comment comment) {
+        return commentRepo.save(comment);
     }
 
     public Comment findCommentById(String id) {
@@ -39,5 +38,7 @@ public class CommentService {
         return comment.orElse(null);
     }
 
-    public Comment deleteCommentById(String commentId){return commentRepo.deleteCommentById(commentId);}
+    public Comment deleteCommentById(String commentId) {
+        return commentRepo.deleteCommentById(commentId);
+    }
 }

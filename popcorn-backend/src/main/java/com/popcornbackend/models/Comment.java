@@ -25,6 +25,9 @@ public class Comment {
     private int score;
 
     @Transient
+    private boolean likeStatus;
+
+    @Transient
     private User user;
 
     @Transient
@@ -128,5 +131,13 @@ public class Comment {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public boolean isLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(boolean likeStatus) {
+        this.likeStatus = likeStatus;
     }
 }

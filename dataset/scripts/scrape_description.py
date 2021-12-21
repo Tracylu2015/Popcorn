@@ -15,6 +15,8 @@ def scrape_description():
 
     with open(name) as fd:
         for midx, line in enumerate(fd):
+            if midx < 19000:
+                continue
             meta = json.loads(line)
             mID = meta['_id']
             resp = requests.get('https://www.imdb.com/title/%s/?ref_=vp_vi_tt' % mID)

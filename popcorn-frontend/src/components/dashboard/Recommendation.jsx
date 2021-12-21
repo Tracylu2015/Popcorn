@@ -27,27 +27,7 @@ const Recommendation = () => {
     }
 
     return (
-        // <Container>
-        //     <h3>Recommendations</h3>
-        //     <ul>
-        //         {recMovies.map(m => {
-        //             return (
-        //                 <li key={m.idString}>
-        //                     <img src={m.imageUrl} alt="movie poster" />
-        //                     <p>Title: {m.primaryTitle}</p>
-        //                     <p>Score: {m.score}</p>
-        //                     <WatchStatus movie={m}/>
-        //                     <Rating
-        //                         style={{ marginTop: "10px" }}
-        //                         readonly="true" stop="10" step="2" initialRating={m.score}
-        //                         emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px" }} />}
-        //                         fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px" }} />}
-        //                     />
-        //                 </li>)
-        //         })}
-        //     </ul>
-        // </Container>
-        <Container >
+        <Container>
             <h3>Recommendations</h3>
             <Row>
                 {recMovies.map((m, index) => {
@@ -73,8 +53,8 @@ const Recommendation = () => {
                                     <Rating
                                         style={{ marginTop: "10px" }}
                                         readonly="true" stop="10" step="2" initialRating={m.score}
-                                        emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px" }} />}
-                                        fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px" }} />}
+                                        emptySymbol={<img src={pop_empty} alt ="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                                        fullSymbol={<img src={pop_fill} alt ="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
                                     />
                                 </Card.Body>
                             </Card>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import currentUser from '../../context/CurrentUser'
-import { Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container} from 'react-bootstrap'
 
 const UserEdit = ({onSelect}) => {
 
@@ -51,7 +51,7 @@ const UserEdit = ({onSelect}) => {
                         <input onChange={e => setEmail(e.target.value)} type="text" name="email" value ={email} placeholder="Email" className="input input-primary input-bordered  form-control mt-6" />
 
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary btn-active btn-sm form-control mt-6" role="button" aria-pressed="true">Update</button>
+                            <button className="btn btn-primary btn-active btn-sm form-control mt-6" aria-pressed="true">Update</button>
                         </div>
                     </form>
                 </div>

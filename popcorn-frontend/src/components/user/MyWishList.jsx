@@ -21,7 +21,7 @@ const MyWishList = () => {
                 setMaxPage(res.data.maxPage)
             })
             .catch((error) => console.log(error))
-    }, [])
+    }, [page])
 
 
     const handlePageClick = (event) => {

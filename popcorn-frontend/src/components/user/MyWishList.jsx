@@ -35,7 +35,7 @@ const MyWishList = () => {
                 <Row>
                     {myFavMovie.map((m, index) => {
                         return (
-                            <Col key={m.id}>
+                            <Col key={m.id} sm={2} md="auto">
                                 <Card style={{ width: '12rem', height: '28rem' }}>
                                     <Card>
                                         <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>

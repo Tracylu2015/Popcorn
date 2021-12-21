@@ -31,7 +31,7 @@ const Comments = () => {
             <Row>
                 {comments.map((comment, i) => {
                     return (
-                        <Col sm={8} md={"auto"}>
+                        <Col sm={8} md={"auto"} style={{ marginTop: "20px" }}>
                             <Card>
                                 <Card.Header as="h5">{comment.user.username}</Card.Header>
                                 <Card.Body>

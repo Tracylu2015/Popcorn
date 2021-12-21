@@ -47,12 +47,12 @@ const Recommendation = () => {
         //         })}
         //     </ul>
         // </Container>
-        <Container>
+        <Container >
             <h3>Recommendations</h3>
             <Row>
                 {recMovies.map((m, index) => {
                     return (
-                        <Col>
+                        <Col sm={2} md="auto">
                             <Card style={{ width: '12rem', height: '32rem' }}>
                                 <Card style={{ width: '12rem' }}>
                                     <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>

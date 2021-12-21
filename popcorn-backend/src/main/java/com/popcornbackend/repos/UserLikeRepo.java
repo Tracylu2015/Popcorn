@@ -14,7 +14,6 @@ public interface UserLikeRepo extends MongoRepository<UserLike, String> {
 
     Optional<UserLike> findUserLikeByCommentIdAndAndUserId(String userId, String commentId);
 
-    void deleteUserLikeByCommentIdAndUserId(String userId, String commentId);
-
-
+    void deleteUserLikeByUserIdAndCommentId(String userId, String commentId);
+    
 }

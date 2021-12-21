@@ -41,17 +41,14 @@ public class UserLikeController {
             UserLike userLike = new UserLike();
             userLike.setUserId(userId);
             userLike.setCommentId(commentId);
+
             userLikeService.createOne(userLike);
         } else {
-            if (comment.getTotalLikes() == 0) {
-                return null;
-            }
             comment.setTotalLikes(comment.getTotalLikes() - 1);
             comment.setLikeStatus(false);
             userLikeService.deleteOne(userId, commentId);
         }
-
-
+        commentService.save(comment);
         return comment;
     }
 }

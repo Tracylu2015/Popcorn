@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SortComment from '../browse/SortComment'
-import { Card, Container, Row, Col } from 'react-bootstrap'
-import AddLike from './AddLike'
+import { Card } from 'react-bootstrap'
 
 const Comments = () => {
 

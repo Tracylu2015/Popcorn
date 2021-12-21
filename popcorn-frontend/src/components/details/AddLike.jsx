@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { Button, Row, Col} from 'react-bootstrap'
 
 
 const AddLike = ({ comment, onCommentChange }) => {
@@ -16,12 +17,14 @@ const AddLike = ({ comment, onCommentChange }) => {
     }
 
     return (
-        <div>
-            <p>{comment.totalLikes}</p>
-                {comment.likeStatus?<button onClick={addLike} value="false">unlike</button> 
-                    : <button onClick={addLike} value="true">like</button>
+        <Row >
+            <Col sm={3}style={{ marginTop: "5px" }}>{comment.totalLikes}</Col>
+            <Col sm={2}>
+                {comment.likeStatus?<Button size="sm" onClick={addLike} value="false">unlike</Button> 
+                    : <Button size="sm" onClick={addLike} value="true">like</Button>
                 }
-        </div>
+            </Col>
+        </Row>
     )
 }
 

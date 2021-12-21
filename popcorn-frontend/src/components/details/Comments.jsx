@@ -33,11 +33,18 @@ const Comments = () => {
                     return (
                         <Col sm={8} md={"auto"} style={{ marginTop: "20px" }}>
                             <Card>
-                                <Card.Header as="h5">{comment.user.username}</Card.Header>
+                                <Card.Header as="h5">
+                                    <Row>
+                                        <Col>
+                                        {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {comment.created}
+                                        </Col>
+                                        <Col sm={1} md={"auto"}>
+                                            <AddLike comment={comment} onCommentChange={onCommentChange} />
+                                        </Col>
+                                    </Row>
+                                </Card.Header>
                                 <Card.Body>
-                                    <Card.Text>{comment.created}</Card.Text>
-                                    <AddLike comment={comment} onCommentChange={onCommentChange} />
-                                    <Card.Title>{comment.totalLikes}</Card.Title>
                                     <Card.Text>
                                         {comment.post}
                                     </Card.Text>

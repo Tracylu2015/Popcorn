@@ -13,6 +13,7 @@ import java.util.Optional;
 @Service
 public class MovieService {
 
+    public static final int CURRENT_YEAR = 2021;
     @Autowired
     MovieRepo movieRepo;
 
@@ -33,9 +34,8 @@ public class MovieService {
         return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
     }
 
-
     public List<Movie> getMoviesByGenres(List<String> genres, PageRequest request) {
-        return movieRepo.findAllByGenres(genres, request).getContent();
+        return movieRepo.findAllByGenresAndStartYearLessThanEqual(genres, CURRENT_YEAR, request).getContent();
     }
 
     public List<Movie> getMoviesByGenresAndTitle(List<String> genres, String query, PageRequest request) {
@@ -54,7 +54,7 @@ public class MovieService {
         return movieRepo.findAllByStartYear(year, request).getContent();
     }
 
-    public List<Movie> getMoviesByVotesDesc(PageRequest request){
+    public List<Movie> getMoviesByVotesDesc(PageRequest request) {
         return movieRepo.findAllByOrderByNumOfVotesDesc(request).getContent();
     }
 
@@ -62,5 +62,13 @@ public class MovieService {
         List<Movie> result = new ArrayList<>();
         movieRepo.findAllById(mids).forEach(result::add);
         return result;
+    }
+
+    public long count() {
+        return movieRepo.count();
+    }
+
+    public long countByGenresAndTitle(List<String> genres, String query) {
+        return movieRepo.countAllByGenresAndPrimaryTitleContaining(genres, query);
     }
 }

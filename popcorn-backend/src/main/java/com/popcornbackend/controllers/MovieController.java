@@ -24,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/movie")
 public class MovieController {
+    public static final int MAX_PAGE_COUNT = 30;
     @Autowired
     MovieService movieService;
     @Autowired
@@ -46,90 +47,62 @@ public class MovieController {
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
-        return getMapResponseEntity(page, movies);
+        long maxPage = movieService.count() / size;
+        return getMapResponseEntity(page, maxPage, movies);
     }
 
     //get movies by genres
     @GetMapping("/categories/{genres}")
-    public List<Movie> getByGenres(
+    public ResponseEntity<Map<String, Object>> getByGenres(
             @PathVariable("genres") String genres,
-            @RequestParam(value = "sort", defaultValue = "year") String sort,
-            @RequestParam(value = "size", defaultValue = "30") int size,
+            @RequestParam(value = "sort", defaultValue = "startYear") String sort,
+            @RequestParam(value = "size", defaultValue = "18") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
-        return movieService.getMoviesByGenres(Collections.of(genres), request);
+        List<Movie> movies = movieService.getMoviesByGenres(Collections.of(genres), request);
+        long maxPage = movieService.count() / size;
+        return getMapResponseEntity(page, maxPage, movies);
     }
 
-    //get movies by language
-    @GetMapping("/language/{language}")
-    public ResponseEntity<Map<String, Object>> getAllByLanguage(
-            @PathVariable("language") String language,
-            @RequestParam(value = "size", defaultValue = "30") int size,
-            @RequestParam(value = "page", defaultValue = "0") int page
-    ) {
-        PageRequest request = PageRequest.of(page, size);
-        List<Movie> movies = movieService.getMoviesByLanguage(language, request);
-        return getMapResponseEntity(page, movies);
-    }
-
-//    //get 30 top score movies
-//    @GetMapping("/score")
-//    public ResponseEntity<Map<String, Object>> getAllAndSortByScore(
+//    //get movies by language
+//    @GetMapping("/language/{language}")
+//    public ResponseEntity<Map<String, Object>> getAllByLanguage(
+//            @PathVariable("language") String language,
 //            @RequestParam(value = "size", defaultValue = "30") int size,
 //            @RequestParam(value = "page", defaultValue = "0") int page
 //    ) {
 //        PageRequest request = PageRequest.of(page, size);
-//        List<Movie> movies = movieService.getMoviesByScoreDesc(request);
-//        return getMapResponseEntity(page, movies);
+//        List<Movie> movies = movieService.getMoviesByLanguage(language, request);
+//        long maxPage = movieService.count() / size;
+//        return getMapResponseEntity(page, maxPage, movies);
 //    }
-//
-//    //get 30 top Vote movies
-//    @GetMapping("/vote")
-//    public ResponseEntity<Map<String, Object>> getAllAndSortByVote(
-//            @RequestParam(value = "size", defaultValue = "30") int size,
-//            @RequestParam(value = "page", defaultValue = "0") int page
-//    ) {
-//        PageRequest request = PageRequest.of(page, size);
-//        List<Movie> movies = movieService.getMoviesByVotesDesc(request);
-//        return getMapResponseEntity(page, movies);
-//    }
-
-//    //get 30 movies by release year
-//    @GetMapping("/year/{year}")
-//    public ResponseEntity<Map<String, Object>> getAllByStartYear(
-//            @PathVariable("year") int year,
-//            @RequestParam(value = "size", defaultValue = "30") int size,
-//            @RequestParam(value = "page", defaultValue = "0") int page
-//    ) {
-//        PageRequest request = PageRequest.of(page, size);
-//        List<Movie> movies = movieService.getMoviesByStartYear(year, request);
-//        return getMapResponseEntity(page, movies);
-//    }
-
-    //public function of each get movie route
-    private ResponseEntity<Map<String, Object>> getMapResponseEntity(
-            @RequestParam(value = "page", defaultValue = "0") int page, List<Movie> movies) {
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("movies", movies);
-        resp.put("currentPage", page);
-        resp.put("nextPage", page + 1);
-        resp.put("totalSize", movies.size());
-        return new ResponseEntity<>(resp, HttpStatus.OK);
-    }
 
     //Route for search bar
     //Get All movie by search query
     @GetMapping("/search/{query}/{genres}")
-    public List<Movie> getByGenres(
+    public ResponseEntity<Map<String, Object>> getByGenres(
             @PathVariable("query") String query,
             @PathVariable("genres") String genres,
             @RequestParam(value = "sort", defaultValue = "year") String sort,
-            @RequestParam(value = "size", defaultValue = "30") int size,
+            @RequestParam(value = "size", defaultValue = "18") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
-        return movieService.getMoviesByGenresAndTitle(Collections.of(genres), query, request);
+        List<Movie> movies = movieService.getMoviesByGenresAndTitle(Collections.of(genres), query, request);
+        long maxPage = movieService.countByGenresAndTitle(Collections.of(genres), query) / size;
+        return getMapResponseEntity(page, maxPage, movies);
+    }
+
+    //public function of each get movie route
+    private ResponseEntity<Map<String, Object>> getMapResponseEntity(int page, long maxPage, List<Movie> movies) {
+        Map<String, Object> resp = new HashMap<>();
+        resp.put("movies", movies);
+        resp.put("currentPage", page);
+        resp.put("nextPage", page + 1);
+        resp.put("maxPage", Math.min(maxPage, MAX_PAGE_COUNT));
+        resp.put("totalSize", movies.size());
+        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
     @GetMapping("/recommend")

@@ -15,4 +15,6 @@ public interface CommentRepo extends MongoRepository<Comment, String> {
 
     Page<Comment> findAllByUserId(String userId, Pageable pageable);
 
+    Comment deleteCommentById(String id);
+
 }

@@ -61,6 +61,19 @@ public class CommentController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public Comment deleteComment(
+            @PathVariable("id") String id,
+            HttpSession session){
+        String userId = UserUtil.getUserId(session);
+        Comment comment = commentService.findCommentById(id);
+        if(!userId.equals(comment.getUserId())){
+            return null;
+        }
+        return commentService.deleteCommentById(id);
+    }
+
+
     //create new score and update movie score and num of votes
     @PostMapping("/score/new")
     public Movie createScore(@RequestBody HashMap<String, String> body, HttpSession session) {

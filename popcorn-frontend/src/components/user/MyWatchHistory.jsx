@@ -19,7 +19,7 @@ const MyWatchHistory = () => {
     }, [])
 
     return (
-        <Container style={{ marginLeft: "40px", marginTop: "20px" }}>
+        <Container style={{marginTop: "20px" }}>
             <h3>My Watched History</h3>
             <div style={{ marginTop: "15px" }}>
                 <Row>

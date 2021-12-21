@@ -31,10 +31,10 @@ const UserAccountPage = () => {
                 </Row>
             </Container> */}
             <div>
-                <div style={{ marginLeft: "10px"}}>
+                <Container>
                     <UserButtons onSelect={setOptions} />
-                </div>
-                <div>
+                </Container>
+                <Container>
                     {
                         {
                             0: <UserInfo />,
@@ -44,7 +44,7 @@ const UserAccountPage = () => {
                             4: <MyPost onSelect={setOptions} />
                         }[options]
                     }
-                </div>
+                </Container>
             </div>
         </>
     )

@@ -30,7 +30,7 @@ const MyWishList = () => {
         //         )}
         //     </ul>
         // </div>
-        <Container style={{ marginLeft: "40px", marginTop: "20px" }}>
+        <Container style={{marginTop: "20px" }}>
             <h3>My Wish List</h3>
             <div style={{ marginTop: "15px" }}>
                 <Row>

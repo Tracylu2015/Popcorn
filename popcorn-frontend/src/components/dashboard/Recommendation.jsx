@@ -20,7 +20,7 @@ const Recommendation = () => {
             <ul>
                 {recMovies.map(m => {
                     return (
-                        <li key={m.id}>
+                        <li key={m.idString}>
                             <img src={m.imageUrl} alt="movie poster" />
                             <p>Title: {m.primaryTitle}</p>
                             <p>Score: {m.score}</p>

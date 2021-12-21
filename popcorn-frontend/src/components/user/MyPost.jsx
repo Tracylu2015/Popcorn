@@ -22,7 +22,7 @@ const MyPost = () => {
                 return(
                     <Card key={i}>
                     <div>
-                        <Card.Header as="h5">{comment.movie.primaryTitle}</Card.Header>
+                        <Card.Header as="h5">Movie: {comment.movie.primaryTitle}</Card.Header>
                         <p>{comment.created}</p>
                     </div>
                     <Card.Body>

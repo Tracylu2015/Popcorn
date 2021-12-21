@@ -18,7 +18,7 @@ const MyWatchHistory = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/watchStatus/watchList/all?page=${page}`)
             .then(res => {
-                setMyWatchHistory(res.data)
+                setMyWatchHistory(res.data.movies)
                 setMaxPage(res.data.maxPage)
             })
             .catch((error) => console.log(error))

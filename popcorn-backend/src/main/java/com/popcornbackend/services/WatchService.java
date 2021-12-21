@@ -5,6 +5,7 @@ import com.popcornbackend.models.Movie;
 import com.popcornbackend.models.UserWatchStatus;
 import com.popcornbackend.repos.UserWatchStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +42,11 @@ public class WatchService {
         return movie;
     }
 
-    public List<UserWatchStatus> findList(String userId, String status) {
-        return userWatchStatusRepo.findAllByUserIdAndStatus(userId, status);
+    public List<UserWatchStatus> findList(String userId, String status, PageRequest request) {
+        return userWatchStatusRepo.findAllByUserIdAndStatus(userId, status, request);
+    }
+
+    public long countList(String userId, String status) {
+        return userWatchStatusRepo.countAllByUserIdAndStatus(userId, status);
     }
 }

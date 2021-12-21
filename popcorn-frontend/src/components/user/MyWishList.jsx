@@ -15,9 +15,9 @@ const MyWishList = () => {
     const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/watchStatus/wishList/all`)
+        axios.get(`http://localhost:8080/api/watchStatus/wishList/all?page=${page}`)
             .then(res => {
-                setMyFavMovie(res.data)
+                setMyFavMovie(res.data.movies)
                 setMaxPage(res.data.maxPage)
             })
             .catch((error) => console.log(error))

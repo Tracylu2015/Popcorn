@@ -7,17 +7,16 @@ import com.popcornbackend.services.MovieService;
 import com.popcornbackend.services.RecommendationService;
 import com.popcornbackend.services.WatchService;
 import com.popcornbackend.utils.Collections;
+import com.popcornbackend.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +24,8 @@ import java.util.Map;
 @RequestMapping("/api/movie")
 public class MovieController {
     public static final int MAX_PAGE_COUNT = 30;
+    public static final PageRequest DEFAULT_PAGE_REQUEST = PageRequest.of(0, 20);
+
     @Autowired
     MovieService movieService;
     @Autowired
@@ -48,7 +49,7 @@ public class MovieController {
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = movieService.getMovies(request);
         long maxPage = movieService.count() / size;
-        return getMapResponseEntity(page, maxPage, movies);
+        return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 
     //get movies by genres
@@ -62,7 +63,7 @@ public class MovieController {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
         List<Movie> movies = movieService.getMoviesByGenres(Collections.of(genres), request);
         long maxPage = movieService.count() / size;
-        return getMapResponseEntity(page, maxPage, movies);
+        return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 
     //Route for search bar
@@ -78,18 +79,7 @@ public class MovieController {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
         List<Movie> movies = movieService.getMoviesByGenresAndTitle(Collections.of(genres), query, request);
         long maxPage = movieService.countByGenresAndTitle(Collections.of(genres), query) / size;
-        return getMapResponseEntity(page, maxPage, movies);
-    }
-
-    //public function of each get movie route
-    private ResponseEntity<Map<String, Object>> getMapResponseEntity(int page, long maxPage, List<Movie> movies) {
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("movies", movies);
-        resp.put("currentPage", page);
-        resp.put("nextPage", page + 1);
-        resp.put("maxPage", Math.min(maxPage, MAX_PAGE_COUNT));
-        resp.put("totalSize", movies.size());
-        return new ResponseEntity<>(resp, HttpStatus.OK);
+        return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 
     @GetMapping("/recommend")
@@ -97,9 +87,9 @@ public class MovieController {
         //get userId
         String userId = (String) session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
         //find user watchlist according to userID
-        List<UserWatchStatus> watchlist = watchService.findList(userId, UserWatchStatus.STATUS_WATCHED);
+        List<UserWatchStatus> watchlist = watchService.findList(userId, UserWatchStatus.STATUS_WATCHED, DEFAULT_PAGE_REQUEST);
         if (Collections.isEmpty(watchlist)) {
-            List<UserWatchStatus> wishList = watchService.findList(userId, UserWatchStatus.STATUS_WISH);
+            List<UserWatchStatus> wishList = watchService.findList(userId, UserWatchStatus.STATUS_WISH, DEFAULT_PAGE_REQUEST);
             if (Collections.isEmpty(wishList)) {
                 return movieService.getMoviesByScoreDesc(PageRequest.of(0, 12));
             }

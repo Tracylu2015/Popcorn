@@ -4,14 +4,18 @@ import com.popcornbackend.models.Movie;
 import com.popcornbackend.models.UserWatchStatus;
 import com.popcornbackend.services.MovieService;
 import com.popcornbackend.services.WatchService;
+import com.popcornbackend.utils.ResponseUtil;
 import com.popcornbackend.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,24 +44,45 @@ public class WatchStatusController {
         watchService.createWatchedList(userId, movieId);
     }
     @GetMapping("/wishList/all")
-    public List<Movie> getAllwishList(HttpSession session){
+    public ResponseEntity<Map<String, Object>> getAllwishList(
+            @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            HttpSession session
+    ){
         String userId = UserUtil.getUserId(session);
-        return getMoviesByStatus(userId, UserWatchStatus.STATUS_WISH);
+        PageRequest request = PageRequest.of(page, size);
+        List<Movie> movies = getMoviesByStatus(userId, UserWatchStatus.STATUS_WISH, request);
+        long maxPage = countMovieByStatus(userId, UserWatchStatus.STATUS_WATCHED) / size;
+        return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
     @GetMapping("/watchList/all")
-    public List<Movie> getAllwatchList(HttpSession session){
+    public ResponseEntity<Map<String, Object>> getAllwatchList(
+            @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            HttpSession session
+    ){
         String userId = UserUtil.getUserId(session);
-        return getMoviesByStatus(userId, UserWatchStatus.STATUS_WATCHED);
+        PageRequest request = PageRequest.of(page, size);
+        List<Movie> movies = getMoviesByStatus(userId, UserWatchStatus.STATUS_WATCHED, request);
+        long maxPage = countMovieByStatus(userId, UserWatchStatus.STATUS_WATCHED) / size;
+        return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 
     //extract duplicates
-    public List<Movie> getMoviesByStatus(String userId, String status) {
+    public List<Movie> getMoviesByStatus(String userId, String status, PageRequest request) {
         if (userId == null) {
             return new ArrayList<>();
         }
-        List<UserWatchStatus> statuses = watchService.findList(userId, status);
+        List<UserWatchStatus> statuses = watchService.findList(userId, status, request);
         List<String> mids = statuses.stream().map(UserWatchStatus::getMovieId).collect(Collectors.toList());
         List<Movie> movies = movieService.findMovieByIds(mids);
         return movies;
+    }
+
+    public long countMovieByStatus(String userId, String status) {
+        if (userId == null) {
+            return 0;
+        }
+        return watchService.countList(userId, status);
     }
 }

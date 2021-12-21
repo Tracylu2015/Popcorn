@@ -2,6 +2,7 @@ package com.popcornbackend.repos;
 
 
 import com.popcornbackend.models.UserWatchStatus;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,7 @@ public interface UserWatchStatusRepo extends MongoRepository<UserWatchStatus, St
 
     UserWatchStatus findAllByUserIdAndMovieId(String userId, String id);
 
-    List<UserWatchStatus> findAllByUserIdAndStatus(String userId, String status);
+    List<UserWatchStatus> findAllByUserIdAndStatus(String userId, String status, PageRequest request);
+
+    long countAllByUserIdAndStatus(String userId, String status);
 }

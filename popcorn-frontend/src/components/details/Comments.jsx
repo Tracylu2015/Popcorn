@@ -27,7 +27,10 @@ const Comments = () => {
             {comments.map((comment, i) => {
                 return(
                     <Card>
-                    <Card.Header as="h5">{comment.user.username}</Card.Header>
+                    <div>
+                        <Card.Header as="h5">{comment.user.username}</Card.Header>
+                        <p>{comment.created}</p>
+                    </div>
                     <Card.Body>
                         <Card.Title>{comment.totalLikes}</Card.Title>
                         <Card.Text>

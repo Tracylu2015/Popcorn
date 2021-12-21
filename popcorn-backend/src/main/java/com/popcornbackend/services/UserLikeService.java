@@ -22,6 +22,6 @@ public class UserLikeService {
     }
 
     public void deleteOne(String userId, String commentId) {
-        userLikeRepo.deleteUserLikeByCommentIdAndUserId(userId, commentId);
+        userLikeRepo.deleteUserLikeByUserIdAndCommentId(userId, commentId);
     }
 }

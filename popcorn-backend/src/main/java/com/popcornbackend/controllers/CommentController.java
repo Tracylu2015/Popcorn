@@ -43,20 +43,26 @@ public class CommentController {
             User user = userService.findById(comment.getUserId());
             comment.setUser(user);
         }
-        System.out.println(comments);
+
         return comments;
     }
 
     //get all comment by user id
-    @GetMapping("/user/{id}")
+    @GetMapping("/user")
     public List<Comment> getAllByUserId(
-            @PathVariable("id") String id,
+            HttpSession session,
             @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
             @RequestParam(value = "size", defaultValue = "20") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
+        String userId = UserUtil.getUserId(session);
         PageRequest request = PageRequest.of(page, size);
-        return commentService.getCommentByUserId(id, request);
+        List<Comment> comments = commentService.getCommentByUserId(userId, request);
+        for (Comment comment : comments) {
+            Movie movie = movieService.findMovieById(comment.getMovieId());
+            comment.setMovie(movie);
+        }
+        return comments;
     }
 
     @PostMapping("/new")

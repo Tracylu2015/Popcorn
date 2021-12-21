@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,8 @@ public class WatchStatusController {
     MovieService movieService;
 
     @PostMapping("/wishList")
-    public void createWishList(@RequestBody HashMap<String, String> body) {
+    public void createWishList(
+            @RequestBody HashMap<String, String> body) {
         String userId = body.get(USER_ID);
         String movieId = body.get(MOVIE_ID);
         watchService.createWishList(userId, movieId);
@@ -50,7 +52,10 @@ public class WatchStatusController {
 
     //extract duplicates
     public List<Movie> getMoviesByStatus(String userId, String status) {
-        List <UserWatchStatus> statuses =  watchService.findList(userId, status);
+        if (userId == null) {
+            return new ArrayList<>();
+        }
+        List<UserWatchStatus> statuses = watchService.findList(userId, status);
         List<String> mids = statuses.stream().map(UserWatchStatus::getMovieId).collect(Collectors.toList());
         List<Movie> movies = movieService.findMovieByIds(mids);
         return movies;

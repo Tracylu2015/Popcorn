@@ -65,19 +65,6 @@ public class MovieController {
         return getMapResponseEntity(page, maxPage, movies);
     }
 
-//    //get movies by language
-//    @GetMapping("/language/{language}")
-//    public ResponseEntity<Map<String, Object>> getAllByLanguage(
-//            @PathVariable("language") String language,
-//            @RequestParam(value = "size", defaultValue = "30") int size,
-//            @RequestParam(value = "page", defaultValue = "0") int page
-//    ) {
-//        PageRequest request = PageRequest.of(page, size);
-//        List<Movie> movies = movieService.getMoviesByLanguage(language, request);
-//        long maxPage = movieService.count() / size;
-//        return getMapResponseEntity(page, maxPage, movies);
-//    }
-
     //Route for search bar
     //Get All movie by search query
     @GetMapping("/search/{query}/{genres}")

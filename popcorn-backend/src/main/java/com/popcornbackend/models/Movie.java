@@ -8,6 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 
 @Document(collection = "movies")
+//@CompoundIndexes({
+//        @CompoundIndex(
+//                name = "primaryTitle_genres",
+//                def = "{'primaryTitle': 'text', 'genres': 1, 'score': -1, 'numOfVotes', -1 }",
+//                background = true
+//        )
+//})
 public class Movie {
     @Id
     private String id;

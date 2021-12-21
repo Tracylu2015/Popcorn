@@ -41,10 +41,6 @@ public class WatchService {
         return movie;
     }
 
-    public List<UserWatchStatus> findWishList(String userId) {
-        return findList(userId, UserWatchStatus.STATUS_WISH);
-    }
-
     public List<UserWatchStatus> findList(String userId, String status) {
         return userWatchStatusRepo.findAllByUserIdAndStatus(userId, status);
     }

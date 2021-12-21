@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import Rating from '../Rating'
+import MyRating from '../MyRating'
 import { Container, Card, Col, Row } from 'react-bootstrap'
 
 const Details = () => {
@@ -15,8 +15,7 @@ const Details = () => {
             .catch((error) => console.log(error))
     }, [])
 
-    const onStatusChanged = (newMovie)=>{
-        console.log(newMovie)
+    const onStatusChanged = (newMovie) => {
         setOneMovie(newMovie)
     }
 
@@ -30,22 +29,23 @@ const Details = () => {
                             <Container>
                                 <Row>
                                     <Col>
-                                        <img src={oneMovie.imageUrl} style={{ width: 320 , height:400}} />
+                                        <img src={oneMovie.imageUrl} style={{ width: 320, height: 400 }} />
                                     </Col>
-                                    <Col>
+                                    <Col style={{lineHeight:"30px"}}>
                                         <div><b>Directors:</b> {oneMovie.hasOwnProperty("directors") ? oneMovie.directors.map(d => (<span key={d}>{d} </span>)) : "not available"}</div>
                                         <div><b>Genres: </b>{oneMovie.hasOwnProperty("genres") ? oneMovie.genres.map(g => (<span key={g}>{g} </span>)) : "not available"}</div>
                                         <div><b>Regions:</b> {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (<span key={r}>{r} </span>)) : "not available"}</div>
                                         {oneMovie.language !== "" ? <p> <b>Language: </b>{oneMovie.language}</p> : ""}
                                         <div><b>Duration: </b> {oneMovie.runtimeMinutes} mins</div>
-
-                                        <div>
-                                            <h5>About it...</h5>
+                                        {oneMovie.videoUrl !== null ? <p><b> Trial: </b><a href={oneMovie.videoUrl}>{oneMovie.videoUrl}</a></p> : ""}
+                                        <br></br>
+                                        {oneMovie.description !== null ? <div>
+                                            <h6>About it...</h6>
                                             <p>{oneMovie.description}</p>
-                                        </div>
+                                        </div> : ""}
                                     </Col>
                                     <Col>
-                                        <Rating oneMovie={oneMovie} onChange={onStatusChanged}/>
+                                        <MyRating oneMovie={oneMovie} onChange={onStatusChanged} />
                                     </Col>
                                 </Row>
                             </Container>

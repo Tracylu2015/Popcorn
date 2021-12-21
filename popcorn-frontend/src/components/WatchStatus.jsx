@@ -21,7 +21,6 @@ const WatchStatus = ({ movie, onChange }) => {
             .then(res => {
                 movie.watchStatus = "wish"
                 onChange(movie)
-                console.log(res.data)
             })
             .catch((err) => console.log(err))
     }
@@ -37,12 +36,10 @@ const WatchStatus = ({ movie, onChange }) => {
             .then(res => {
                 movie.watchStatus = "watched"
                 onChange(movie)
-                console.log(res.data)
             })
             .catch((err) => console.log(err))
     }
 
-    console.log(movie)
     return (
         <div style={{ display: "flex" }}>
             <button onClick={addList} className="btn btn-primary btn-sm">Wish</button>&nbsp;&nbsp;

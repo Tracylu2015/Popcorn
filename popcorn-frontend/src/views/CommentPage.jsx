@@ -1,5 +1,5 @@
 import React from 'react'
-import Rating from '../components/Rating'
+import Rating from '../components/MyRating'
 import Details from '../components/Details'
 import WatchStatus from '../components/WatchStatus'
 import { Link } from 'react-router-dom'

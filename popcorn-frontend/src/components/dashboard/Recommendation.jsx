@@ -16,7 +16,7 @@ const Recommendation = () => {
     }, [])
     return (
         <Container>
-            <h3>Recommendations</h3>
+            <h3 style={{marginTop:"20px"}}>Recommendations</h3>
             <ul>
                 {recMovies.map(m => {
                     return (

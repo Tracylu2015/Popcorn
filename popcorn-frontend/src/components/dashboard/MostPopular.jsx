@@ -27,10 +27,10 @@ const MostPopular = () => {
         setMovies(newMovies)
     }
 
-
+    //Carousel function show responsively
     const responsive = {
         desktop: {
-            breakpoint: { max: 3000, min: 1024 },
+                breakpoint: { max: 3000, min: 1024 },
             items: 6,
             slidesToSlide: 3 // optional, default to 1.
         },

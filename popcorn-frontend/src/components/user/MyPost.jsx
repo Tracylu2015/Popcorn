@@ -6,12 +6,23 @@ import ExpandableContent from 'react-expandable-content';
 const MyPost = () => {
 
     const [myPost, setMyPost] = useState([])
+    const [commentId, setCommentId] = useState('')
+    
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/comment/user`)
             .then(res => setMyPost(res.data))
             .catch((error) => console.log(error))
     }, [])
+
+    const deleteComment = (e) => {
+        let commentId = e.target.value;
+        console.log(commentId);
+        axios.get(`http://localhost:8080/api/comment/delete/${commentId}`)
+            .then(res => setMyPost(res.data))
+            .catch(error => console.log(error))
+    }
+    
 
     return (
 
@@ -29,7 +40,7 @@ const MyPost = () => {
                                         </Col>
                                         <Col sm={1} md={"auto"} style={{paddingTop:"10px"}}>
                                             {comment.totalLikes}&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <Button size="sm" >Delete</Button>
+                                            <Button size="sm" value={comment.id} onClick={deleteComment}>Delete</Button>
                                         </Col>
                                     </Row>
                                     <p style={{fontSize: 14}}>{comment.created}</p>

@@ -30,6 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
 
                 // Our private endpoints
                 .antMatchers("/**").authenticated()

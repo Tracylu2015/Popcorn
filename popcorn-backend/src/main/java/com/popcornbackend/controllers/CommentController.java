@@ -58,14 +58,7 @@ public class CommentController {
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         String userId = UserUtil.getUserId(session);
-        PageRequest request = PageRequest.of(page, size);
-        List<Comment> comments = commentService.getCommentByUserId(userId, request);
-        for (Comment comment : comments) {
-            Movie movie = movieService.findMovieById(comment.getMovieId());
-            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), userId));
-            comment.setMovie(movie);
-        }
-        return comments;
+        return getComments(size, page, userId);
     }
 
     //Add a new comment
@@ -87,16 +80,31 @@ public class CommentController {
         }
     }
 
-    //delete comment by comment Id
-    @DeleteMapping("/delete/{id}")
-    public Comment deleteComment(
+    @GetMapping("/delete/{id}")
+    public List<Comment> deleteCommentByCommentId(
+            HttpSession session,
             @PathVariable("id") String id,
-            HttpSession session) {
+            @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
+            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
         String userId = UserUtil.getUserId(session);
         Comment comment = commentService.findCommentById(id);
         if (!userId.equals(comment.getUserId())) {
             return null;
         }
-        return commentService.deleteCommentById(id);
+        commentService.deleteCommentById(id);
+        return getComments(size, page, userId);
+    }
+
+    private List<Comment> getComments(@RequestParam(value = "size", defaultValue = "20") int size, @RequestParam(value = "page", defaultValue = "0") int page, String userId) {
+        PageRequest request = PageRequest.of(page, size);
+        List<Comment> comments = commentService.getCommentByUserId(userId, request);
+        for (Comment comment : comments) {
+            Movie movie = movieService.findMovieById(comment.getMovieId());
+            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), userId));
+            comment.setMovie(movie);
+        }
+        return comments;
     }
 }

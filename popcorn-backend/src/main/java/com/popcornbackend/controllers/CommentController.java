@@ -71,9 +71,15 @@ public class CommentController {
         return comments;
     }
 
+    //Add a new comment
     @PostMapping("/new")
-    public ResponseEntity<Object> createComment(@RequestBody Comment comment, HttpSession session) {
-        if (session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME) != null) {
+    public ResponseEntity<Object> createComment(@RequestBody HashMap<String, String> body, HttpSession session) {
+        String userId = UserUtil.getUserId(session);
+        if (userId != null) {
+            Comment comment = new Comment();
+            comment.setPost(body.get("post"));
+            comment.setMovieId(body.get("movieId"));
+            comment.setUserId(userId);
             Comment newComment = commentService.createComment(comment);
             return new ResponseEntity<>(newComment, HttpStatus.OK);
         } else {
@@ -83,6 +89,7 @@ public class CommentController {
         }
     }
 
+    //delete comment by comment Id
     @DeleteMapping("/delete/{id}")
     public Comment deleteComment(
             @PathVariable("id") String id,

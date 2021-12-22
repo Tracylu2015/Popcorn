@@ -20,7 +20,8 @@ public class CommentListener extends AbstractMongoEventListener<Comment> {
         super.onAfterConvert(event);
         Comment source = event.getSource();
         String movieId = source.getMovieId();
-        source.setMovie(movieService.findMovieById(movieId));
-        source.setUser(userService.findById(source.getUserId()));
+        if (movieId != null) source.setMovie(movieService.findMovieById(movieId));
+        String userId = source.getUserId();
+        if (userId != null) source.setUser(userService.findById(userId));
     }
 }

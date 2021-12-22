@@ -59,7 +59,7 @@ const Navbar = () => {
                 <div className="items-stretch hidden lg:flex">
                     {context.currentUser != null ?
                         <div>
-                            <button> <Link to="/user/profile" className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>User Profile</Link></button>
+                            <button> <Link to="/user/profile" className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>Profile</Link></button>
                             <button onClick={logout} ><Link className="link-neutral text-neutral-content" style={{ textDecoration: "none", marginRight: "10px" }}>Logout</Link></button>
                         </div>
                         :

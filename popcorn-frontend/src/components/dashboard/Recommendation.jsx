@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from "axios"
 import WatchStatus from '../WatchStatus'
 import Rating from 'react-rating'
@@ -31,10 +31,18 @@ const Recommendation = () => {
     return (
         <Container>
             {context.currentUser != null
-                ? <h3>For You</h3>
-                : <h3>You may like</h3>
+                ?
+                <div style ={{display:"flex"}}>
+                    <h3>For You</h3>
+                    <button style={{marginLeft:"20px"}}>Shuffle</button>
+                </div>
+
+                : <div style ={{display:"flex"}}>
+                    <h3>You may like</h3>
+                    <button style={{marginLeft:"20px"}}>Shuffle</button>
+                </div>
             }
-            <Row style={{marginTop:"20px"}}>
+            <Row style={{ marginTop: "20px" }}>
                 {recMovies.map((m, index) => {
                     return (
                         <Col sm={2} md="auto">

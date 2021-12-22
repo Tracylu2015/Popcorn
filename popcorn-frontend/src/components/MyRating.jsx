@@ -1,12 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import WatchStatus from './WatchStatus'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Rating from "react-rating"
 import pop_empty from "../images/pop_blank.png"
 import pop_fill from "../images/pop_fill.png"
+import PostComments from './details/PostComments'
+import {Button} from 'react-bootstrap'
 
 const MyRating = ({ oneMovie, onChange, readonly }) => {
+
+    const [showModal, setShowModal] = useState(false)
 
     const clickHandler = (e) => {
         let score = e
@@ -17,6 +20,10 @@ const MyRating = ({ oneMovie, onChange, readonly }) => {
                 console.log(res)
             })
             .catch((error) => console.log(error))
+    }
+
+    const postPicker = () => {
+        setShowModal(true)
     }
 
     return (
@@ -34,7 +41,8 @@ const MyRating = ({ oneMovie, onChange, readonly }) => {
                 fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
             />
             <br></br>
-            <Link to="/movies/comments/new">Add a comment</Link>
+            <Button style = {{marginTop:"20px"}} onClick = {postPicker}>Add a comment</Button>
+            <PostComments oneMovie={oneMovie} setShowModal={setShowModal} showModal={showModal}/>
         </div>
     )
 }

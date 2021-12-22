@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from "react-router-dom"
 import SortMovie from './SortMovie'
-import { ButtonGroup, Button, Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 import { Text } from "react-native";
 import Rating from "react-rating"
 import WatchStatus from '../WatchStatus'
@@ -15,7 +15,7 @@ const Search = (props) => {
     const { query } = useParams()
     const [select, setSelect] = useState("Action")
     const [movies, setMovies] = useState([])
-    const [sort, setSort] = useState("year")
+    const [sort, setSort] = useState("startYear")
     const [page, setPage] = useState(0)
     const [maxPage, setMaxPage] = useState(0)
 
@@ -51,7 +51,7 @@ const Search = (props) => {
                                 <Card style={{ width: '12rem', height: '32rem' }}>
                                     <Card>
                                         <Link to={`/movies/detail/${m.id}`} style={{ textDecoration: "none" }}>
-                                            <Image src={m.imageUrl} className="rounded-l" style={{ objectFit: "cover", height: '300px' }} />
+                                            <Image src={m.imageUrl} alt="post" className="rounded-l" style={{ objectFit: "cover", height: '300px' }} />
                                         </Link>
                                     </Card>
                                     <Card.Body>
@@ -68,8 +68,8 @@ const Search = (props) => {
                                         <Rating
                                             style={{ marginTop: "10px" }}
                                             readonly="true" stop="10" step="2" initialRating={m.score}
-                                            emptySymbol={<img src={pop_empty} className="icon" style={{ width: "30px", height: "30px" }} />}
-                                            fullSymbol={<img src={pop_fill} className="icon" style={{ width: "30px", height: "30px" }} />}
+                                            emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                                            fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
                                         />
                                     </Card.Body>
                                 </Card>

@@ -10,6 +10,7 @@ const Details = () => {
     const { id } = useParams()
     const [oneMovie, setOneMovie] = useState({})
 
+
     useEffect(() => {
         axios.get(`http://localhost:8080/api/movie/${id}`)
             .then(res => setOneMovie(res.data))
@@ -19,6 +20,8 @@ const Details = () => {
     const onStatusChanged = (newMovie) => {
         setOneMovie(newMovie)
     }
+
+
 
     return (
         <Container>

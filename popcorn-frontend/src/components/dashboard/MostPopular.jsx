@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import WatchStatus from '../WatchStatus'
 import { Link } from "react-router-dom"
-import { Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container, Card, Col, Image } from 'react-bootstrap'
 import { Text } from "react-native";
 import Rating from "react-rating"
 import pop_empty from "../../images/pop_blank.png"

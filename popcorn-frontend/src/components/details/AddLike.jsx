@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import likeIt from '../../images/likeIt.png'
 import likeFilled from '../../images/like_filled.png'
-import { Row, Col, Button } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 const AddLike = ({ comment, onCommentChange }) => {
 

@@ -22,7 +22,7 @@ const Comments = () => {
         comments.forEach(c => c.id === newComment.id ? data.push(newComment) : data.push(c))
         setComments(data)
     }
-    console.log(comments)
+
     return (
         <Container>
             <div>

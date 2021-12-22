@@ -35,9 +35,9 @@ const Comments = ({comments, setComments}) => {
                             <Card>
                                 <Card.Header as="h5">
                                     <Row>
-                                        <Col>
+                                        <Col style={{ marginBottom: "-15px" }}>
                                             {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
-                                            {comment.created}
+                                            <p style={{fontSize: 14, marginTop:"10px"}}>{comment.created}</p>
                                         </Col>
                                         <Col sm={1} md={"auto"}>
                                             <AddLike comment={comment} onCommentChange={onCommentChange} />

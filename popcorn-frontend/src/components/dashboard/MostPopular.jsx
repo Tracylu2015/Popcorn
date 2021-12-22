@@ -72,7 +72,7 @@ const MostPopular = () => {
                                     }} numberOfLines={1}>{m.primaryTitle}
                                     </Text>
                                     <Card.Text className="text-warning">
-                                        Movie Score: {m.score}
+                                        Movie Score: {Math.round((m.score + Number.EPSILON) * 100) / 100}
                                     </Card.Text>
                                     <WatchStatus movie={m} onChange={OnMovieStatusChanged} />
                                     <Rating

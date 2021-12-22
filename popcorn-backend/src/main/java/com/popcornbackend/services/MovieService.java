@@ -38,8 +38,8 @@ public class MovieService {
         return movieRepo.findAllByGenresAndStartYearLessThanEqual(genres, CURRENT_YEAR, request).getContent();
     }
 
-    public List<Movie> getMoviesByGenresAndTitle(List<String> genres, String query, PageRequest request) {
-        return movieRepo.findAllByGenresAndPrimaryTitleContaining(genres, query, request).getContent();
+    public List<Movie> getMoviesByTitle( String query, PageRequest request) {
+        return movieRepo.findAllByPrimaryTitleContaining( query, request).getContent();
     }
 
     public List<Movie> getMoviesByLanguage(String lan, PageRequest request) {
@@ -68,8 +68,8 @@ public class MovieService {
         return movieRepo.count();
     }
 
-    public long countByGenresAndTitle(List<String> genres, String query) {
-        return movieRepo.countAllByGenresAndPrimaryTitleContaining(genres, query);
+    public long countByTitle(String query) {
+        return movieRepo.countAllByPrimaryTitleContaining( query);
     }
 
     public Movie updateOne(Movie thisMovie) {

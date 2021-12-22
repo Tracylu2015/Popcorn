@@ -13,20 +13,19 @@ import ReactPaginate from 'react-paginate';
 
 const Search = (props) => {
     const { query } = useParams()
-    const [select, setSelect] = useState("Action")
     const [movies, setMovies] = useState([])
     const [sort, setSort] = useState("startYear")
     const [page, setPage] = useState(0)
     const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/movie/search/${query}/${select}?sort=${sort}&page=${page}`)
+        axios.get(`http://localhost:8080/api/movie/search/${query}?sort=${sort}&page=${page}`)
             .then(res => {
                 setMovies(res.data.movies)
                 setMaxPage(res.data.maxPage)
             })
             .catch(e => console.log(e))
-    }, [select, page, sort])
+    }, [page, sort])
 
     const OnMovieStatusChanged = (newMovie) => {
         const newMovies = []

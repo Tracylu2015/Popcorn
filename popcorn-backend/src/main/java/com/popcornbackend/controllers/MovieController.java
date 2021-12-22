@@ -67,17 +67,16 @@ public class MovieController {
 
     //Route for search bar
     //Get All movie by search query
-    @GetMapping("/search/{query}/{genres}")
-    public ResponseEntity<Map<String, Object>> getByGenres(
+    @GetMapping("/search/{query}")
+    public ResponseEntity<Map<String, Object>> searchByTitle(
             @PathVariable("query") String query,
-            @PathVariable("genres") String genres,
             @RequestParam(value = "sort", defaultValue = "year") String sort,
             @RequestParam(value = "size", defaultValue = "18") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
-        List<Movie> movies = movieService.getMoviesByGenresAndTitle(Collections.of(genres), query, request);
-        long maxPage = movieService.countByGenresAndTitle(Collections.of(genres), query) / size;
+        List<Movie> movies = movieService.getMoviesByTitle( query, request);
+        long maxPage = movieService.countByTitle(query) / size;
         return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 

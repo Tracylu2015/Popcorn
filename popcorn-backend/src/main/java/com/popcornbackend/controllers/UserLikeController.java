@@ -34,6 +34,7 @@ public class UserLikeController {
         Comment comment = commentService.findCommentById(commentId);
         User user = userService.findById(comment.getUserId());
         comment.setUser(user);
+        comment.setPost(comment.getPost());
         String likeStatus = body.get("like_status");
         if ("true".equals(likeStatus)) {
             comment.setTotalLikes(comment.getTotalLikes() + 1);
@@ -48,7 +49,7 @@ public class UserLikeController {
             comment.setLikeStatus(false);
             userLikeService.deleteOne(userId, commentId);
         }
-        commentService.save(comment);
-        return comment;
+
+        return commentService.updateOne(comment);
     }
 }

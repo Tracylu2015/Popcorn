@@ -41,4 +41,8 @@ public class CommentService {
     public Comment deleteCommentById(String commentId) {
         return commentRepo.deleteCommentById(commentId);
     }
+
+    public Comment updateOne(Comment comment) {
+        return commentRepo.save(comment);
+    }
 }

@@ -19,13 +19,12 @@ const Comments = () => {
 
     const onCommentChange = (newComment) => {
         let data = []
-        comments.forEach(c => c.idString === newComment.idString ? data.push(newComment) : data.push(c))
+        comments.forEach(c => c.id === newComment.id ? data.push(newComment) : data.push(c))
         setComments(data)
     }
     console.log(comments)
     return (
         <Container>
-
             <div>
                 {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
             </div>
@@ -37,8 +36,8 @@ const Comments = () => {
                                 <Card.Header as="h5">
                                     <Row>
                                         <Col>
-                                        {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
-                                        {comment.created}
+                                            {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {comment.created}
                                         </Col>
                                         <Col sm={1} md={"auto"}>
                                             <AddLike comment={comment} onCommentChange={onCommentChange} />

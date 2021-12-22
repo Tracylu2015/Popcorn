@@ -39,14 +39,15 @@ public class CommentController {
             @PathVariable("id") String id,
             @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
             @RequestParam(value = "size", defaultValue = "20") int size,
-            @RequestParam(value = "page", defaultValue = "0") int page
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            HttpSession session
     ) {
         PageRequest request = PageRequest.of(page, size);
         List<Comment> comments = commentService.getCommentByMovieId(id, request);
         for (Comment comment : comments) {
-            User user = userService.findById(comment.getUserId());
-            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), user.getId().toHexString()));
-            comment.setUser(user);
+            String myUserId = UserUtil.getUserId(session);
+            comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), myUserId));
+            comment.setUser(userService.findById(comment.getUserId()));
         }
 //        System.out.println(comments);
         return comments;

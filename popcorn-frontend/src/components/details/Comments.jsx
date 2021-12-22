@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import SortComment from '../browse/SortComment'
-import { Card, Row, Col, Container } from 'react-bootstrap'
+import { Container, Card, Col, Row } from 'react-bootstrap'
 import AddLike from './AddLike'
 
 const Comments = () => {
@@ -22,10 +22,11 @@ const Comments = () => {
         comments.forEach(c => c.idString === newComment.idString ? data.push(newComment) : data.push(c))
         setComments(data)
     }
-
+    console.log(comments)
     return (
-        <Container>
-            <Row>
+        <>
+
+            <div>
                 {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
             </Row>
             <Row>

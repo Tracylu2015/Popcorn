@@ -115,6 +115,23 @@ public class CommentController {
         return movie;
     }
 
+    //add like and update number of likes
+    @PostMapping("/addLike")
+    public Comment addLike(@RequestBody HashMap<String, String> body) {
+        String commentId = body.get("commentId");
+        Comment comment = commentService.findCommentById(commentId);
+        String likeStatus = body.get("like_status");
+        if ("true".equals(likeStatus)) {
+            comment.setTotalLikes(comment.getTotalLikes() + 1);
+        } else {
+            if (comment.getTotalLikes() == 0) {
+                return null;
+            }
+            comment.setTotalLikes(comment.getTotalLikes() - 1);
+        }
+        Comment save = commentService.save(comment);
+        return fillUser(save);
+    }
 
     private Comment fillUser(Comment save) {
         User user = userService.findById(save.getUserId());

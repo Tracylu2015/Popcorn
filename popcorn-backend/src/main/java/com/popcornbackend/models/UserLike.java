@@ -4,6 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "userLikes")
+//@CompoundIndexes({
+//        @CompoundIndex(name = "userId_commentId", def = "{'userId' : 1, 'commentId': 1}",
+//                unique = true, background = true)
+//})
 public class UserLike {
     @Id
     private String id;

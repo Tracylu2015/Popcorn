@@ -7,7 +7,7 @@ import pop_fill from "../images/pop_fill.png"
 import PostComments from './details/PostComments'
 import { Button } from 'react-bootstrap'
 
-const MyRating = ({ oneMovie, onChange }) => {
+const MyRating = ({ oneMovie, onChange, onCommentAdded}) => {
 
     const [showModal, setShowModal] = useState(false)
     const [score, setScore] = useState(-1)
@@ -51,7 +51,7 @@ const MyRating = ({ oneMovie, onChange }) => {
             />
             <br></br>
             <Button style={{ marginTop: "20px", width: "150px" }} onClick={postPicker}>Add comment</Button>
-            <PostComments oneMovie={oneMovie} setShowModal={setShowModal} showModal={showModal} />
+            <PostComments oneMovie={oneMovie} setShowModal={setShowModal} showModal={showModal} onCommentAdded={onCommentAdded} />
         </div>
     )
 }

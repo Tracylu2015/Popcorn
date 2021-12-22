@@ -5,10 +5,9 @@ import SortComment from '../browse/SortComment'
 import { Container, Card, Col, Row } from 'react-bootstrap'
 import AddLike from './AddLike'
 
-const Comments = () => {
+const Comments = ({comments, setComments}) => {
 
     const { id } = useParams()
-    const [comments, setComments] = useState([])
     const [sort, setSort] = useState("totalLikes")
 
     useEffect(() => {

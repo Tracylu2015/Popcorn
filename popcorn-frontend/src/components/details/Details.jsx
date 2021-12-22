@@ -5,7 +5,7 @@ import MyRating from '../MyRating'
 import { Container, Card, Col, Row } from 'react-bootstrap'
 import {Text} from "react-native"
 
-const Details = () => {
+const Details = ({onCommentAdded}) => {
 
     const { id } = useParams()
     const [oneMovie, setOneMovie] = useState({})
@@ -46,7 +46,7 @@ const Details = () => {
                                     </div> : ""}
                                 </Col>
                                 <Col>
-                                    <MyRating oneMovie={oneMovie} onChange={onStatusChanged} />
+                                    <MyRating oneMovie={oneMovie} onChange={onStatusChanged} onCommentAdded={onCommentAdded}/>
                                 </Col>
                             </Row>
                         </Container>

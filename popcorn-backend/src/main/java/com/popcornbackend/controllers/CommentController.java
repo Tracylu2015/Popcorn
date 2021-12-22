@@ -2,7 +2,6 @@ package com.popcornbackend.controllers;
 
 import com.popcornbackend.models.Comment;
 import com.popcornbackend.models.Movie;
-import com.popcornbackend.models.User;
 import com.popcornbackend.services.CommentService;
 import com.popcornbackend.services.MovieService;
 import com.popcornbackend.services.UserLikeService;
@@ -46,9 +45,7 @@ public class CommentController {
         for (Comment comment : comments) {
             String myUserId = UserUtil.getUserId(session);
             comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), myUserId));
-            comment.setUser(userService.findById(comment.getUserId()));
         }
-//        System.out.println(comments);
         return comments;
     }
 
@@ -81,6 +78,7 @@ public class CommentController {
             comment.setMovieId(body.get("movieId"));
             comment.setUserId(userId);
             Comment newComment = commentService.createComment(comment);
+            newComment.setUser(userService.findById(userId));
             return new ResponseEntity<>(newComment, HttpStatus.OK);
         } else {
             Map<String, Object> resp = new HashMap<>();
@@ -100,12 +98,5 @@ public class CommentController {
             return null;
         }
         return commentService.deleteCommentById(id);
-    }
-
-
-    private Comment fillUser(Comment save) {
-        User user = userService.findById(save.getUserId());
-        save.setUser(user);
-        return save;
     }
 }

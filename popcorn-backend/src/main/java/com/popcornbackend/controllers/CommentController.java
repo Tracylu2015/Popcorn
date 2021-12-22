@@ -78,6 +78,7 @@ public class CommentController {
         if (userId != null) {
             Comment comment = new Comment();
             comment.setPost(body.get("post"));
+            comment.setMovieId(body.get("movieId"));
             comment.setUserId(userId);
             Comment newComment = commentService.createComment(comment);
             return new ResponseEntity<>(newComment, HttpStatus.OK);

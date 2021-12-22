@@ -4,6 +4,7 @@ import axios from 'axios'
 import SortComment from '../browse/SortComment'
 import { Container, Card, Col, Row } from 'react-bootstrap'
 import AddLike from './AddLike'
+import ExpandableContent from 'react-expandable-content';
 
 const Comments = ({comments, setComments}) => {
 
@@ -30,7 +31,7 @@ const Comments = ({comments, setComments}) => {
             <Row>
                 {comments.map((comment, i) => {
                     return (
-                        <Col sm={8} md={"auto"} style={{ marginTop: "20px" }}>
+                        <Col sm={12} style={{ marginTop: "20px" }}>
                             <Card>
                                 <Card.Header as="h5">
                                     <Row>
@@ -45,7 +46,9 @@ const Comments = ({comments, setComments}) => {
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text>
-                                        {comment.post}
+                                        <ExpandableContent maxHeight={100} collapseText={"Read less"} expandText={"Read more"}>
+                                            {comment.post}
+                                        </ExpandableContent>
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

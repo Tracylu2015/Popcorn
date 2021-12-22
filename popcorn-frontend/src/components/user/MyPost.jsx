@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
+import ExpandableContent from 'react-expandable-content';
 
 const MyPost = () => {
 
@@ -24,7 +25,7 @@ const MyPost = () => {
                                 <Card.Header as="h5">
                                     <Row>
                                         <Col>
-                                            Movie: {comment.movie.primaryTitle}&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {comment.movie.primaryTitle}&nbsp;&nbsp;&nbsp;&nbsp;
                                         </Col>
                                         <Col sm={1} md={"auto"} style={{paddingTop:"10px"}}>
                                             {comment.totalLikes}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +36,9 @@ const MyPost = () => {
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text>
-                                        {comment.post}
+                                        <ExpandableContent maxHeight={100} collapseText={"Read less"} expandText={"Read more"}>
+                                            {comment.post}
+                                        </ExpandableContent>
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

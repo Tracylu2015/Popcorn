@@ -4,7 +4,7 @@ import WatchStatus from '../WatchStatus'
 import Rating from 'react-rating'
 import pop_empty from "../../images/pop_blank.png"
 import pop_fill from "../../images/pop_fill.png"
-import { Container, Card, Col, Row, Image } from 'react-bootstrap'
+import { Container, Card, Col, Row, Image, Button } from 'react-bootstrap'
 import { Text } from "react-native";
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
@@ -49,11 +49,11 @@ const Recommendation = () => {
         <Container>
             {context.currentUser != null
                 ?
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", marginTop: "15px" }}>
                     <h3>For You</h3>
                     {loading ?
                         <div style={{marginLeft: "25px"}}><ClipLoader color={color} loading={loading} size={50}/></div> :
-                        <button style={{ marginLeft: "20px" }} onClick={shuffle}>Shuffle</button>
+                        <Button size="sm" variant="warning" style={{ marginLeft: "20px" }} onClick={shuffle}>Shuffle</Button>
                     }
 
                 </div>
@@ -62,11 +62,11 @@ const Recommendation = () => {
                     <h3>You may like</h3>
                     {loading ?
                         <div style={{marginLeft: "25px"}}><ClipLoader color={color} loading={loading} size={50}/></div> :
-                        <button style={{ marginLeft: "20px" }} onClick={shuffle} >Shuffle</button>
+                        <Button size="sm"  style={{ marginLeft: "20px"}} onClick={shuffle} >Shuffle</Button>
                     }
                 </div>
             }
-            <Row style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "10px" }}>
                 {recMovies.map((m, index) => {
                     return (
                         <Col sm={2} md="auto">

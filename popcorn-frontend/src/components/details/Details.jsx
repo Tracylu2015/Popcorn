@@ -41,7 +41,7 @@ const Details = () => {
                                         <Text style ={{fontSize:"16px"}} numberOfLines={1}><b>Regions:</b> {oneMovie.hasOwnProperty("regions") ? oneMovie.regions.map(r => (<span key={r}>{r} </span>)) : "not available"}</Text>
                                     {oneMovie.language !== "" ? <p> <b>Language: </b>{oneMovie.language}</p> : ""}
                                     <div><b>Duration: </b> {oneMovie.runtimeMinutes} mins</div>
-                                    {oneMovie.videoUrl !== null ? <p><b> Trial: </b><a href={oneMovie.videoUrl}>{oneMovie.videoUrl}</a></p> : ""}
+                                    {oneMovie.videoUrl !== null ? <p><b> Trailer: </b> <a href={oneMovie.videoUrl}>{oneMovie.videoUrl}</a></p> : ""}
                                     {oneMovie.description !== null ? <div>
                                         <h6>About this Movie...</h6>
                                         <p>{oneMovie.description}</p>

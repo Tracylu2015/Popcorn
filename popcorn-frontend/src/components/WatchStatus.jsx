@@ -41,7 +41,7 @@ const WatchStatus = ({ movie, onChange }) => {
     }
 
     return (
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", marginTop:"20px"}}>
             <button onClick={addList} className="btn btn-primary btn-sm">Wish</button>&nbsp;&nbsp;
             <button onClick={watched} className="btn btn-primary btn-sm">Watched</button>
         </div>

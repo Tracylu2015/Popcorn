@@ -11,9 +11,8 @@ import { Switch, Route } from 'react-router-dom';
 import BrowsePage from './views/BrowsePage';
 import CurrentUser from './context/CurrentUser';
 import SearchPage from './views/SearchPage';
-
 import axios from "axios"
-import PostComments from './views/PostComments';
+
 
 
 function App() {
@@ -54,9 +53,6 @@ function App() {
           </Route>
           <Route path="/movies/search/:query" exact>
             <SearchPage />
-          </Route>
-          <Route path="/movies/comments/new" exact>
-            <PostComments />
           </Route>
         </Switch>
       </CurrentUser.Provider>

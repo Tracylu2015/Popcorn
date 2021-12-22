@@ -28,20 +28,19 @@ const MyRating = ({ oneMovie, onChange, readonly }) => {
 
     return (
         <div>
-            <h4>Score: {Math.round((oneMovie.score + Number.EPSILON) * 100) / 100}</h4>
-            <p>Number of Votes: {oneMovie.numOfVotes}</p>
+            <h5>Score: {Math.round((oneMovie.score + Number.EPSILON) * 100) / 100}</h5>
+            <h6 style={{marginTop:"20px"}}>Votes:  {oneMovie.numOfVotes}</h6>
             <WatchStatus movie={oneMovie} onChange={onChange} />
-            <p style={{ marginTop: "20px" }}>My Rate for the movie</p>
             <Rating
                 onChange={e => readonly === "true" ? null : clickHandler(e)}
-                style={{ marginTop: "10px" }}
+                style={{ marginTop: "30px" }}
                 readonly={readonly} stop="10" step="2"
                 initialRating={oneMovie.score}
-                emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
-                fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "35px", height: "35px" }} />}
+                fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "35px", height: "35px" }} />}
             />
             <br></br>
-            <Button style = {{marginTop:"20px"}} onClick = {postPicker}>Add a comment</Button>
+            <Button style = {{marginTop:"20px", width:"150px"}} onClick = {postPicker}>Add comment</Button>
             <PostComments oneMovie={oneMovie} setShowModal={setShowModal} showModal={showModal}/>
         </div>
     )

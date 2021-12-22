@@ -71,4 +71,8 @@ public class MovieService {
     public long countByGenresAndTitle(List<String> genres, String query) {
         return movieRepo.countAllByGenresAndPrimaryTitleContaining(genres, query);
     }
+
+    public Movie updateOne(Movie thisMovie) {
+        return movieRepo.save(thisMovie);
+    }
 }

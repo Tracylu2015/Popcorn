@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -101,26 +100,6 @@ public class CommentController {
             return null;
         }
         return commentService.deleteCommentById(id);
-    }
-
-    //create new score and update movie score and num of votes
-    @PostMapping("/score/new")
-    public Movie createScore(@RequestBody HashMap<String, String> body, HttpSession session) {
-        String userId = UserUtil.getUserId(session);
-        if (userId == null) {
-            return null;
-        }
-        Comment comment = new Comment();
-        comment.setScore(Integer.parseInt(body.get("score")));
-        comment.setMovieId(body.get("movieId"));
-        commentService.save(comment);
-        Movie movie = movieService.findMovieById(body.get("movieId"));
-        float score = movie.getScore();
-        int votes = movie.getNumOfVotes();
-        float updatedScore = (score * votes + Integer.parseInt(body.get("score"))) / (votes + 1);
-        movie.setScore(updatedScore);
-        movie.setNumOfVotes(votes + 1);
-        return movie;
     }
 
 

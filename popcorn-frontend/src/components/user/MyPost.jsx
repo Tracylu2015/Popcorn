@@ -5,8 +5,6 @@ import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 const MyPost = () => {
 
     const [myPost, setMyPost] = useState([])
-    // const context = useContext(currentUser)
-    // const id = context.currentUser.id
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/comment/user`)
@@ -15,27 +13,9 @@ const MyPost = () => {
     }, [])
 
     return (
-        // <Container style={{ marginLeft: "40px", marginTop: "20px" }}>
-        //     {<h3>My Post</h3>}
-        //     {myPost.map((comment, i) => {
-        //         return(
-        //             <Card key={i}>
-        //             <div>
-        //                 <Card.Header as="h5">Movie: {comment.movie.primaryTitle}</Card.Header>
-        //                 <p>{comment.created}</p>
-        //             </div>
-        //             <Card.Body>
-        //                 <Card.Title>{comment.totalLikes}</Card.Title>
-        //                 <Card.Text>
-        //                 {comment.post}
-        //                 </Card.Text>
-        //             </Card.Body>
-        //             </Card>
-        //         )
-        //     })}
-        // </Container>
+
         <Container>
-            <h3>My Post</h3>
+            <h3 style={{marginTop:"20px"}}>My Post</h3>
             <Row>
                 {myPost.map((comment, i) => {
                     return (
@@ -46,7 +26,8 @@ const MyPost = () => {
                                         <Col>
                                             Movie: {comment.movie.primaryTitle}&nbsp;&nbsp;&nbsp;&nbsp;
                                         </Col>
-                                        <Col sm={1} md={"auto"}>
+                                        <Col sm={1} md={"auto"} style={{paddingTop:"10px"}}>
+                                            {comment.totalLikes}&nbsp;&nbsp;&nbsp;&nbsp;
                                             <Button size="sm" >Delete</Button>
                                         </Col>
                                     </Row>

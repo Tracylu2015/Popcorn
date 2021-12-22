@@ -15,7 +15,7 @@ const Comments = ({comments, setComments}) => {
         axios.get(`http://localhost:8080/api/comment/movie/${id}?sort=${sort}`)
             .then(res => setComments(res.data))
             .catch((error) => console.log(error))
-    }, [])
+    }, [comments])
 
     const onCommentChange = (newComment) => {
         let data = []

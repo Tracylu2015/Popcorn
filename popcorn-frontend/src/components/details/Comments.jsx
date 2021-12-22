@@ -37,7 +37,7 @@ const Comments = ({comments, setComments}) => {
                                     <Row>
                                         <Col style={{ marginBottom: "-15px" }}>
                                             {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: 14, marginTop:"10px"}}>{comment.created}</p>
+                                            <p style={{fontSize: 14, marginTop:"10px"}}>{new Date(Date.parse(comment.created)).toLocaleString()}</p>
                                         </Col>
                                         <Col sm={1} md={"auto"}>
                                             <AddLike comment={comment} onCommentChange={onCommentChange} />

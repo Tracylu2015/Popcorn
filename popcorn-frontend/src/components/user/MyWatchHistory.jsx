@@ -50,7 +50,7 @@ const MyWatchHistory = () => {
                                         }} numberOfLines={1}>{m.primaryTitle}
                                         </Text>
                                         <Card.Text className="text-warning">
-                                            Movie Score: {m.score}
+                                            Movie Score: {Math.round((m.score + Number.EPSILON) * 100) / 100}
                                         </Card.Text>
                                         <Rating
                                         style={{ marginTop: "10px"}}

@@ -8,15 +8,20 @@ import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 import { Text } from "react-native";
 import { Link } from "react-router-dom"
 import currentUser from '../../context/CurrentUser'
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Recommendation = () => {
     const [recMovies, setRecMovies] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [color, setColor] = useState("#316cf3");
+
     const context = useContext(currentUser)
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/movie/recommend`)
             .then(res => {
                 setRecMovies(res.data)
+                setLoading(false)
             }).catch(err => console.log(err))
     }, [])
 
@@ -28,18 +33,37 @@ const Recommendation = () => {
         setRecMovies(newMovies)
     }
 
+    const shuffle = () => {
+        setLoading(true)
+        let movieIds = []
+        recMovies.forEach(m => movieIds.push(m.id))
+        axios.post(`http://localhost:8080/api/movie/shuffle`, { movieIds })
+            .then(res => {
+                setRecMovies(res.data)
+                setLoading(false)
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <Container>
             {context.currentUser != null
                 ?
-                <div style ={{display:"flex"}}>
+                <div style={{ display: "flex" }}>
                     <h3>For You</h3>
-                    <button style={{marginLeft:"20px"}}>Shuffle</button>
+                    {loading ?
+                        <div style={{marginLeft: "25px"}}><ClipLoader color={color} loading={loading} size={50}/></div> :
+                        <button style={{ marginLeft: "20px" }} onClick={shuffle}>Shuffle</button>
+                    }
+
                 </div>
 
-                : <div style ={{display:"flex"}}>
+                : <div style={{ display: "flex" }}>
                     <h3>You may like</h3>
-                    <button style={{marginLeft:"20px"}}>Shuffle</button>
+                    {loading ?
+                        <div style={{marginLeft: "25px"}}><ClipLoader color={color} loading={loading} size={50}/></div> :
+                        <button style={{ marginLeft: "20px" }} onClick={shuffle} >Shuffle</button>
+                    }
                 </div>
             }
             <Row style={{ marginTop: "20px" }}>

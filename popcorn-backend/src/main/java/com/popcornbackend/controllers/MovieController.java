@@ -16,9 +16,8 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/movie")
@@ -91,7 +90,7 @@ public class MovieController {
         if (Collections.isEmpty(watchlist)) {
             List<UserWatchStatus> wishList = watchService.findList(userId, UserWatchStatus.STATUS_WISH, DEFAULT_PAGE_REQUEST);
             if (Collections.isEmpty(wishList)) {
-                return movieService.getMoviesByScoreDesc(PageRequest.of(0, 12));
+                return movieService.getMoviesByScoreDesc(PageRequest.of(0, 6));
             }
         }
         List<String> movieIdList = new ArrayList<>();
@@ -112,7 +111,26 @@ public class MovieController {
 //            System.out.println(mid);
 //            System.out.println(myRoc.get(mid));
         }
-        recommendMovies.stream().sorted((m1, m2) -> m1.getNumOfVotes() - m2.getNumOfVotes() > 0 ? 1 : m1.getNumOfVotes() == m2.getNumOfVotes() ? 0 : -1).limit(24);
-        return recommendMovies;
+        List<Movie> movies = recommendMovies.stream()
+                .sorted((m1, m2) -> m1.getNumOfVotes() - m2.getNumOfVotes() > 0 ? 1 : m1.getNumOfVotes() == m2.getNumOfVotes() ? 0 : -1)
+                .limit(6)
+                .collect(Collectors.toList());
+        return movies;
+    }
+
+    @PostMapping("/shuffle")
+    public List<Movie> shuffleMovies(@RequestBody HashMap<String, List<String>> body) {
+        List<String> ids = body.get("movieIds");
+        RecommendationResponse myRoc = recommendationService.recommend(ids);
+        Set<String> recIds = new HashSet<>();
+        for (String mid : myRoc.keySet()) {
+            recIds.addAll(myRoc.get(mid));
+        }
+        List<Movie> recommendMovies = movieService.findMovieByIds(new ArrayList<>(recIds));
+        List<Movie> movies = recommendMovies.stream()
+                .filter(m -> !ids.contains(m.getId()))
+                .sorted((m1, m2) -> m1.getNumOfVotes() - m2.getNumOfVotes() > 0 ? 1 : m1.getNumOfVotes() == m2.getNumOfVotes() ? 0 : -1)
+                .limit(6).collect(Collectors.toList());
+        return movies;
     }
 }

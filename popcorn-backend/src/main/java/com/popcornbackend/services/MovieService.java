@@ -47,7 +47,7 @@ public class MovieService {
     }
 
     public List<Movie> getMoviesByScoreDesc(PageRequest request) {
-        return movieRepo.findAllByOrderByScoreDesc(request).getContent();
+        return movieRepo.findAllByStartYearLessThanOrderByScoreDesc(CURRENT_YEAR, request).getContent();
     }
 
     public List<Movie> getMoviesByStartYear(int year, PageRequest request){

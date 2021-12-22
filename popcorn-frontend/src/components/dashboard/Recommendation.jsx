@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import axios from "axios"
 import WatchStatus from '../WatchStatus'
 import Rating from 'react-rating'
 import pop_empty from "../../images/pop_blank.png"
 import pop_fill from "../../images/pop_fill.png"
-import { Container, Card, Col, Row, Image  } from 'react-bootstrap'
+import { Container, Card, Col, Row, Image } from 'react-bootstrap'
 import { Text } from "react-native";
 import { Link } from "react-router-dom"
+import currentUser from '../../context/CurrentUser'
 
 const Recommendation = () => {
     const [recMovies, setRecMovies] = useState([])
-    
+    const context = useContext(currentUser)
+
     useEffect(() => {
         axios.get(`http://localhost:8080/api/movie/recommend`)
             .then(res => {
@@ -28,8 +30,11 @@ const Recommendation = () => {
 
     return (
         <Container>
-            <h3>Recommendations</h3>
-            <Row>
+            {context.currentUser != null
+                ? <h3>For You</h3>
+                : <h3>You may like</h3>
+            }
+            <Row style={{marginTop:"20px"}}>
                 {recMovies.map((m, index) => {
                     return (
                         <Col sm={2} md="auto">
@@ -53,8 +58,8 @@ const Recommendation = () => {
                                     <Rating
                                         style={{ marginTop: "10px" }}
                                         readonly="true" stop="10" step="2" initialRating={m.score}
-                                        emptySymbol={<img src={pop_empty} alt ="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
-                                        fullSymbol={<img src={pop_fill} alt ="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                                        emptySymbol={<img src={pop_empty} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
+                                        fullSymbol={<img src={pop_fill} alt="pop" className="icon" style={{ width: "30px", height: "30px" }} />}
                                     />
                                 </Card.Body>
                             </Card>

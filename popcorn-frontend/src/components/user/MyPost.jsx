@@ -20,7 +20,7 @@ const MyPost = () => {
             <Row>
                 {myPost.map((comment, i) => {
                     return (
-                        <Col sm={8} md={"auto"} style={{ marginTop: "20px" }}>
+                        <Col sm={12} style={{ marginTop: "20px" }}>
                             <Card>
                                 <Card.Header as="h5">
                                     <Row>

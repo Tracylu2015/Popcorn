@@ -24,11 +24,11 @@ const Comments = () => {
     }
     console.log(comments)
     return (
-        <>
+        <Container>
 
             <div>
                 {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
-            </Row>
+            </div>
             <Row>
                 {comments.map((comment, i) => {
                     return (

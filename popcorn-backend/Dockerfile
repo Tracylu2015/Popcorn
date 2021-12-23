@@ -6,7 +6,7 @@ RUN cd /build && mvn clean package -DskipTests
 FROM openjdk:11.0.13-jre-slim
 RUN mkdir /app
 COPY --from=builder /build/target/*.jar /app
-COPY popcorn-backend/mlmodels/movie.ann.tgz /app
+
 WORKDIR /app
 RUN tar xzvf movie.ann.tgz
 

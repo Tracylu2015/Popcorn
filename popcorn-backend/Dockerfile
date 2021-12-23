@@ -8,6 +8,5 @@ RUN mkdir /app
 COPY --from=builder /build/target/*.jar /app
 
 WORKDIR /app
-RUN tar xzvf movie.ann.tgz
 
 ENTRYPOINT ["java","-jar","popcorn-backend-0.0.1-SNAPSHOT.jar"]

@@ -57,6 +57,8 @@ public class UserController {
         return userService.findById(id);
     }
 
+
+    //edit user info
     @PutMapping("/edit")
     public ResponseEntity<Object> editUser(@RequestBody User user) {
         ObjectId id = user.getId();
@@ -72,6 +74,7 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
+    //logout
     @GetMapping("/logout")
     public void logout(HttpSession session) {
         session.invalidate();

@@ -45,6 +45,7 @@ public class UserLikeController {
 
             userLikeService.createOne(userLike);
         } else {
+            // remove like and decrease number of likes, set status to false
             comment.setTotalLikes(comment.getTotalLikes() - 1);
             comment.setLikeStatus(false);
             userLikeService.deleteOne(userId, commentId);

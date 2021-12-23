@@ -17,7 +17,6 @@ public class UserLikeService {
     }
 
     public boolean findUserLikeByCommentIdAndUserId(String commentId, String userId) {
-
         return userLikeRepo.findUserLikeByCommentIdAndAndUserId(commentId, userId).orElse(null) != null;
     }
 

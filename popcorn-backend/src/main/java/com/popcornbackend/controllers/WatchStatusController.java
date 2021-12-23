@@ -29,6 +29,7 @@ public class WatchStatusController {
     @Autowired
     MovieService movieService;
 
+    //add a new movie to the wishlist
     @PostMapping("/wishList")
     public void createWishList(
             @RequestBody HashMap<String, String> body) {
@@ -37,30 +38,35 @@ public class WatchStatusController {
         watchService.createWishList(userId, movieId);
     }
 
+    //add a new movie to the watch list
     @PostMapping("/watched")
     public void createWatchedList(@RequestBody HashMap<String, String> body) {
         String userId = body.get(USER_ID);
         String movieId = body.get(MOVIE_ID);
         watchService.createWatchedList(userId, movieId);
     }
+
+    //get all by user id
     @GetMapping("/wishList/all")
     public ResponseEntity<Map<String, Object>> getAllwishList(
             @RequestParam(value = "size", defaultValue = "12") int size,
             @RequestParam(value = "page", defaultValue = "0") int page,
             HttpSession session
-    ){
+    ) {
         String userId = UserUtil.getUserId(session);
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = getMoviesByStatus(userId, UserWatchStatus.STATUS_WISH, request);
         long maxPage = countMovieByStatus(userId, UserWatchStatus.STATUS_WATCHED) / size;
         return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
+
+    //get all by user id
     @GetMapping("/watchList/all")
     public ResponseEntity<Map<String, Object>> getAllwatchList(
             @RequestParam(value = "size", defaultValue = "12") int size,
             @RequestParam(value = "page", defaultValue = "0") int page,
             HttpSession session
-    ){
+    ) {
         String userId = UserUtil.getUserId(session);
         PageRequest request = PageRequest.of(page, size);
         List<Movie> movies = getMoviesByStatus(userId, UserWatchStatus.STATUS_WATCHED, request);
@@ -79,6 +85,7 @@ public class WatchStatusController {
         return movies;
     }
 
+    //count movies to do the pagination
     public long countMovieByStatus(String userId, String status) {
         if (userId == null) {
             return 0;

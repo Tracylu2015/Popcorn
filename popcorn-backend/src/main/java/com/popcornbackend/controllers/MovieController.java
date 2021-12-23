@@ -80,12 +80,14 @@ public class MovieController {
         return ResponseUtil.getMapResponseEntity(page, maxPage, movies);
     }
 
+    // get recommended movies
     @GetMapping("/recommend")
     public List<Movie> recommendMovies(HttpSession session) {
         //get userId
         String userId = (String) session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
         //find user watchlist according to userID
         List<UserWatchStatus> watchlist = watchService.findList(userId, UserWatchStatus.STATUS_WATCHED, DEFAULT_PAGE_REQUEST);
+        // find user favorite movies from watchlist / wishlist
         if (Collections.isEmpty(watchlist)) {
             List<UserWatchStatus> wishList = watchService.findList(userId, UserWatchStatus.STATUS_WISH, DEFAULT_PAGE_REQUEST);
             if (Collections.isEmpty(wishList)) {
@@ -117,6 +119,7 @@ public class MovieController {
         return movies;
     }
 
+    //find other nearest neighbors by the first 6 movies and remove duplicates
     @PostMapping("/shuffle")
     public List<Movie> shuffleMovies(@RequestBody HashMap<String, List<String>> body) {
         List<String> ids = body.get("movieIds");

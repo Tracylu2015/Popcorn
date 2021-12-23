@@ -81,6 +81,7 @@ public class CommentController {
         }
     }
 
+    //delete comments by user id and comment id
     @GetMapping("/delete/{id}")
     public List<Comment> deleteCommentByCommentId(
             HttpSession session,
@@ -98,7 +99,9 @@ public class CommentController {
         return getComments(size, page, userId);
     }
 
-    private List<Comment> getComments(@RequestParam(value = "size", defaultValue = "20") int size, @RequestParam(value = "page", defaultValue = "0") int page, String userId) {
+    // render all comments by movie id and update like status
+    private List<Comment> getComments(@RequestParam(value = "size", defaultValue = "20") int size,
+                                      @RequestParam(value = "page", defaultValue = "0") int page, String userId) {
         PageRequest request = PageRequest.of(page, size);
         List<Comment> comments = commentService.getCommentByUserId(userId, request);
         for (Comment comment : comments) {

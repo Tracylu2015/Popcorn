@@ -38,6 +38,7 @@ const Categories = () => {
     const handlePageClick = (event) => {
         setPage(event.selected)
     };
+    
     return (
         <Container>
             <div>
@@ -61,7 +62,7 @@ const Categories = () => {
             <SortMovie sort={sort} setSort={setSort} />
             <div style={{ marginTop: "15px" }}>
                 <Row>
-                    {movies.map((m, index) => {
+                    {movies.map((m) => {
                         return (
                             <Col key={m.id} sm={2} md="auto">
                                 <Card style={{ width: '12rem', height: '32rem' }}>

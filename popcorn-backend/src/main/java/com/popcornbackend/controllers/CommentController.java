@@ -6,6 +6,7 @@ import com.popcornbackend.services.CommentService;
 import com.popcornbackend.services.MovieService;
 import com.popcornbackend.services.UserLikeService;
 import com.popcornbackend.services.UserService;
+import com.popcornbackend.utils.ResponseUtil;
 import com.popcornbackend.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,10 +35,10 @@ public class CommentController {
 
     //get all comment by movie id
     @GetMapping("/movie/{id}")
-    public List<Comment> getAllByMovieId(
+    public ResponseEntity<Map<String, Object>> getAllByMovieId(
             @PathVariable("id") String id,
             @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
-            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam(value = "size", defaultValue = "4") int size,
             @RequestParam(value = "page", defaultValue = "0") int page,
             HttpSession session
     ) {
@@ -47,19 +48,23 @@ public class CommentController {
             String myUserId = UserUtil.getUserId(session);
             comment.setLikeStatus(userLikeService.findUserLikeByCommentIdAndUserId(comment.getId(), myUserId));
         }
-        return comments;
+        long maxPage = commentService.countByMovieId(id) / size;
+        return ResponseUtil.getCommentMapResponseEntity(page, maxPage, comments);
     }
 
     //get all comment by user id
     @GetMapping("/user")
-    public List<Comment> getAllByUserId(
+    public ResponseEntity<Map<String, Object>> getAllByUserId(
             HttpSession session,
             @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
-            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam(value = "size", defaultValue = "4") int size,
             @RequestParam(value = "page", defaultValue = "0") int page
     ) {
+        PageRequest request = PageRequest.of(page, size, Sort.by(sort).descending());
         String userId = UserUtil.getUserId(session);
-        return getComments(size, page, userId);
+        List<Comment> comments = getComments(size, page, userId);
+        long maxPage = commentService.countByUserId(userId) / size;
+        return ResponseUtil.getCommentMapResponseEntity(page, maxPage, comments);
     }
 
     //Add a new comment
@@ -85,10 +90,7 @@ public class CommentController {
     @GetMapping("/delete/{id}")
     public List<Comment> deleteCommentByCommentId(
             HttpSession session,
-            @PathVariable("id") String id,
-            @RequestParam(value = "sort", defaultValue = "totalLikes") String sort,
-            @RequestParam(value = "size", defaultValue = "20") int size,
-            @RequestParam(value = "page", defaultValue = "0") int page
+            @PathVariable("id") String id, int size, int page
     ) {
         String userId = UserUtil.getUserId(session);
         Comment comment = commentService.findCommentById(id);
@@ -100,8 +102,7 @@ public class CommentController {
     }
 
     // render all comments by movie id and update like status
-    private List<Comment> getComments(@RequestParam(value = "size", defaultValue = "20") int size,
-                                      @RequestParam(value = "page", defaultValue = "0") int page, String userId) {
+    private List<Comment> getComments(int size, int page, String userId) {
         PageRequest request = PageRequest.of(page, size);
         List<Comment> comments = commentService.getCommentByUserId(userId, request);
         for (Comment comment : comments) {

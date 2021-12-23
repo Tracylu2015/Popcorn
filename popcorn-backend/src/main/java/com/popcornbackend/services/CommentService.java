@@ -45,4 +45,12 @@ public class CommentService {
     public Comment updateOne(Comment comment) {
         return commentRepo.save(comment);
     }
+
+    public long countByMovieId(String movieId) {
+        return commentRepo.countByMovieId(movieId);
+    }
+
+    public long countByUserId(String userId) {
+        return commentRepo.countByUserId(userId);
+    }
 }

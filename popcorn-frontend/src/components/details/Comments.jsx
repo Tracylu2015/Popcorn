@@ -5,17 +5,23 @@ import SortComment from '../browse/SortComment'
 import { Container, Card, Col, Row } from 'react-bootstrap'
 import AddLike from './AddLike'
 import ExpandableContent from 'react-expandable-content';
+import ReactPaginate from 'react-paginate';
 
-const Comments = ({comments, setComments}) => {
+const Comments = ({ comments, setComments }) => {
 
     const { id } = useParams()
     const [sort, setSort] = useState("totalLikes")
+    const [page, setPage] = useState(0)
+    const [maxPage, setMaxPage] = useState(0)
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/comment/movie/${id}?sort=${sort}`)
-            .then(res => setComments(res.data))
+        axios.get(`http://localhost:8080/api/comment/movie/${id}?sort=${sort}&page=${page}`)
+            .then(res => {
+                setComments(res.data.comments)
+                setMaxPage(res.data.maxPage)
+            })
             .catch((error) => console.log(error))
-    }, [comments])
+    }, [page])
 
     const onCommentChange = (newComment) => {
         let data = []
@@ -23,10 +29,14 @@ const Comments = ({comments, setComments}) => {
         setComments(data)
     }
 
+    const handlePageClick = (event) => {
+        setPage(event.selected)
+    };
+
     return (
-        <Container style={{height:"100vh"}}>
+        <Container style={{ height: "100vh" }}>
             <div>
-                {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
+                {comments.length !== 0  ? <SortComment sort={sort} setSort={setSort} /> : ""}
             </div>
             <Row>
                 {comments.map((comment, i) => {
@@ -37,7 +47,7 @@ const Comments = ({comments, setComments}) => {
                                     <Row>
                                         <Col style={{ marginBottom: "-15px" }}>
                                             {comment.user.username}&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <p style={{fontSize: 14, marginTop:"10px"}}>{new Date(Date.parse(comment.created)).toLocaleString()}</p>
+                                            <p style={{ fontSize: 14, marginTop: "10px" }}>{new Date(Date.parse(comment.created)).toLocaleString()}</p>
                                         </Col>
                                         <Col sm={1} md={"auto"}>
                                             <AddLike comment={comment} onCommentChange={onCommentChange} />
@@ -56,6 +66,25 @@ const Comments = ({comments, setComments}) => {
                     )
                 })}
             </Row>
+            <ReactPaginate
+                previousLabel="Previous"
+                nextLabel="Next"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageCount={maxPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName="pagination"
+                activeClassName="active"
+            />
         </Container>
     )
 }

@@ -30,7 +30,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div style={{height:"100vh"}}>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body">
                     <form onSubmit={createUser} className="form-control mt-6">

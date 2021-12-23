@@ -6,7 +6,7 @@ const RegisterPage = () => {
     return (
 
         <div>
-            <Register />
+            <Register style={{height:"100vh"}}/>
         </div>
 
     )

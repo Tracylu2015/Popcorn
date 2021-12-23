@@ -13,8 +13,8 @@ const MovieDetailPage = () => {
 
     return (
         <div>
-            <Details onCommentAdded={onCommentAdded} />
-            <Comments comments={comments} setComments={setComments} />
+            <Details onCommentAdded={onCommentAdded}/>
+            <Comments comments={comments} setComments={setComments}/>
         </div>
     )
 }

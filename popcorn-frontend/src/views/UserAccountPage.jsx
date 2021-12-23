@@ -18,7 +18,7 @@ const UserAccountPage = () => {
                 <Container>
                     <UserButtons onSelect={setOptions} />
                 </Container>
-                <Container>
+                <Container style={{height:"100vh"}}>
                     {
                         {
                             0: <UserInfo />,

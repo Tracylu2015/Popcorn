@@ -5,7 +5,7 @@ import Search from '../components/browse/Search'
 const SearchPage = () => {
     return (
         <div>
-            <Search />
+            <Search style={{height:"100vh"}} />
         </div>
     )
 }

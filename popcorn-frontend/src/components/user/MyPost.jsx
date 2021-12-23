@@ -26,7 +26,7 @@ const MyPost = () => {
 
     return (
 
-        <Container>
+        <Container style = {{height:"100vh"}} > 
             <h3 style={{marginTop:"20px"}}>My Post</h3>
             <Row>
                 {myPost.map((comment, i) => {

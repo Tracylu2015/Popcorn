@@ -37,7 +37,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <div style={{height:"100vh"}}>
             {errors
                 ? <div><p className="error-message">{errors}</p></div>
                 : null}

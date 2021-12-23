@@ -24,7 +24,7 @@ const Comments = ({comments, setComments}) => {
     }
 
     return (
-        <Container>
+        <Container style={{height:"100vh"}}>
             <div>
                 {comments.length !== 0 ? <SortComment sort={sort} setSort={setSort} /> : ""}
             </div>

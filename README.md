@@ -1,6 +1,5 @@
 # Popcorn
 
-
 ## Schema
 
 Movie {

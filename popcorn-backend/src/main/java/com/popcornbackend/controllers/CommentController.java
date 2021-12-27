@@ -90,7 +90,9 @@ public class CommentController {
     @GetMapping("/delete/{id}")
     public List<Comment> deleteCommentByCommentId(
             HttpSession session,
-            @PathVariable("id") String id, int size, int page
+            @PathVariable("id") String id,
+            @RequestParam(value = "size", defaultValue = "4") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
     ) {
         String userId = UserUtil.getUserId(session);
         Comment comment = commentService.findCommentById(id);
